@@ -1,0 +1,8 @@
+^LICENSE\.md$
+^README\.Rmd$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
+^dockitect\.Rproj$
+^\.devcontainer$
