@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 2521 2911">
+  <!-- Generator: Adobe Illustrator 29.1.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 142)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #f08577;
+      }
+
+      .st1, .st2, .st3, .st4, .st5, .st6, .st7, .st8, .st9, .st10, .st11, .st12, .st13, .st14, .st15, .st16, .st17 {
+        stroke: #606060;
+      }
+
+      .st1, .st2, .st3, .st4, .st5, .st18 {
+        fill: #a0a0a0;
+      }
+
+      .st1, .st5, .st19, .st20, .st9, .st21, .st22, .st11, .st23, .st24, .st25, .st13, .st26, .st27, .st28, .st16, .st29, .st30, .st17 {
+        stroke-miterlimit: 3.2;
+      }
+
+      .st1, .st9 {
+        stroke-width: 1.6px;
+      }
+
+      .st2, .st31, .st32, .st10, .st33, .st34, .st35, .st36 {
+        stroke-miterlimit: 3.4;
+      }
+
+      .st2, .st32, .st10, .st35 {
+        stroke-width: .9px;
+      }
+
+      .st3, .st4, .st6, .st7, .st8, .st12, .st37, .st38, .st39, .st40, .st14, .st41, .st15, .st42, .st43 {
+        stroke-miterlimit: 2.8;
+      }
+
+      .st3, .st7, .st39, .st41, .st43 {
+        stroke-width: .3px;
+      }
+
+      .st4, .st6, .st8, .st12, .st14 {
+        stroke-width: .6px;
+      }
+
+      .st5, .st21, .st17 {
+        stroke-width: 1.2px;
+      }
+
+      .st6, .st7 {
+        fill: #909090;
+      }
+
+      .st44 {
+        fill: url(#linear-gradient1);
+      }
+
+      .st19, .st20 {
+        stroke: #a0a0a0;
+      }
+
+      .st19, .st20, .st22, .st11, .st26, .st28, .st16, .st30 {
+        stroke-width: .8px;
+      }
+
+      .st45 {
+        stroke: #d35547;
+      }
+
+      .st45, .st20, .st21, .st46, .st22, .st37, .st24, .st47, .st48, .st42, .st49, .st35, .st50 {
+        fill: none;
+      }
+
+      .st45, .st51, .st52, .st53, .st49 {
+        stroke-miterlimit: 3.2;
+      }
+
+      .st45, .st52 {
+        stroke-width: .8px;
+      }
+
+      .st8 {
+        fill: #f0f0f0;
+      }
+
+      .st54, .st55, .st32, .st56, .st57, .st37, .st58, .st59, .st60, .st42, .st61, .st62, .st35, .st63, .st64, .st36 {
+        isolation: isolate;
+      }
+
+      .st54, .st56, .st65, .st58, .st64 {
+        font-family: ArialMT, Arial;
+      }
+
+      .st54, .st66, .st65, .st59, .st60, .st61, .st64 {
+        fill: #2496ed;
+      }
+
+      .st54, .st65 {
+        font-size: 8.5px;
+      }
+
+      .st20 {
+        stroke-dasharray: 4 4;
+      }
+
+      .st31, .st67, .st33, .st34, .st47, .st48, .st68, .st50 {
+        stroke: #2496ed;
+      }
+
+      .st31, .st36 {
+        stroke-width: 1.7px;
+      }
+
+      .st67 {
+        stroke-width: 1.4px;
+      }
+
+      .st67, .st46, .st47, .st48, .st50, .st69 {
+        stroke-miterlimit: 2.8;
+      }
+
+      .st9 {
+        fill: url(#linear-gradient);
+      }
+
+      .st21, .st22, .st26, .st43 {
+        stroke: #404040;
+      }
+
+      .st46 {
+        display: none;
+        stroke: #000;
+        stroke-width: 5.6px;
+      }
+
+      .st55 {
+        opacity: .6;
+      }
+
+      .st55, .st15, .st16 {
+        fill: #d0d0d0;
+      }
+
+      .st51 {
+        stroke-width: .6px;
+      }
+
+      .st51, .st49 {
+        stroke: #c0392b;
+      }
+
+      .st52 {
+        fill: #e64c3c;
+      }
+
+      .st52, .st23, .st53 {
+        stroke: #303030;
+      }
+
+      .st32, .st70, .st35 {
+        opacity: .3;
+      }
+
+      .st32, .st36 {
+        stroke: #a4cef5;
+      }
+
+      .st12, .st28, .st41 {
+        fill: #707070;
+      }
+
+      .st56 {
+        fill: #952c23;
+        font-size: 8px;
+      }
+
+      .st56, .st59 {
+        opacity: .8;
+      }
+
+      .st66 {
+        stroke-miterlimit: 28;
+        stroke-width: 14px;
+      }
+
+      .st66, .st35, .st69 {
+        stroke: #fff;
+      }
+
+      .st57 {
+        font-size: 8px;
+      }
+
+      .st57, .st71, .st58, .st63 {
+        fill: #303030;
+      }
+
+      .st57, .st59, .st60, .st63 {
+        font-family: Arial-BoldMT, Arial;
+        font-weight: 700;
+      }
+
+      .st33 {
+        fill: url(#linear-gradient2);
+      }
+
+      .st33, .st34 {
+        stroke-width: 2.6px;
+      }
+
+      .st34 {
+        fill: url(#linear-gradient3);
+      }
+
+      .st23, .st25, .st13, .st27 {
+        stroke-linecap: round;
+      }
+
+      .st23, .st29 {
+        stroke-width: 3.2px;
+      }
+
+      .st72 {
+        fill: #505050;
+      }
+
+      .st37 {
+        opacity: .2;
+      }
+
+      .st37, .st24, .st28, .st41, .st29, .st30 {
+        stroke: #505050;
+      }
+
+      .st37, .st38, .st15, .st42 {
+        stroke-width: .7px;
+      }
+
+      .st24 {
+        stroke-width: 2.4px;
+      }
+
+      .st38, .st39 {
+        stroke: #707070;
+      }
+
+      .st25 {
+        stroke: #8a8a8a;
+        stroke-width: 6.4px;
+      }
+
+      .st13, .st27 {
+        stroke-width: 4.8px;
+      }
+
+      .st73, .st74, .st69 {
+        fill: #fff;
+      }
+
+      .st26, .st43 {
+        fill: #606060;
+      }
+
+      .st40 {
+        stroke: gray;
+        stroke-width: .5px;
+      }
+
+      .st27 {
+        stroke: #daa520;
+      }
+
+      .st47 {
+        stroke-width: 1.7px;
+      }
+
+      .st53 {
+        fill: #f5897f;
+      }
+
+      .st53, .st49 {
+        stroke-width: 1.6px;
+      }
+
+      .st58 {
+        font-size: 4.2px;
+      }
+
+      .st14, .st30, .st17 {
+        fill: gray;
+      }
+
+      .st59 {
+        font-size: 11.9px;
+      }
+
+      .st75, .st61 {
+        opacity: .7;
+      }
+
+      .st76 {
+        opacity: .1;
+      }
+
+      .st60 {
+        font-size: 200px;
+      }
+
+      .st48 {
+        stroke-dasharray: 7 3.5;
+        stroke-width: 2.1px;
+      }
+
+      .st42 {
+        stroke: #f0f0f0;
+      }
+
+      .st42, .st62 {
+        opacity: .4;
+      }
+
+      .st74 {
+        fill-opacity: .3;
+      }
+
+      .st77 {
+        stroke: #0073ec;
+        stroke-width: 6px;
+      }
+
+      .st78, .st62 {
+        fill: #a4cef5;
+      }
+
+      .st68 {
+        fill: #f7f7f7;
+        stroke-width: 60px;
+      }
+
+      .st63 {
+        font-size: 4.9px;
+      }
+
+      .st50 {
+        stroke-width: 4.2px;
+      }
+
+      .st79 {
+        fill: #eee;
+      }
+
+      .st64 {
+        font-size: 7px;
+      }
+
+      .st36 {
+        opacity: .5;
+      }
+
+      .st69 {
+        fill-opacity: .2;
+        stroke-opacity: .3;
+        stroke-width: .7px;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="902.1" y1="1887.4" x2="903.1" y2="1886.4" gradientTransform="translate(-53829.2 64368.6) rotate(15) scale(40 -40)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a4cef5" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#2496ed" stop-opacity=".4"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient1" x1="1668" y1="1278.3" x2="1781.5" y2="1164.8" gradientTransform="translate(209.9 -543.2) rotate(3.5)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a4cef5" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#2496ed" stop-opacity=".4"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient2" x1="960.9" y1="1929" x2="961.9" y2="1928" gradientTransform="translate(-56751.8 -733946.2) rotate(90) scale(765 -29.8)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a4cef5" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#2496ed" stop-opacity=".4"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient3" x1="939.7" y1="1882.1" x2="940.7" y2="1881.1" gradientTransform="translate(-479300.7 -62306.1) rotate(90) scale(68 -255)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a4cef5" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#2496ed" stop-opacity=".4"/>
+    </linearGradient>
+  </defs>
+  <path class="st68" d="M1261.5,150l1010.5,572v1145l-1010.5,572L251,1867V722L1261.5,150Z"/>
+  <g class="st76">
+    <path class="st77" d="M483.2,758.8h1517.4"/>
+    <path class="st77" d="M483.2,1100.5h1517.4"/>
+    <path class="st77" d="M483.2,1442.3h1517.4"/>
+    <path class="st77" d="M483.2,1784h1517.4"/>
+    <path class="st77" d="M672.9,587.9v1367"/>
+    <path class="st77" d="M1052.2,587.9v1367"/>
+    <path class="st77" d="M1431.6,587.9v1367"/>
+    <path class="st77" d="M1810.9,587.9v1367"/>
+  </g>
+  <g>
+    <rect class="st66" x="646.9" y="936.4" width="350" height="350" rx="21" ry="21"/>
+    <rect class="st66" x="1066.9" y="936.4" width="350" height="350" rx="21" ry="21"/>
+    <rect class="st66" x="1486.9" y="936.4" width="350" height="350" rx="21" ry="21"/>
+    <rect class="st66" x="856.9" y="1356.4" width="350" height="350" rx="21" ry="21"/>
+    <rect class="st66" x="1276.9" y="1356.4" width="350" height="350" rx="21" ry="21"/>
+  </g>
+  <g>
+    <g>
+      <path class="st25" d="M604.3,666.6l-74.5,278.2"/>
+      <path class="st18" d="M601.2,665.8l6.2,1.7-74.5,278.2-6.2-1.7,74.5-278.2Z"/>
+      <path class="st11" d="M604.3,666.6l-74.5,278.2"/>
+      <path class="st25" d="M627.5,672.8l-74.5,278.2"/>
+      <path class="st18" d="M624.4,672l6.2,1.7-74.5,278.2-6.2-1.7,74.5-278.2Z"/>
+      <path class="st11" d="M627.5,672.8l-74.5,278.2"/>
+    </g>
+    <g>
+      <path class="st1" d="M604.3,666.6c-6.7-5.9-4.6-13.7,4.1-15.5s16.5.3,23.2,6.2,4.6,13.7-4.1,15.5"/>
+      <line class="st24" x1="604.3" y1="666.6" x2="627.5" y2="672.8"/>
+      <path class="st1" d="M529.7,944.8c-8.8,1.8-10.8,9.5-4.1,15.5s14.4,8,23.2,6.2,10.8-9.5,4.1-15.5"/>
+      <line class="st24" x1="529.7" y1="944.8" x2="552.9" y2="951"/>
+    </g>
+    <g>
+      <circle class="st5" cx="599.3" cy="731.6" r="8"/>
+      <circle class="st30" cx="599.3" cy="731.6" r="4"/>
+      <line class="st21" x1="597.6" y1="728.6" x2="601" y2="734.5"/>
+      <line class="st21" x1="602.3" y1="729.9" x2="596.4" y2="733.3"/>
+      <circle class="st5" cx="557.9" cy="886.1" r="8"/>
+      <circle class="st30" cx="557.9" cy="886.1" r="4"/>
+      <line class="st21" x1="556.2" y1="883.2" x2="559.6" y2="889"/>
+      <line class="st21" x1="560.8" y1="884.4" x2="555" y2="887.8"/>
+      <path class="st29" d="M587.7,728.5l23.2,6.2"/>
+      <path class="st29" d="M546.3,883l23.2,6.2"/>
+    </g>
+    <g>
+      <circle class="st9" cx="578.6" cy="808.8" r="20"/>
+      <circle class="st20" cx="578.6" cy="808.8" r="20"/>
+      <circle class="st5" cx="578.6" cy="808.8" r="14.4"/>
+      <circle class="st30" cx="578.6" cy="808.8" r="9.6"/>
+      <circle class="st16" cx="578.6" cy="808.8" r="4.8"/>
+      <line class="st21" x1="575.5" y1="808" x2="581.7" y2="809.7"/>
+      <line class="st21" x1="579.4" y1="805.7" x2="577.8" y2="811.9"/>
+    </g>
+    <g>
+      <path class="st25" d="M604.3,666.6l-143.3,210.1"/>
+      <path class="st11" d="M602.1,668.5l-143.3,210.1"/>
+      <path class="st19" d="M605.2,669.4l-143.3,210.1"/>
+      <circle class="st26" cx="461" cy="876.7" r="6.4"/>
+      <circle class="st72" cx="461" cy="876.7" r="3.2"/>
+      <circle class="st55" cx="459.9" cy="874.8" r="1.6"/>
+      <path class="st25" d="M627.5,672.8l83.6,105.2"/>
+      <path class="st11" d="M628.4,675.6l83.6,105.2"/>
+      <path class="st19" d="M625.3,674.7l83.6,105.2"/>
+      <circle class="st17" cx="711.1" cy="778.1" r="8"/>
+      <circle class="st28" cx="711.1" cy="778.1" r="4.8"/>
+      <line class="st22" x1="708.3" y1="773.2" x2="713.9" y2="783"/>
+      <line class="st22" x1="716" y1="775.2" x2="706.2" y2="780.9"/>
+      <path class="st13" d="M711.1,778.1l14.1,24.5"/>
+      <path class="st27" d="M725.2,802.6l5.7,9.8"/>
+      <path class="st23" d="M730.9,812.4l2.8,4.9"/>
+    </g>
+    <text class="st57" transform="translate(583.4 778.1) rotate(15)"><tspan x="0" y="0">R</tspan></text>
+  </g>
+  <g>
+    <path class="st50" d="M1705.3,733.5l194.8-22,22,194.8-216.8-172.7"/>
+    <path class="st44" d="M1705.3,733.5l194.8-22,22,194.8-216.8-172.7ZM1759.5,776.7l97.4-11,11,97.4-108.4-86.4Z"/>
+    <path class="st73" d="M1774.2,757.1l97.4-11,11,97.4-108.4-86.4"/>
+    <path class="st74" d="M1720.8,745.8l13.9-1.6-6.2,7.7"/>
+    <path class="st74" d="M1859.9,730.1l13.9-1.6-6.2,7.7"/>
+    <path class="st69" d="M1898.9,887.7l-23.2-18.5"/>
+    <path class="st47" d="M1774.2,757.1l97.4-11,11,97.4-108.4-86.4"/>
+    <g>
+      <path class="st67" d="M1712.3,732.7l.8,7"/>
+      <path class="st67" d="M1719.3,731.9l.8,7"/>
+      <path class="st67" d="M1726.2,731.1l1.2,10.4"/>
+      <path class="st67" d="M1733.2,730.3l.8,7"/>
+      <path class="st67" d="M1740.1,729.6l.8,7"/>
+      <path class="st67" d="M1747.1,728.8l1.2,10.4"/>
+      <path class="st67" d="M1754,728l.8,7"/>
+      <path class="st67" d="M1761,727.2l.8,7"/>
+      <path class="st67" d="M1767.9,726.4l1.2,10.4"/>
+      <path class="st67" d="M1774.9,725.6l.8,7"/>
+      <path class="st67" d="M1788.8,724l1.2,10.4"/>
+      <path class="st67" d="M1802.7,722.5l.8,7"/>
+      <path class="st67" d="M1816.6,720.9l1.2,10.4"/>
+      <path class="st67" d="M1830.5,719.3l.8,7"/>
+      <path class="st67" d="M1844.5,717.7l1.2,10.4"/>
+      <path class="st67" d="M1858.4,716.2l.8,7"/>
+      <path class="st67" d="M1872.3,714.6l1.2,10.4"/>
+      <path class="st67" d="M1886.2,713l.8,7"/>
+    </g>
+    <g>
+      <path class="st67" d="M1900.9,718.4l-7,.8"/>
+      <path class="st67" d="M1901.7,725.4l-7,.8"/>
+      <path class="st67" d="M1902.5,732.3l-10.4,1.2"/>
+      <path class="st67" d="M1903.2,739.3l-7,.8"/>
+      <path class="st67" d="M1904,746.2l-7,.8"/>
+      <path class="st67" d="M1904.8,753.2l-10.4,1.2"/>
+      <path class="st67" d="M1905.6,760.1l-7,.8"/>
+      <path class="st67" d="M1906.4,767.1l-7,.8"/>
+      <path class="st67" d="M1907.2,774.1l-10.4,1.2"/>
+      <path class="st67" d="M1908,781l-7,.8"/>
+      <path class="st67" d="M1909.5,794.9l-10.4,1.2"/>
+      <path class="st67" d="M1911.1,808.8l-7,.8"/>
+      <path class="st67" d="M1912.7,822.7l-10.4,1.2"/>
+      <path class="st67" d="M1914.3,836.7l-7,.8"/>
+      <path class="st67" d="M1915.8,850.6l-10.4,1.2"/>
+      <path class="st67" d="M1917.4,864.5l-7,.8"/>
+      <path class="st67" d="M1919,878.4l-10.4,1.2"/>
+      <path class="st67" d="M1920.6,892.3l-7,.8"/>
+    </g>
+    <g>
+      <text class="st64" transform="translate(1726.2 748.7) rotate(-6.5)"><tspan x="0" y="0">3</tspan></text>
+      <text class="st64" transform="translate(1768 744) rotate(-6.5)"><tspan x="0" y="0">9</tspan></text>
+      <text class="st64" transform="translate(1807.8 739.5) rotate(-6.5)"><tspan x="0" y="0">15</tspan></text>
+      <text class="st64" transform="translate(1849.5 734.8) rotate(-6.5)"><tspan x="0" y="0">21</tspan></text>
+      <text class="st64" transform="translate(1881.2 734.7) rotate(-6.5)"><tspan x="0" y="0">3</tspan></text>
+      <text class="st64" transform="translate(1885.9 776.5) rotate(-6.5)"><tspan x="0" y="0">9</tspan></text>
+      <text class="st64" transform="translate(1886.8 818.6) rotate(-6.5)"><tspan x="0" y="0">15</tspan></text>
+      <text class="st64" transform="translate(1891.5 860.4) rotate(-6.5)"><tspan x="0" y="0">21</tspan></text>
+    </g>
+    <path class="st48" d="M1705.3,733.5l216.8,172.7"/>
+    <path class="st46" d="M1709.2,736.6l194.8-22,22,194.8-216.8-172.7"/>
+  </g>
+  <g>
+    <g>
+      <rect class="st78" x="634.1" y="1156" width="4.3" height="765" rx="1.7" ry="1.7" transform="translate(2032.1 2445.8) rotate(145.5)"/>
+      <rect class="st33" x="607.3" y="1165.6" width="29.8" height="765" rx="4.3" ry="4.3" transform="translate(2012 2471.3) rotate(145.5)"/>
+      <path class="st62" d="M824.2,1868.2l-428.6-623.4c-1.3-1.9-.8-4.6,1.1-5.9h0c1.9-1.3,4.6-.8,5.9,1.1l428.6,623.4c1.3,1.9.8,4.6-1.1,5.9h0c-1.9,1.3-4.6.8-5.9-1.1Z"/>
+      <path class="st35" d="M709.7,1694.2c-7.5-15.5-26.2-33.6-33.7-49"/>
+      <path class="st35" d="M568.8,1481.7c-7.5-15.5-26.2-33.6-33.7-49"/>
+      <path class="st35" d="M768.4,1757c-7.5-15.5-21.4-26.6-28.9-42"/>
+    </g>
+    <g>
+      <path class="st31" d="M821.8,1864.7l7-4.8"/>
+      <path class="st31" d="M812.2,1850.7l7-4.8"/>
+      <path class="st31" d="M802.6,1836.7l10.5-7.2"/>
+      <path class="st31" d="M792.9,1822.7l7-4.8"/>
+      <path class="st31" d="M783.3,1808.7l7-4.8"/>
+      <path class="st31" d="M773.7,1794.7l10.5-7.2"/>
+      <path class="st31" d="M764,1780.7l7-4.8"/>
+      <path class="st31" d="M754.4,1766.7l7-4.8"/>
+      <path class="st31" d="M744.8,1752.7l10.5-7.2"/>
+      <path class="st31" d="M735.1,1738.6l7-4.8"/>
+      <path class="st31" d="M725.5,1724.6l7-4.8"/>
+      <path class="st31" d="M715.9,1710.6l10.5-7.2"/>
+      <path class="st31" d="M706.2,1696.6l7-4.8"/>
+      <path class="st31" d="M696.6,1682.6l7-4.8"/>
+      <path class="st31" d="M687,1668.6l10.5-7.2"/>
+      <path class="st31" d="M677.4,1654.6l7-4.8"/>
+      <path class="st31" d="M667.7,1640.6l7-4.8"/>
+      <path class="st31" d="M658.1,1626.6l10.5-7.2"/>
+      <path class="st31" d="M648.5,1612.6l7-4.8"/>
+      <path class="st31" d="M638.8,1598.6l7-4.8"/>
+      <path class="st31" d="M629.2,1584.6l10.5-7.2"/>
+      <path class="st31" d="M619.6,1570.5l7-4.8"/>
+      <path class="st31" d="M609.9,1556.5l10.5-7.2"/>
+      <path class="st31" d="M600.3,1542.5l7-4.8"/>
+      <path class="st31" d="M590.7,1528.5l7-4.8"/>
+      <path class="st31" d="M581,1514.5l10.5-7.2"/>
+      <path class="st31" d="M571.4,1500.5l7-4.8"/>
+      <path class="st31" d="M561.8,1486.5l7-4.8"/>
+      <path class="st31" d="M552.1,1472.5l10.5-7.2"/>
+      <path class="st31" d="M542.5,1458.5l7-4.8"/>
+      <path class="st31" d="M532.9,1444.5l7-4.8"/>
+      <path class="st31" d="M523.3,1430.5l10.5-7.2"/>
+      <path class="st31" d="M513.6,1416.4l7-4.8"/>
+      <path class="st31" d="M504,1402.4l7-4.8"/>
+      <path class="st31" d="M494.4,1388.4l10.5-7.2"/>
+      <path class="st31" d="M484.7,1374.4l7-4.8"/>
+      <path class="st31" d="M475.1,1360.4l7-4.8"/>
+      <path class="st31" d="M465.5,1346.4l10.5-7.2"/>
+      <path class="st31" d="M455.8,1332.4l7-4.8"/>
+      <path class="st31" d="M446.2,1318.4l7-4.8"/>
+      <path class="st31" d="M436.6,1304.4l10.5-7.2"/>
+      <path class="st31" d="M426.9,1290.4l7-4.8"/>
+      <path class="st31" d="M407,1262.6l10.5-7.2"/>
+      <path class="st31" d="M416.9,1276.2l7-4.8"/>
+      <path class="st31" d="M398,1248.3l7-4.8"/>
+    </g>
+    <g>
+      <text class="st54" transform="translate(841.7 1854.7) rotate(-124.5)"><tspan x="0" y="0">0</tspan></text>
+      <text class="st54" transform="translate(823.3 1828.7) rotate(-124.5)"><tspan x="0" y="0">10</tspan></text>
+      <text class="st54" transform="translate(794.9 1786.7) rotate(-124.5)"><tspan x="0" y="0">20</tspan></text>
+      <text class="st54" transform="translate(765.3 1744.1) rotate(-124.5)"><tspan x="0" y="0">30</tspan></text>
+      <text class="st65" transform="translate(736.3 1703.1) rotate(-124.5)"><tspan x="0" y="0">40</tspan></text>
+      <text class="st54" transform="translate(708.9 1661) rotate(-124.5)"><tspan x="0" y="0">50</tspan></text>
+      <text class="st54" transform="translate(677.5 1618.2) rotate(-124.5)"><tspan x="0" y="0">60</tspan></text>
+      <text class="st54" transform="translate(649.7 1576.5) rotate(-124.5)"><tspan x="0" y="0">70</tspan></text>
+      <text class="st54" transform="translate(630 1548.4) rotate(-124.5)"><tspan x="0" y="0">80</tspan></text>
+      <text class="st54" transform="translate(601.6 1506.5) rotate(-124.5)"><tspan x="0" y="0">90</tspan></text>
+      <text class="st54" transform="translate(573.6 1466.5) rotate(-124.5)"><tspan x="0" y="0">100</tspan></text>
+      <text class="st54" transform="translate(544.6 1424.8) rotate(-124.5)"><tspan x="0" y="0">110</tspan></text>
+      <text class="st54" transform="translate(515.6 1382.9) rotate(-124.5)"><tspan x="0" y="0">120</tspan></text>
+      <text class="st54" transform="translate(486.9 1340.4) rotate(-124.5)"><tspan x="0" y="0">130</tspan></text>
+      <text class="st54" transform="translate(458 1298.5) rotate(-124.5)"><tspan x="0" y="0">140</tspan></text>
+      <text class="st54" transform="translate(430 1255.5) rotate(-124.5)"><tspan x="0" y="0">150</tspan></text>
+    </g>
+    <g>
+      <rect class="st78" x="359.3" y="1600.4" width="255" height="4.3" rx="1.7" ry="1.7" transform="translate(1795.9 2647.2) rotate(145.5)"/>
+      <rect class="st34" x="377.4" y="1594.8" width="255" height="68" rx="4.3" ry="4.3" transform="translate(1843.7 2684.9) rotate(145.5)"/>
+      <rect class="st62" x="393" y="1645.2" width="255" height="12.8" rx="4.3" ry="4.3" transform="translate(1885.1 2717.5) rotate(145.5)"/>
+      <path class="st35" d="M486.7,1677.4c12.6-11.7,29.5-17.2,42-28.9"/>
+      <path class="st35" d="M525.4,1583.7c12.6-11.7,29.5-17.2,42-28.9"/>
+    </g>
+    <g>
+      <path class="st31" d="M387.6,1682.1l-4.8-7"/>
+      <path class="st31" d="M402,1674.7l-4.8-7"/>
+      <path class="st31" d="M415.6,1662.9l-7.2-10.5"/>
+      <path class="st31" d="M430,1655.4l-4.8-7"/>
+      <path class="st31" d="M444,1645.8l-4.8-7"/>
+      <path class="st31" d="M457.6,1634l-7.2-10.5"/>
+      <path class="st31" d="M472,1626.6l-4.8-7"/>
+      <path class="st31" d="M486,1616.9l-4.8-7"/>
+      <path class="st31" d="M499.7,1605.1l-7.2-10.5"/>
+      <path class="st31" d="M514,1597.7l-4.8-7"/>
+      <path class="st31" d="M528,1588l-4.8-7"/>
+      <path class="st31" d="M541.7,1576.2l-7.2-10.5"/>
+      <path class="st31" d="M556,1568.8l-4.8-7"/>
+      <path class="st31" d="M570.1,1559.1l-4.8-7"/>
+    </g>
+    <g>
+      <text class="st54" transform="translate(408.4 1680.2) rotate(-124.5)"><tspan x="0" y="0">0</tspan></text>
+      <text class="st54" transform="translate(450.4 1651.3) rotate(-124.5)"><tspan x="0" y="0">6</tspan></text>
+      <text class="st54" transform="translate(493.8 1624.4) rotate(-124.5)"><tspan x="0" y="0">12</tspan></text>
+      <text class="st54" transform="translate(535.8 1595.5) rotate(-124.5)"><tspan x="0" y="0">18</tspan></text>
+      <text class="st54" transform="translate(577.8 1566.6) rotate(-124.5)"><tspan x="0" y="0">24</tspan></text>
+    </g>
+    <g>
+      <rect class="st61" x="602.7" y="1504.4" width="42.5" height="85" rx="4.3" ry="4.3" transform="translate(2014.5 2468.1) rotate(145.5)"/>
+      <path class="st36" d="M641,1586.7l-48.2-70"/>
+      <path class="st32" d="M648,1581.9l-48.2-70"/>
+      <path class="st36" d="M655,1577.1l-48.2-70"/>
+      <circle class="st2" cx="627.6" cy="1570.2" r="4.3"/>
+      <circle class="st2" cx="603.5" cy="1535.2" r="4.3"/>
+      <path class="st10" d="M627.1,1572.6l.9-4.7"/>
+      <path class="st10" d="M625.2,1569.8l4.7.9"/>
+      <path class="st10" d="M603.1,1537.5l.9-4.7"/>
+      <path class="st10" d="M601.1,1534.7l4.7.9"/>
+    </g>
+    <text class="st59" transform="translate(775.4 1752.2) rotate(-124.5)"><tspan x="0" y="0">R</tspan></text>
+  </g>
+  <g>
+    <rect class="st15" x="1987.1" y="1260.4" width="21" height="266" rx="1.4" ry="1.4" transform="translate(-356.1 767.3) rotate(-20)"/>
+    <g>
+      <rect class="st3" x="1968" y="1305.8" width="21" height="70" transform="translate(-339.3 757.5) rotate(-20)"/>
+      <g>
+        <path class="st40" d="M1999.1,1366.8l-19.7,7.2"/>
+        <path class="st40" d="M1997.9,1363.5l-19.7,7.2"/>
+        <path class="st40" d="M1996.7,1360.2l-19.7,7.2"/>
+        <path class="st40" d="M1995.5,1356.9l-19.7,7.2"/>
+        <path class="st40" d="M1994.3,1353.7l-19.7,7.2"/>
+        <path class="st40" d="M1993.1,1350.4l-19.7,7.2"/>
+        <path class="st40" d="M1991.9,1347.1l-19.7,7.2"/>
+        <path class="st40" d="M1990.7,1343.8l-19.7,7.2"/>
+        <path class="st40" d="M1989.5,1340.5l-19.7,7.2"/>
+        <path class="st40" d="M1988.3,1337.2l-19.7,7.2"/>
+        <path class="st40" d="M1987.1,1333.9l-19.7,7.2"/>
+        <path class="st40" d="M1985.9,1330.6l-19.7,7.2"/>
+        <path class="st40" d="M1984.7,1327.3l-19.7,7.2"/>
+        <path class="st40" d="M1983.5,1324.1l-19.7,7.2"/>
+        <path class="st40" d="M1982.3,1320.8l-19.7,7.2"/>
+        <path class="st40" d="M1981.1,1317.5l-19.7,7.2"/>
+        <path class="st40" d="M1979.9,1314.2l-19.7,7.2"/>
+        <path class="st40" d="M1978.7,1310.9l-19.7,7.2"/>
+        <path class="st40" d="M1977.5,1307.6l-19.7,7.2"/>
+      </g>
+      <g class="st75">
+        <path class="st39" d="M1999.1,1366.8l-9-4.2"/>
+        <path class="st39" d="M1992.5,1369.2l-9-4.2"/>
+        <path class="st39" d="M1985.9,1371.6l-9-4.2"/>
+        <path class="st39" d="M1996.7,1360.2l-9-4.2"/>
+        <path class="st39" d="M1990.1,1362.6l-9-4.2"/>
+        <path class="st39" d="M1983.5,1365l-9-4.2"/>
+        <path class="st39" d="M1994.3,1353.7l-9-4.2"/>
+        <path class="st39" d="M1987.7,1356l-9-4.2"/>
+        <path class="st39" d="M1981.1,1358.4l-9-4.2"/>
+        <path class="st39" d="M1991.9,1347.1l-9-4.2"/>
+        <path class="st39" d="M1985.3,1349.5l-9-4.2"/>
+        <path class="st39" d="M1978.8,1351.9l-9-4.2"/>
+        <path class="st39" d="M1989.5,1340.5l-9-4.2"/>
+        <path class="st39" d="M1982.9,1342.9l-9-4.2"/>
+        <path class="st39" d="M1976.4,1345.3l-9-4.2"/>
+        <path class="st39" d="M1987.1,1333.9l-9-4.2"/>
+        <path class="st39" d="M1980.5,1336.3l-9-4.2"/>
+        <path class="st39" d="M1974,1338.7l-9-4.2"/>
+        <path class="st39" d="M1984.7,1327.3l-9-4.2"/>
+        <path class="st39" d="M1978.2,1329.7l-9-4.2"/>
+        <path class="st39" d="M1971.6,1332.1l-9-4.2"/>
+        <path class="st39" d="M1982.3,1320.8l-9-4.2"/>
+        <path class="st39" d="M1975.8,1323.2l-9-4.2"/>
+        <path class="st39" d="M1969.2,1325.6l-9-4.2"/>
+        <path class="st39" d="M1979.9,1314.2l-9-4.2"/>
+        <path class="st39" d="M1973.4,1316.6l-9-4.2"/>
+        <path class="st39" d="M1966.8,1319l-9-4.2"/>
+      </g>
+    </g>
+    <g>
+      <path class="st4" d="M2032.6,1499.9l-16.8-46c-1.2-3.3-4.5-2.1-3.3,1.2l16.8,46c1.2,3.3,4.5,2.1,3.3-1.2Z"/>
+      <path class="st38" d="M2030.1,1497.1l-14.4-39.5"/>
+      <rect class="st7" x="2017.6" y="1475.5" width="21" height="3.5" transform="translate(-383 782.8) rotate(-20)"/>
+      <rect class="st7" x="2010.4" y="1455.8" width="21" height="3.5" transform="translate(-376.6 779.1) rotate(-20)"/>
+      <circle class="st8" cx="2036.9" cy="1487.1" r="3.5"/>
+      <text class="st58" transform="translate(2038.9 1485.2) rotate(160)"><tspan x="0" y="0">JB</tspan></text>
+      <text class="st63" transform="translate(2028.1 1468.1) rotate(-110)"><tspan x="0" y="0">R</tspan></text>
+    </g>
+    <rect class="st7" x="1988.9" y="1396.6" width="21" height="3.5" transform="translate(-357.7 768.2) rotate(-20)"/>
+    <rect class="st7" x="1955.4" y="1304.5" width="21" height="3.5" transform="translate(-328.2 751.1) rotate(-20)"/>
+    <g>
+      <rect class="st6" x="2032.9" y="1508.2" width="16.8" height="10.5" rx="1.4" ry="1.4" transform="translate(-394.5 789.4) rotate(-20)"/>
+      <circle class="st14" cx="2041.2" cy="1513.1" r="5.6"/>
+      <circle class="st41" cx="2041.2" cy="1513.1" r="3.5"/>
+    </g>
+    <g>
+      <path class="st14" d="M1966.8,1278l-8.1-12-13.2,4.8,1.5,14.4,19.7-7.2Z"/>
+      <rect class="st12" x="1945.4" y="1258.3" width="9.8" height="10.5" rx=".7" ry=".7" transform="translate(-314.5 743.2) rotate(-20)"/>
+      <path class="st43" d="M1951.2,1257.6l-3.6-9.9-5.3,1.9,3.6,9.9,5.3-1.9Z"/>
+      <path class="st71" d="M1946.3,1248.2l-3.7-6.1,1.1,7.1,2.6-1Z"/>
+      <rect class="st71" x="1946" y="1248.4" width="1.4" height="10.5" transform="translate(-311.4 741.4) rotate(-20)"/>
+    </g>
+    <line class="st42" x1="2049.9" y1="1508.5" x2="1968.5" y2="1284.8"/>
+    <line class="st37" x1="2031.5" y1="1515.2" x2="1950.1" y2="1291.5"/>
+  </g>
+  <g>
+    <rect x="1885.4" y="1474.6" width="43.2" height="99.2" rx="4.8" ry="4.8" transform="translate(-280.4 2608.3) rotate(-65)"/>
+    <rect class="st53" x="1888.3" y="1473.3" width="40" height="96" rx="4" ry="4" transform="translate(-277 2607.9) rotate(-65)"/>
+    <rect class="st52" x="1909.9" y="1459.5" width="9.6" height="96" rx="4" ry="4" transform="translate(-260.8 2605.8) rotate(-65)"/>
+    <rect class="st0" x="1891.1" y="1477.7" width="30.4" height="96" transform="translate(-282.1 2608.6) rotate(-65)"/>
+    <path class="st45" d="M1869.2,1491.6l87,40.6-12.8,27.6-87-40.6,12.8-27.6Z"/>
+    <path class="st49" d="M1857.8,1519.8c14.1,3.9,28.2,11.4,43.7,16,13.5,8.9,28.3,15,40.4,23.2"/>
+    <g>
+      <circle class="st79" cx="1869.2" cy="1529.5" r="1.2"/>
+      <circle class="st79" cx="1871.8" cy="1533.4" r=".6"/>
+      <circle class="st79" cx="1876.1" cy="1533.7" r="1"/>
+      <circle class="st79" cx="1883" cy="1537.8" r=".8"/>
+      <circle class="st79" cx="1890.9" cy="1539.7" r=".6"/>
+      <circle class="st79" cx="1904.4" cy="1548.6" r="1"/>
+      <circle class="st79" cx="1908.7" cy="1548.9" r=".7"/>
+      <circle class="st79" cx="1915.6" cy="1553" r=".9"/>
+      <circle class="st79" cx="1923.2" cy="1555.6" r=".6"/>
+    </g>
+    <g class="st70">
+      <path class="st51" d="M1878.4,1500.3l-8.8,18.9"/>
+      <path class="st51" d="M1889.9,1503.9l-10.1,21.8"/>
+      <path class="st51" d="M1899.5,1511.9l-7.8,16.7"/>
+      <path class="st51" d="M1911.4,1514.8l-9.5,20.3"/>
+      <path class="st51" d="M1921.6,1521.3l-8.5,18.1"/>
+      <path class="st51" d="M1933.4,1524.2l-10.1,21.8"/>
+      <path class="st51" d="M1943.6,1530.7l-8.5,18.1"/>
+    </g>
+    <text class="st56" transform="translate(1903.4 1525.7) rotate(25)"><tspan x="0" y="0">R</tspan></text>
+  </g>
+  <text class="st60" transform="translate(821 2100)"><tspan x="0" y="0">dockitect</tspan></text>
+</svg>
