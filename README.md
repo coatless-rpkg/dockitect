@@ -1,60 +1,175 @@
-# r-pkg
 
-This repository houses a devcontainer that setups an R package development environment. The container is setup to work with [GitHub Codespaces](https://github.com/features/codespaces) to instantly have a cloud-based developer workflow.
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
-You can try out the Codespace by clicking on the following button:
+# dockitect <img src="man/figures/dockitect-animated-logo.svg" align="right" height="139" />
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/coatless-devcontainer/r-pkg?quickstart=1)
+<!-- badges: start -->
 
-> [!NOTE]
+[![R-CMD-check](https://github.com/coatless-rpkg/dockitect/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coatless-rpkg/dockitect/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+> Create and Validate Dockerfiles from R
+
+`dockitect` is an R package for programmatically creating, validating,
+and managing Dockerfiles using a pipe-friendly syntax. It bridges the
+gap between R development and containerization, enabling seamless Docker
+integration for data science workflows.
+
+> $$!IMPORTANT$$
 >
-> Codespaces are available to Students and Teachers for free [up to 180 core hours per month](https://docs.github.com/en/education/manage-coursework-with-github-classroom/integrate-github-classroom-with-an-ide/using-github-codespaces-with-github-classroom#about-github-codespaces)
-> through [GitHub Education](https://education.github.com/). Otherwise, you will have 
-> [up to 60 core hours and 15 GB free per month](https://github.com/features/codespaces#pricing).
+> This package is currently in the prototype/experimental stage. It is
+> not yet available on CRAN and may have bugs or limitations.
 
-Or, you can press the template button to create a new repository with the same setup so that you
-can work locally on the devcontainer:
+## Installation
 
-[![Use this template](https://img.shields.io/badge/Use%20this%20template-Create%20new%20repository-blue?logo=github)](https://github.com/coatless-devcontainer/r-pkg/generate)
+You can install the development version of `dockitect` from
+[GitHub](https://github.com/coatless-rpkg/dockitect) with:
 
-This will create a fork of the repository that can be worked on inside a local copy of
-[Visual Studio Code](https://code.visualstudio.com/) through the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). With the extension installed, you can open the repository in a container by pressing `F1` (to bring up command palette) and typing `Dev Container: Reopen in Container`.
-
-Lastly, you can directly obtain the underlying container image by typing in Terminal: 
-
-```sh
-docker pull ghcr.io/coatless-devcontainer/r-pkg:latest
+``` r
+# install.packages("remotes")
+remotes::install_github("coatless-rpkg/dockitect")
 ```
 
-## Quick start
+## Design Philosophy
 
-Run the following series of commands inside of R once the container opens. Make sure to change `"name-of-package"` to your current package name.
+To make the API intuitive and discoverable, `dockitect` employs a naming
+convention across all its functions. Understanding these prefixes will
+help you navigate the package and find the functions you need:
 
-```r
-usethis::create_package("name-of-package")
-usethis::use_package_doc()
-usethis::use_agpl3_license()
-usethis::use_testthat()
-usethis::use_github_action("check-standard")
-usethis::use_pkgdown_github_pages()
+- `dockerfile()` - Create a new Dockerfile object
+  - `dfi_*()` - **D**ockerfile **i**nstruction functions (e.g.,
+    `dfi_from()`, `dfi_run()`)
+  - `dfm_*()` - **D**ockerfile **m**odification functions (e.g.,
+    `dfm_add_line()`, `dfm_group_similar()`)
+- `dockerignore()` - Create a new Dockerignore object
+  - `di_*()` - **D**ockerignore functions (e.g., `di_add()`,
+    `di_remove()`)
+- `dk_*()` - **D**oc**k**er configuration/template functions (e.g.,
+  `dk_from_session()`, `dk_template_shiny()`)
+
+## Usage
+
+The following examples demonstrate how to use `dockitect` for various
+containerization scenarios. Each example showcases different aspects of
+the package’s functionality, from basic Dockerfile creation to more
+advanced use cases.
+
+### Dockerfile Creation
+
+Let’s start with the fundamentals. Creating a Dockerfile typically
+involves specifying a base image, installing dependencies, copying
+files, and defining commands. With `dockitect`, this process becomes a
+series of intuitive pipe-chained functions.
+
+For example, let’s create a Dockerfile for an R script:
+
+``` r
+library(dockitect)
+
+# Create a basic Dockerfile for an R script
+dockerfile() |>
+  dfi_from("rocker/r-ver:4.2.3") |>
+  dfi_label(maintainer = "user@example.com") |>
+  dfi_run("apt-get update && apt-get install -y libcurl4-openssl-dev") |>
+  dfi_workdir("/app") |>
+  dfi_copy("analysis.R", "/app/") |>
+  dfi_cmd("Rscript analysis.R") |>
+  write_dockerfile("Dockerfile")
 ```
 
-## Resources
+### Use Templates
 
-- [Manual: Writing R extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)
-- [Textbook: R Packages](https://r-pkgs.org/)
-- [usethis](https://usethis.r-lib.org/)
-- [devtools](https://devtools.r-lib.org/)
+`dockitect` includes specialized templates for common R application
+types, saving you time and ensuring best practices are followed. These
+templates are fully customizable and provide a solid foundation for your
+projects.
 
-## Developer notes
+#### Shiny Application
 
-This repository uses a pre-built container strategy to have GitHub Actions build and, then, store the devcontainer in [GitHub's Container Repository](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry). 
+Creating a Docker container for a Shiny application requires specific
+configurations for ports, networking, and dependencies. The Shiny
+template handles these details automatically. For example, we can create
+a Dockerfile for a Shiny app with proper port configuration:
 
-We place the main logic of the devcontainer in [`.github/.devcontainer/devcontainer.json`](https://github.com/coatless-devcontainer/r-pkg/blob/main/.github/.devcontainer/devcontainer.json). From there, we use [`.github/workflows/pre-build-devcontainer.yml`](https://github.com/coatless-devcontainer/r-pkg/blob/main/.github/workflows/pre-build-devcontainer.yml) to build and publish the devcontainer onto GitHub's Container repository for the organization. Then, the repository's [`.devcontainer/devcontainer.json`](https://github.com/coatless-devcontainer/r-pkg/blob/main/.devcontainer/devcontainer.json) pulls the pre-built image.
+``` r
+# Create a Dockerfile for a Shiny app
+dk_template_shiny(
+  r_version = "4.2.3",       # Specify R version
+  port = 3838,               # Expose Shiny port
+  app_dir = "app/"           # Location of app files
+) |>
+  dfi_env(SHINY_HOST = "0.0.0.0") |>  # Configure Shiny to listen on all interfaces
+  write_dockerfile()
+```
 
-> [!IMPORTANT]
->
-> Make sure to specify the permissions as stated in the GitHub Actions workflow linked above
-> and for organizations please make sure to have the organization's container registry enabled.
-> 
-> For more information, see [GitHub's Container Registry documentation](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
+### Custom Templates
+
+While `dockitect` includes templates for common scenarios, your
+organization might have specific containerization patterns. The template
+system is extensible, allowing you to create, register, and reuse your
+own templates throughout your projects:
+
+``` r
+# Create a custom template function
+my_template <- function(my_param = "default") {
+  dockerfile() |>
+    dfi_from("rocker/r-ver:4.2.3") |>
+    dfi_run(paste0("echo ", my_param))
+}
+
+# Register the template
+dk_register_template("my_template", my_template)
+
+# Use the template
+dk_template_custom("my_template", my_param = "hello") |>
+  write_dockerfile()
+```
+
+### Modify Existing Dockerfiles
+
+Sometimes you need to modify existing Dockerfiles rather than creating
+them from scratch. `dockitect` provides specialized functions for
+reading, modifying, and writing Dockerfiles, allowing for precise
+changes without manual text editing:
+
+``` r
+# Read an existing Dockerfile
+df <- read_dockerfile("path/to/Dockerfile")
+
+# Modify it
+df |>
+  dfm_add_line("RUN echo 'Hello World'", after = 3) |> # Add a line after line 3
+  dfm_remove_line(5) |>                                # Remove line 5
+  dfm_group_similar() |>                               # Group similar commands (e.g., RUN)
+  write_dockerfile("Dockerfile.new")                   # Write to a new file
+```
+
+### Create and Manage .dockerignore
+
+Docker builds can be slowed down by unnecessarily including large or
+irrelevant files in the build context. A properly configured
+`.dockerignore` file helps keep your builds fast and your images small.
+`dockitect` makes it easy to create and maintain a `.dockerignore` file
+through `dockerignore()`.
+
+``` r
+# Create a .dockerignore file with common patterns
+dockerignore() |>
+  di_add_common(include_git = TRUE, include_r = TRUE) |>  # Add common patterns for Git and R
+  di_add("*.log") |>                                      # Add custom patterns
+  di_add("output/") |>
+  write_dockerignore()
+```
+
+## Citation
+
+If you use `dockitect` in your research or project, please consider
+citing it:
+
+``` r
+citation("dockitect")
+```
+
+## License
+
+AGPL (\>=3)
