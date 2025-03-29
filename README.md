@@ -15,7 +15,7 @@ and managing Dockerfiles using a pipe-friendly syntax. It bridges the
 gap between R development and containerization, enabling seamless Docker
 integration for data science workflows.
 
-> $$!IMPORTANT$$
+> \[!IMPORTANT\]
 >
 > This package is currently in the prototype/experimental stage. It is
 > not yet available on CRAN and may have bugs or limitations.
