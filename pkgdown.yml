@@ -1,5 +1,6 @@
 pandoc: 3.1.11
 pkgdown: 2.1.1
 pkgdown_sha: ~
-articles: {}
-last_built: 2025-03-30T08:27Z
+articles:
+  getting-started-with-dockitect: getting-started-with-dockitect.html
+last_built: 2025-03-30T08:49Z
