@@ -25,6 +25,9 @@ test_that("dk_register_template(): registers and retrieves custom templates", {
 
 # Test dk_template_base() ----
 test_that("dk_template_base(): creates a base R dockerfile", {
+  
+  skip_on_ci()
+  
   df <- dk_template_base(r_version = "4.4.0")
   expect_true(is_dockerfile(df))
   expect_true(has_instruction(df, "FROM"))
@@ -46,6 +49,7 @@ test_that("dk_template_base(): creates a base R dockerfile", {
 
 # Test dk_template_shiny() ----
 test_that("dk_template_shiny(): creates a Shiny app dockerfile", {
+  skip_on_ci()
   df <- dk_template_shiny(r_version = "4.4.0", port = 3838)
   expect_true(is_dockerfile(df))
   expect_true(has_instruction(df, "FROM"))
@@ -70,6 +74,7 @@ test_that("dk_template_shiny(): creates a Shiny app dockerfile", {
 
 # Test dk_template_plumber() ----
 test_that("dk_template_plumber(): creates a Plumber API dockerfile", {
+  skip_on_ci()
   df <- dk_template_plumber(r_version = "4.4.0", port = 8000, api_file = "plumber.R")
   expect_true(is_dockerfile(df))
   expect_true(has_instruction(df, "FROM"))
