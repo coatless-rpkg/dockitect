@@ -22,8 +22,11 @@ Imports:
     pak,
     jsonlite
 Suggests:
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Config/testthat/edition: 3
+VignetteBuilder: knitr

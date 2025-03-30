@@ -1,0 +1,279 @@
+---
+title: "Getting Started with dockitect"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with dockitect}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+`dockitect` is an R package that simplifies Docker containerization for R projects. It provides a programmatic, pipe-friendly interface for creating, modifying, and validating Docker configurations. This vignette introduces key concepts and features to help you get started with containerizing your R projects.
+
+For those new to Docker, here's a quick overview of relevant terms:
+
+- **Docker**: A platform that enables you to package applications with all 
+  their dependencies into standardized units called containers
+- **Docker image**: A read-only template with instructions for creating a Docker container
+- **Docker container**: A runnable instance of an image
+- **Dockerfile**: A text file that contains instructions for building a Docker image
+- **Dockerfile Instructions**: Commands like `FROM`, `RUN`, `COPY`, etc., that define the image
+
+## Installation
+
+You can install the development version of `dockitect` from GitHub:
+
+```{r installation, eval=FALSE}
+# install.packages("remotes")
+remotes::install_github("coatless-rpkg/dockitect")
+```
+
+Let's start by loading the package:
+
+```{r setup}
+library(dockitect)
+```
+
+## Package Overview
+
+`dockitect` uses a consistent naming convention to make functions easy to discover:
+
+- `dockerfile()` creates a Dockerfile object
+  - `dfi_*()` functions add Dockerfile instructions (e.g., `dfi_from()`, `dfi_run()`)
+  - `dfm_*()` functions modify existing Dockerfiles (e.g., `dfm_add_line()`)
+- `dockerignore()` creates a .dockerignore object
+  - `di_*()` functions manage .dockerignore patterns (e.g., `di_add()`)
+- `dk_*()` functions create Dockerfiles from templates or existing projects
+
+## Creating Basic Dockerfiles
+
+We'll next turn our attention to creating a Dockerfile programmatically. The 
+process involves creating a Dockerfile object and adding various instructions 
+to it through a series of pipe operations.
+
+### Creating a Dockerfile Object
+
+Start by creating a new Dockerfile object:
+
+```{r dockerfile-object}
+# Create a new Dockerfile object
+df <- dockerfile()
+print(df)
+```
+
+Congratulations! You've created your first (empty) Dockerfile object. Now let's add some instructions.
+
+### Adding Docker Instructions
+
+To add instructions to the Dockerfile, use the `dfi_*()` functions. For example,
+to set the base image:
+
+```{r basic-dockerfile}
+# Create a Dockerfile for an R script
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>  # Base image with R 4.4.0
+```
+
+You can print the Dockerfile to see the added instruction:
+
+```{r print-dockerfile}
+print(df)
+```
+
+Usually, you'll add multiple instructions to the Dockerfile. Let's add a few more
+instructions to the Dockerfile so that we can run a script:
+
+```{r basic-dockerfile}
+# Create a Dockerfile for an R script
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>  # Base image with R 4.4.0
+  dfi_label(maintainer = "user@example.com") |>  # Add metadata
+  dfi_workdir("/app") |>  # Set working directory
+  dfi_copy("analysis.R", "/app/") |>  # Copy R script to container
+  dfi_cmd("Rscript analysis.R")  # Command to run when container starts
+
+# Print the Dockerfile
+print(df)
+```
+
+This example shows the most common Docker instructions:
+
+- **FROM**: Specifies the base image (here using the Rocker Project's R image)
+- **LABEL**: Adds metadata to the image
+- **WORKDIR**: Sets the working directory inside the container
+- **COPY**: Copies files from your local system to the container
+- **CMD**: Defines the default command to run when starting the container
+
+### Adding Multiple Commands
+
+For `RUN` instructions with multiple commands, you can pass a character vector:
+
+```{r run-multiple}
+dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_run(c(
+    "apt-get update",
+    "apt-get install -y libcurl4-openssl-dev",
+    "apt-get clean"
+  ))
+```
+
+### Writing to a File
+
+To save your Dockerfile:
+
+```{r}
+#| label: write-dockerfile
+#| eval: false
+# Write to the default "Dockerfile" file
+write_dockerfile(df)
+
+# Or specify a different filename
+write_dockerfile(df, "path/to/Dockerfile")
+```
+
+By default, `write_dockerfile()` formats multi-line instructions for readability.
+
+> [!IMPORTANT]
+> The multi-line instructions for is still a work-in-progress!
+
+## Using Templates
+
+Creating Dockerfiles from scratch can be repetitive. `dockitect` provides 
+templates for common R project types that follow best practices.
+
+### Base R Template
+
+This template creates a basic R environment:
+
+```{r}
+#| label: template-base
+# Create a basic R image
+df_base <- dk_template_base(
+  r_version = "4.4.0",  # Specify R version
+  additional_pkgs = c("dplyr", "ggplot2")  # Add R packages
+)
+print(df_base)
+```
+
+### Shiny App Template
+
+For Shiny web applications:
+
+```{r}
+#| label: template-shiny
+# Create a Shiny app image
+df_shiny <- dk_template_shiny(
+  r_version = "4.4.0",  # Specify R version
+  port = 3838,  # Port for Shiny server
+  additional_pkgs = c("dplyr", "ggplot2")  # Add R packages
+)
+print(df_shiny)
+```
+
+### Plumber API Template
+
+For RESTful APIs with Plumber:
+
+```{r}
+#| label: template-plumber
+#| eval: false
+# Create a Plumber API image
+df_plumber <- dk_template_plumber(
+  r_version = "4.4.0",  # Specify R version
+  port = 8000,  # Port for API
+  additional_pkgs = c("dplyr", "jsonlite")  # Add R packages
+)
+print(df_plumber)
+```
+
+> [!NOTE]
+>
+> The `dk_template_plumber()` function template is still a work-in-progress!
+
+## Managing .dockerignore Files
+
+A `.dockerignore` file tells Docker which files to exclude from the build 
+context, improving build performance and reducing image size.
+
+### Creating a .dockerignore File
+
+In `dockitect`, you can create a `dockerignore` object and add patterns:
+
+```{r}
+#| label: dockerignore-basic
+# Create a new .dockerignore object
+di <- dockerignore()
+
+# Add patterns to ignore
+di <- di |>
+  di_add(".git/") |>    # Ignore Git directory
+  di_add("*.Rdata") |>  # Ignore R data files
+  di_add("data/*.csv")  # Ignore CSV files in data directory
+
+print(di)
+```
+
+### Using Templates for Common Patterns
+
+`dockitect` includes templates for common ignore patterns:
+
+```{r dockerignore-templates}
+# Create a template for R projects
+di_r <- dk_template_ignore_r()
+print(di_r)
+
+# Create a template for Git files
+di_git <- dk_template_ignore_git()
+print(di_git)
+```
+
+### Combining Templates
+
+You can combine templates using `c()`:
+
+```{r combine-dockerignore}
+# Combine templates
+di_combined <- c(
+  dk_template_ignore_git(),  # Git files
+  dk_template_ignore_r()     # R files
+)
+
+# Add custom patterns
+di_combined <- di_add(di_combined, "my-custom-pattern")
+print(di_combined)
+```
+
+### Writing to a File
+
+To save your .dockerignore:
+
+```{r write-dockerignore, eval=FALSE}
+# Write to .dockerignore file
+write_dockerignore(di_combined)
+```
+
+## Fin
+
+This vignette introduced the basic functionality of `dockitect` for creating 
+`Dockerfile` files and managing `.dockerignore` files. These core features will help you 
+containerize your R projects more efficiently.
+
+Future vignettes will cover:
+
+- **Advanced Dockerfile Manipulation**: Modifying, grouping, and sorting instructions
+- **Generating Dockerfiles from Projects**: Creating Dockerfiles from R sessions, renv.lock files, DESCRIPTION files, and R scripts
+- **Custom Templates**: Creating and using your own Dockerfile templates
+- **Multi-stage Builds**: Creating optimized images with multi-stage builds
+- **Best Practices**: Guidelines for creating efficient and secure Docker images for R
+
+As this package is in development, please refer back
+to the function documentation and visit the package website.

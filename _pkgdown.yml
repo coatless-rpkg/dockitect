@@ -1,4 +1,125 @@
 url: ~
+
 template:
   bootstrap: 5
+  bslib:
+    primary: "#0078D7"  # Docker-like blue
+    border-radius: 0.5rem
+    btn-border-radius: 0.25rem
+  opengraph:
+    image:
+      src: man/figures/dockitect-logo.svg
+      alt: "dockitect: An R package for programmatically creating Dockerfiles"
+    twitter:
+      creator: "@"
+      card: summary_large_image
+  
+navbar:
+  structure:
+    left: [intro, reference, articles, tutorials, news]
+    right: [search, github]
+  components:
+    github:
+      icon: fab fa-github
+      href: https://github.com/coatless-rpkg/dockitect
 
+reference:
+- title: "Package Overview"
+  desc: "Introduction to the dockitect package and its core concepts"
+  contents:
+  - dockitect-package
+
+- title: "Core Dockerfile Functions"
+  desc: "Essential functions for creating and managing Dockerfiles"
+  contents:
+  - dockerfile
+  - is_dockerfile
+  - has_instruction
+  - check_dockerfile
+  - print.dockerfile
+
+- title: "Creating Dockerfile Instructions"
+  desc: "Functions for adding different Docker instructions to a Dockerfile"
+  contents:
+  - starts_with("dfi_")
+
+- title: "Dockerfile Input/Output"
+  desc: "Functions for reading and writing Dockerfiles"
+  contents:
+  - read_dockerfile
+  - write_dockerfile
+
+- title: "Dockerfile Modification"
+  desc: "Functions for modifying Dockerfiles"
+  contents:
+  - starts_with("dfm_")
+
+- title: "Core Dockerignore Functions"
+  desc: "Essential functions for creating and managing .dockerignore files"
+  contents:
+  - dockerignore
+  - is_dockerignore
+  - check_dockerignore
+  - print.dockerignore
+  - c.dockerignore
+
+- title: "Dockerignore Pattern Instruction Management"
+  desc: "Functions for adding and removing patterns in .dockerignore files"
+  contents:
+  - starts_with("di_")
+
+- title: "Dockerignore Input/Output"
+  desc: "Functions for reading and writing .dockerignore files"
+  contents:
+  - read_dockerignore
+  - write_dockerignore
+
+- title: "Dockerfile Generation from Environments"
+  desc: "Functions for generating Dockerfiles from various sources"
+  contents:
+  - starts_with("dk_from_")
+  - dk_add_sysreqs
+
+- title: "Dockerfile Templates"
+  desc: "Ready-to-use templates for common R container scenarios"
+  contents:
+  - dk_template_base
+  - dk_template_shiny
+  - dk_template_plumber
+  - dk_register_template
+  - dk_template_custom
+
+- title: "Dockerignore Templates"
+  desc: "Ready-to-use templates for common .dockerignore patterns"
+  contents:
+  - starts_with("dk_template_ignore_")
+
+- title: "Utility Functions"
+  desc: "Helper functions for working with Docker environments"
+  contents:
+  - determine_package_manager
+  - determine_os
+  - map_to_sysreqs_platform
+  - generate_pkg_install_cmd
+
+
+articles:
+- title: "Getting Started"
+  desc: >
+    Learn how to use dockitect to create and manage Docker files for R projects
+  contents:
+  - getting-started-with-dockitect
+
+home:
+  sidebar:
+    structure: [links, license, community, citation, authors, dev]
+  links:
+  - text: Rocker Project Images
+    href: https://rocker-project.org/images/
+  - text: Dockerfile documentation
+    href: https://docs.docker.com/reference/dockerfile/
+  - text: Dockerignore documentation
+    href: https://docs.docker.com/build/concepts/context/#dockerignore-files
+
+development:
+  mode: auto
