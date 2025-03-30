@@ -37,15 +37,6 @@ c.dockerignore <- function(...) {
   result
 }
 
-#' Test if an object is a dockerfile
-#'
-#' @param x Object to test
-#' @return TRUE if x is a dockerfile, FALSE otherwise
-#' @export
-is_dockerfile <- function(x) {
-  inherits(x, "dockerfile")
-}
-
 #' Test if an object is a dockerignore
 #'
 #' @param x Object to test
