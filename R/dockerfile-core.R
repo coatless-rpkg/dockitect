@@ -91,14 +91,17 @@ add_dockerfile_line <- function(dockerfile, instruction, args) {
     dockerfile$lines <- c(dockerfile$lines, paste0(instruction, " ", args))
   }
   
-  # Update metadata
+  # Update metadata if necessary to extract 
+  # base image, package manager, and R version
   if (instruction == "FROM") {
-    dockerfile$metadata$base_image <- args[1]
-    dockerfile$metadata$package_manager <- get_package_manager(args[1])
+    # Extract just the image part, not the "AS build" part
+    base_image <- strsplit(args, " AS ")[[1]][1]
+    dockerfile$metadata$base_image <- base_image
+    dockerfile$metadata$package_manager <- get_package_manager(base_image)
     
     # Try to extract R version from rocker images
-    if (grepl("^rocker/r-ver:", args[1])) {
-      r_ver <- sub("^rocker/r-ver:", "", args[1])
+    if (grepl("^rocker/r-ver:", base_image)) {
+      r_ver <- sub("^rocker/r-ver:", "", base_image)
       dockerfile$metadata$r_version <- r_ver
     }
   }
