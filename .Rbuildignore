@@ -6,3 +6,4 @@
 ^\.github$
 ^dockitect\.Rproj$
 ^\.devcontainer$
+^\.Rproj\.user$
