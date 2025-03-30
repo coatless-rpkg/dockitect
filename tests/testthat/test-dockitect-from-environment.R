@@ -21,7 +21,6 @@ test_that("dk_from_session(): creates dockerfile from current session", {
 test_that("dk_add_sysreqs(): adds system requirements correctly", {
   # Skip if 'pak' not available
   skip_if_not_installed("pak")
-  skip_on_ci()
   
   # Mock functions for testing to avoid long loading times ---- 
   mock_pkg_sysreqs <- function(packages, sysreqs_platform = "ubuntu") {

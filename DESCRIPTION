@@ -17,7 +17,6 @@ BugReports: https://github.com/coatless-rpkg/dockitect/issues
 License: AGPL (>= 3)
 Depends: R (>= 4.4)
 Imports:
-    utils,
     cli,
     pak,
     jsonlite

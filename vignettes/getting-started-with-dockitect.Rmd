@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+Sys.setenv(R_USER_CACHE_DIR = tempfile())
 ```
 
 ## Introduction
