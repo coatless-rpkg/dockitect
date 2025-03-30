@@ -31,14 +31,17 @@ For those new to Docker, here's a quick overview of relevant terms:
 
 You can install the development version of `dockitect` from GitHub:
 
-```{r installation, eval=FALSE}
+```{r}
+#| label: installation
+#| eval: false
 # install.packages("remotes")
 remotes::install_github("coatless-rpkg/dockitect")
 ```
 
 Let's start by loading the package:
 
-```{r setup}
+```{r}
+#| label: setup
 library(dockitect)
 ```
 
@@ -63,7 +66,8 @@ to it through a series of pipe operations.
 
 Start by creating a new Dockerfile object:
 
-```{r dockerfile-object}
+```{r}
+#| label: dockerfile-object-init
 # Create a new Dockerfile object
 df <- dockerfile()
 print(df)
@@ -76,10 +80,11 @@ Congratulations! You've created your first (empty) Dockerfile object. Now let's 
 To add instructions to the Dockerfile, use the `dfi_*()` functions. For example,
 to set the base image:
 
-```{r basic-dockerfile}
+```{r}
+#| label: basic-dockerfile-with-from
 # Create a Dockerfile for an R script
 df <- dockerfile() |>
-  dfi_from("rocker/r-ver:4.4.0") |>  # Base image with R 4.4.0
+  dfi_from("rocker/r-ver:4.4.0")  # Base image with R 4.4.0
 ```
 
 You can print the Dockerfile to see the added instruction:
@@ -91,7 +96,8 @@ print(df)
 Usually, you'll add multiple instructions to the Dockerfile. Let's add a few more
 instructions to the Dockerfile so that we can run a script:
 
-```{r basic-dockerfile}
+```{r}
+#| label: basic-dockerfile-full
 # Create a Dockerfile for an R script
 df <- dockerfile() |>
   dfi_from("rocker/r-ver:4.4.0") |>  # Base image with R 4.4.0
@@ -116,7 +122,8 @@ This example shows the most common Docker instructions:
 
 For `RUN` instructions with multiple commands, you can pass a character vector:
 
-```{r run-multiple}
+```{r}
+#| label: dockerfile-run-multiple-commands
 dockerfile() |>
   dfi_from("rocker/r-ver:4.4.0") |>
   dfi_run(c(
