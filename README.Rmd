@@ -183,7 +183,7 @@ to explore these complementary packages:
 
 - [`containerit`][containerit-pkg]: An alternative approach to generating 
   Dockerfiles, with a focus on reproducible research workflows
-- `dockerfiler`[containerit-pkg]: Another R package for Dockerfile generation 
+- [`dockerfiler`][dockerfiler-pkg]: Another R package for Dockerfile generation 
   that uses a different syntax and approach
 - [`renv`][renv-pkg]: For R package dependency management, which pairs well 
   with `dockitect` for fully reproducible environments
