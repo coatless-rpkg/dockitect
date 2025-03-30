@@ -159,6 +159,22 @@ dockerignore() |>
   write_dockerignore()
 ```
 
+## Related Packages
+
+`dockitect` is part of a broader ecosystem of tools for containerization
+and environment management in R. Depending on your specific needs, you
+might want to explore these complementary packages:
+
+- [`containerit`](https://github.com/o2r-project/containerit): An
+  alternative approach to generating Dockerfiles, with a focus on
+  reproducible research workflows
+- `dockerfiler`[containerit-pkg](https://github.com/o2r-project/containerit):
+  Another R package for Dockerfile generation that uses a different
+  syntax and approach
+- [`renv`](https://github.com/rstudio/renv/): For R package dependency
+  management, which pairs well with `dockitect` for fully reproducible
+  environments
+
 ## Citation
 
 If you use `dockitect` in your research or project, please consider
