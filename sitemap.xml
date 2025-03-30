@@ -4,6 +4,7 @@
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
 <url><loc>/reference/add_dockerfile_line.html</loc></url>
+<url><loc>/reference/c.dockerignore.html</loc></url>
 <url><loc>/reference/check_dockerfile.html</loc></url>
 <url><loc>/reference/check_dockerignore.html</loc></url>
 <url><loc>/reference/dfi_add.html</loc></url>
@@ -24,6 +25,20 @@
 <url><loc>/reference/dfi_user.html</loc></url>
 <url><loc>/reference/dfi_volume.html</loc></url>
 <url><loc>/reference/dfi_workdir.html</loc></url>
+<url><loc>/reference/di_add.html</loc></url>
+<url><loc>/reference/di_remove.html</loc></url>
+<url><loc>/reference/di_replace.html</loc></url>
+<url><loc>/reference/dk_template_ignore_common.html</loc></url>
+<url><loc>/reference/dk_template_ignore_data.html</loc></url>
+<url><loc>/reference/dk_template_ignore_editor.html</loc></url>
+<url><loc>/reference/dk_template_ignore_git.html</loc></url>
+<url><loc>/reference/dk_template_ignore_node.html</loc></url>
+<url><loc>/reference/dk_template_ignore_os.html</loc></url>
+<url><loc>/reference/dk_template_ignore_packrat.html</loc></url>
+<url><loc>/reference/dk_template_ignore_python.html</loc></url>
+<url><loc>/reference/dk_template_ignore_r.html</loc></url>
+<url><loc>/reference/dk_template_ignore_raw_data.html</loc></url>
+<url><loc>/reference/dk_template_ignore_renv.html</loc></url>
 <url><loc>/reference/dockerfile.html</loc></url>
 <url><loc>/reference/dockerignore.html</loc></url>
 <url><loc>/reference/dockitect-package.html</loc></url>
@@ -32,5 +47,11 @@
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/is_dockerfile.html</loc></url>
 <url><loc>/reference/is_dockerignore.html</loc></url>
+<url><loc>/reference/print.dockerfile.html</loc></url>
+<url><loc>/reference/print.dockerignore.html</loc></url>
+<url><loc>/reference/read_dockerfile.html</loc></url>
+<url><loc>/reference/read_dockerignore.html</loc></url>
+<url><loc>/reference/write_dockerfile.html</loc></url>
+<url><loc>/reference/write_dockerignore.html</loc></url>
 </urlset>
 

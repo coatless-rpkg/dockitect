@@ -84,7 +84,7 @@
 <code><a href="reference/dockerignore.html">dockerignore()</a></code> - Create a new Dockerignore object
 <ul>
 <li>
-<code>di_*()</code> - <strong>D</strong>ockerignore functions (e.g., <code>di_add()</code>, <code>di_remove()</code>)</li>
+<code>di_*()</code> - <strong>D</strong>ockerignore functions (e.g., <code><a href="reference/di_add.html">di_add()</a></code>, <code><a href="reference/di_remove.html">di_remove()</a></code>)</li>
 </ul>
 </li>
 <li>
@@ -111,7 +111,7 @@
 <span>  <span class="fu"><a href="reference/dfi_workdir.html">dfi_workdir</a></span><span class="op">(</span><span class="st">"/app"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/dfi_copy.html">dfi_copy</a></span><span class="op">(</span><span class="st">"analysis.R"</span>, <span class="st">"/app/"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/dfi_cmd.html">dfi_cmd</a></span><span class="op">(</span><span class="st">"Rscript analysis.R"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">write_dockerfile</span><span class="op">(</span><span class="st">"Dockerfile"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/write_dockerfile.html">write_dockerfile</a></span><span class="op">(</span><span class="st">"Dockerfile"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="use-templates">Use Templates<a class="anchor" aria-label="anchor" href="#use-templates"></a>
@@ -129,7 +129,7 @@
 <span>  app_dir <span class="op">=</span> <span class="st">"app/"</span>           <span class="co"># Location of app files</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/dfi_env.html">dfi_env</a></span><span class="op">(</span>SHINY_HOST <span class="op">=</span> <span class="st">"0.0.0.0"</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># Configure Shiny to listen on all interfaces</span></span>
-<span>  <span class="fu">write_dockerfile</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/write_dockerfile.html">write_dockerfile</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -149,7 +149,7 @@
 <span></span>
 <span><span class="co"># Use the template</span></span>
 <span><span class="fu">dk_template_custom</span><span class="op">(</span><span class="st">"my_template"</span>, my_param <span class="op">=</span> <span class="st">"hello"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">write_dockerfile</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/write_dockerfile.html">write_dockerfile</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="modify-existing-dockerfiles">Modify Existing Dockerfiles<a class="anchor" aria-label="anchor" href="#modify-existing-dockerfiles"></a>
@@ -157,14 +157,14 @@
 <p>Sometimes you need to modify existing Dockerfiles rather than creating them from scratch. <code>dockitect</code> provides specialized functions for reading, modifying, and writing Dockerfiles, allowing for precise changes without manual text editing:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Read an existing Dockerfile</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">read_dockerfile</span><span class="op">(</span><span class="st">"path/to/Dockerfile"</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_dockerfile.html">read_dockerfile</a></span><span class="op">(</span><span class="st">"path/to/Dockerfile"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Modify it</span></span>
 <span><span class="va">df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dfm_add_line</span><span class="op">(</span><span class="st">"RUN echo 'Hello World'"</span>, after <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># Add a line after line 3</span></span>
 <span>  <span class="fu">dfm_remove_line</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span>                                <span class="co"># Remove line 5</span></span>
 <span>  <span class="fu">dfm_group_similar</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span>                               <span class="co"># Group similar commands (e.g., RUN)</span></span>
-<span>  <span class="fu">write_dockerfile</span><span class="op">(</span><span class="st">"Dockerfile.new"</span><span class="op">)</span>                   <span class="co"># Write to a new file</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/write_dockerfile.html">write_dockerfile</a></span><span class="op">(</span><span class="st">"Dockerfile.new"</span><span class="op">)</span>                   <span class="co"># Write to a new file</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="create-and-manage-dockerignore">Create and Manage .dockerignore<a class="anchor" aria-label="anchor" href="#create-and-manage-dockerignore"></a>
@@ -174,9 +174,9 @@
 <code class="sourceCode R"><span><span class="co"># Create a .dockerignore file with common patterns</span></span>
 <span><span class="fu"><a href="reference/dockerignore.html">dockerignore</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">di_add_common</span><span class="op">(</span>include_git <span class="op">=</span> <span class="cn">TRUE</span>, include_r <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># Add common patterns for Git and R</span></span>
-<span>  <span class="fu">di_add</span><span class="op">(</span><span class="st">"*.log"</span><span class="op">)</span> <span class="op">|&gt;</span>                                      <span class="co"># Add custom patterns</span></span>
-<span>  <span class="fu">di_add</span><span class="op">(</span><span class="st">"output/"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">write_dockerignore</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/di_add.html">di_add</a></span><span class="op">(</span><span class="st">"*.log"</span><span class="op">)</span> <span class="op">|&gt;</span>                                      <span class="co"># Add custom patterns</span></span>
+<span>  <span class="fu"><a href="reference/di_add.html">di_add</a></span><span class="op">(</span><span class="st">"output/"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/write_dockerignore.html">write_dockerignore</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
