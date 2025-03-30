@@ -27,6 +27,12 @@
 <url><loc>/reference/dfi_user.html</loc></url>
 <url><loc>/reference/dfi_volume.html</loc></url>
 <url><loc>/reference/dfi_workdir.html</loc></url>
+<url><loc>/reference/dfm_add_line.html</loc></url>
+<url><loc>/reference/dfm_group_similar.html</loc></url>
+<url><loc>/reference/dfm_move_line.html</loc></url>
+<url><loc>/reference/dfm_remove_line.html</loc></url>
+<url><loc>/reference/dfm_replace_line.html</loc></url>
+<url><loc>/reference/dfm_sort_by_instruction.html</loc></url>
 <url><loc>/reference/di_add.html</loc></url>
 <url><loc>/reference/di_remove.html</loc></url>
 <url><loc>/reference/di_replace.html</loc></url>
@@ -35,6 +41,9 @@
 <url><loc>/reference/dk_from_renv.html</loc></url>
 <url><loc>/reference/dk_from_script.html</loc></url>
 <url><loc>/reference/dk_from_session.html</loc></url>
+<url><loc>/reference/dk_register_template.html</loc></url>
+<url><loc>/reference/dk_template_base.html</loc></url>
+<url><loc>/reference/dk_template_custom.html</loc></url>
 <url><loc>/reference/dk_template_ignore_common.html</loc></url>
 <url><loc>/reference/dk_template_ignore_data.html</loc></url>
 <url><loc>/reference/dk_template_ignore_editor.html</loc></url>
@@ -46,6 +55,8 @@
 <url><loc>/reference/dk_template_ignore_r.html</loc></url>
 <url><loc>/reference/dk_template_ignore_raw_data.html</loc></url>
 <url><loc>/reference/dk_template_ignore_renv.html</loc></url>
+<url><loc>/reference/dk_template_plumber.html</loc></url>
+<url><loc>/reference/dk_template_shiny.html</loc></url>
 <url><loc>/reference/dockerfile.html</loc></url>
 <url><loc>/reference/dockerignore.html</loc></url>
 <url><loc>/reference/dockitect-package.html</loc></url>

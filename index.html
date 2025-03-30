@@ -74,7 +74,7 @@
 <li>
 <code>dfi_*()</code> - <strong>D</strong>ockerfile <strong>i</strong>nstruction functions (e.g., <code><a href="reference/dfi_from.html">dfi_from()</a></code>, <code><a href="reference/dfi_run.html">dfi_run()</a></code>)</li>
 <li>
-<code>dfm_*()</code> - <strong>D</strong>ockerfile <strong>m</strong>odification functions (e.g., <code>dfm_add_line()</code>, <code>dfm_group_similar()</code>)</li>
+<code>dfm_*()</code> - <strong>D</strong>ockerfile <strong>m</strong>odification functions (e.g., <code><a href="reference/dfm_add_line.html">dfm_add_line()</a></code>, <code><a href="reference/dfm_group_similar.html">dfm_group_similar()</a></code>)</li>
 </ul>
 </li>
 <li>
@@ -85,7 +85,7 @@
 </ul>
 </li>
 <li>
-<code>dk_*()</code> - <strong>D</strong>oc<strong>k</strong>er configuration/template functions (e.g., <code><a href="reference/dk_from_session.html">dk_from_session()</a></code>, <code>dk_template_shiny()</code>)</li>
+<code>dk_*()</code> - <strong>D</strong>oc<strong>k</strong>er configuration/template functions (e.g., <code><a href="reference/dk_from_session.html">dk_from_session()</a></code>, <code><a href="reference/dk_template_shiny.html">dk_template_shiny()</a></code>)</li>
 </ul>
 </div>
 <div class="section level2">
@@ -120,7 +120,7 @@
 <p>Creating a Docker container for a Shiny application requires specific configurations for ports, networking, and dependencies. The Shiny template handles these details automatically. For example, we can create a Dockerfile for a Shiny app with proper port configuration:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a Dockerfile for a Shiny app</span></span>
-<span><span class="fu">dk_template_shiny</span><span class="op">(</span></span>
+<span><span class="fu"><a href="reference/dk_template_shiny.html">dk_template_shiny</a></span><span class="op">(</span></span>
 <span>  r_version <span class="op">=</span> <span class="st">"4.2.3"</span>,       <span class="co"># Specify R version</span></span>
 <span>  port <span class="op">=</span> <span class="fl">3838</span>,               <span class="co"># Expose Shiny port</span></span>
 <span>  app_dir <span class="op">=</span> <span class="st">"app/"</span>           <span class="co"># Location of app files</span></span>
@@ -142,10 +142,10 @@
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="co"># Register the template</span></span>
-<span><span class="fu">dk_register_template</span><span class="op">(</span><span class="st">"my_template"</span>, <span class="va">my_template</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/dk_register_template.html">dk_register_template</a></span><span class="op">(</span><span class="st">"my_template"</span>, <span class="va">my_template</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Use the template</span></span>
-<span><span class="fu">dk_template_custom</span><span class="op">(</span><span class="st">"my_template"</span>, my_param <span class="op">=</span> <span class="st">"hello"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="reference/dk_template_custom.html">dk_template_custom</a></span><span class="op">(</span><span class="st">"my_template"</span>, my_param <span class="op">=</span> <span class="st">"hello"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/write_dockerfile.html">write_dockerfile</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -158,9 +158,9 @@
 <span></span>
 <span><span class="co"># Modify it</span></span>
 <span><span class="va">df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dfm_add_line</span><span class="op">(</span><span class="st">"RUN echo 'Hello World'"</span>, after <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># Add a line after line 3</span></span>
-<span>  <span class="fu">dfm_remove_line</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span>                                <span class="co"># Remove line 5</span></span>
-<span>  <span class="fu">dfm_group_similar</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span>                               <span class="co"># Group similar commands (e.g., RUN)</span></span>
+<span>  <span class="fu"><a href="reference/dfm_add_line.html">dfm_add_line</a></span><span class="op">(</span><span class="st">"RUN echo 'Hello World'"</span>, after <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># Add a line after line 3</span></span>
+<span>  <span class="fu"><a href="reference/dfm_remove_line.html">dfm_remove_line</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span>                                <span class="co"># Remove line 5</span></span>
+<span>  <span class="fu"><a href="reference/dfm_group_similar.html">dfm_group_similar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span>                               <span class="co"># Group similar commands (e.g., RUN)</span></span>
 <span>  <span class="fu"><a href="reference/write_dockerfile.html">write_dockerfile</a></span><span class="op">(</span><span class="st">"Dockerfile.new"</span><span class="op">)</span>                   <span class="co"># Write to a new file</span></span></code></pre></div>
 </div>
 <div class="section level3">
