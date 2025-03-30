@@ -41,7 +41,8 @@ read_dockerfile <- function(file) {
     if (grepl("^FROM ", line, ignore.case = TRUE)) {
       base_image <- sub("^FROM\\s+([^\\s]+).*$", "\\1", line, ignore.case = TRUE)
       df$metadata$base_image <- base_image
-      df$metadata$package_manager <- get_package_manager(base_image)
+      df$metadata$package_manager <- determine_package_manager(base_image)
+      df$metadata$os <- determine_os(base_image)
       
       # Try to extract R version from rocker images
       if (grepl("^rocker/r-ver:", base_image)) {
