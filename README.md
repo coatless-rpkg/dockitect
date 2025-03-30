@@ -1,14 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dockitect <img src="man/figures/dockitect-animated-logo.svg" align="right" height="139" />
+# dockitect <img src="man/figures/dockitect-animated-logo.svg" align="right" width="139" />
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/coatless-rpkg/dockitect/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coatless-rpkg/dockitect/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
-
-> Create and Validate Dockerfiles from R
 
 `dockitect` is an R package for programmatically creating, validating,
 and managing Dockerfiles using a pipe-friendly syntax. It bridges the
