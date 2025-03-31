@@ -71,7 +71,6 @@ For example, let's create a Dockerfile for an R script:
 
 ```{r}
 #| label: basic-dockerfile
-#| eval: false
 library(dockitect)
 
 # Create a basic Dockerfile for an R script

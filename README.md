@@ -74,6 +74,12 @@ df_rscript <- dockerfile() |>
   dfi_cmd("Rscript /app/analysis.R")
 
 df_rscript
+#> FROM rocker/r-ver:4.4.3
+#> LABEL maintainer="user@example.com"
+#> RUN apt-get update && apt-get install -y libcurl4-openssl-dev
+#> WORKDIR /app
+#> COPY analysis.R /app/
+#> CMD Rscript /app/analysis.R
 
 ## Write the Dockerfile to disk
 # write_dockerfile(df_rscript)
