@@ -133,7 +133,8 @@ dk_template_shiny(
 
 Then, in your terminal:
 
-```bash
+```{bash}
+#| eval: false
 # 2. Build the Docker image
 ## Note: For ARM-based systems, use --platform linux/amd64.
 docker build --platform linux/amd64 -t my-shiny-app .
