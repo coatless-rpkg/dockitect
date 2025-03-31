@@ -1,0 +1,241 @@
+---
+title: "Making a dockitect Dockerfile into a Running Container"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Making a dockitect Dockerfile into a Running Container}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+Sys.setenv(R_USER_CACHE_DIR = tempfile())
+```
+
+## Introduction
+
+After creating a Dockerfile with `dockitect`, the next steps involve building a
+Docker image and running it as a container. This vignette walks through this 
+process with practical examples, assuming you have Docker installed on your system.
+
+If you haven't installed Docker yet, visit the [Docker installation page](https://docs.docker.com/get-docker/) for instructions specific to your 
+operating system.
+
+## Building Your Docker Image
+
+Once you've generated a Dockerfile with `dockitect`, you'll need to build a 
+Docker image from it. This is done by interacting with Docker on the 
+command-line interface:
+
+```bash
+# Basic build command
+docker build -t my-r-project .
+
+# Build with a specific tag (e.g., for versioning)
+docker build -t my-r-project:1.0.0 .
+
+# Build with build arguments (if your Dockerfile uses ARG)
+docker build --build-arg R_VERSION=4.4.0 -t my-r-project .
+```
+
+The `-t` option tags your image with a name, making it easier to reference later.
+The `.` at the end tells Docker to look for a `Dockerfile` in the current directory.
+
+During the build process, Docker will execute each instruction in your 
+`Dockerfile` sequentially and create a series of intermediate layers. These 
+layers are cached, which means subsequent builds can be much faster if parts 
+of your `Dockerfile` haven't changed.
+
+:::{.callout-tip}
+Effective use of layer caching can significantly speed up your Docker image builds.
+:::
+
+## Running Containers Based on Your Image
+
+After building the image, you can run it as a container using various configurations:
+
+```bash
+# Basic run command
+docker run my-r-project
+
+# Run interactively with a shell
+docker run -it my-r-project bash
+
+# Run with environment variables
+docker run -e "DEBUG=TRUE" my-r-project
+
+# Run with a volume for data persistence
+docker run -v $(pwd)/data:/app/data my-r-project
+
+# Run a Shiny app with port mapping
+docker run -p 3838:3838 my-shiny-app
+```
+
+Here's what these options do:
+
+- `-it`: Provides an interactive terminal
+- `-p 3838:3838`: Maps port 3838 from the container to port 3838 on your host
+- `-e "DEBUG=TRUE"`: Sets an environment variable inside the container
+- `-v $(pwd)/data:/app/data`: Mounts your local directory to a location in the container
+
+For Shiny apps and Plumber APIs, the `-p` flag is crucial as it maps a port
+from the container to your host machine, allowing you to access the web application.
+
+## Container Management
+
+Here are some useful commands for managing your Docker containers and images:
+
+```bash
+# List running containers
+docker ps
+
+# List all containers (including stopped ones)
+docker ps -a
+
+# Stop a running container
+docker stop <container_id>
+
+# Remove a container
+docker rm <container_id>
+
+# List images
+docker images
+
+# Remove an image
+docker rmi my-r-project
+```
+
+You can refer to containers by either their ID (shown in `docker ps`) or by 
+the name assigned when running them. If you don't specify a name with `--name` 
+when starting a container, Docker assigns a random name.
+
+## Example Workflows
+
+### Complete Workflow for a Shiny App
+
+Let's walk through a complete workflow for containerizing a Shiny application:
+
+```{r}
+#| eval: false
+# 1. Generate the Dockerfile
+library(dockitect)
+dk_template_shiny(
+  r_version = "4.4.0",
+  port = 3838,
+  app_dir = "shiny_app/"
+) |>
+  write_dockerfile()
+```
+
+Then, in your terminal:
+
+```bash
+# 2. Build the Docker image
+## Note: For ARM-based systems, use --platform linux/amd64.
+docker build --platform linux/amd64 -t my-shiny-app .
+
+# 3. Run the container
+docker run -p 3838:3838 my-shiny-app
+```
+
+Now you can access your Shiny app by navigating to <http://localhost:3838/app> in your web browser.
+
+### Running an R Script with Volume Mounting
+
+For data analysis scripts, you often want to share data between your host and the container:
+
+```{r}
+#| eval: false
+# 1. Generate the Dockerfile
+library(dockitect)
+dk_from_script("analysis.R") |>
+  write_dockerfile()
+```
+
+Then, in your terminal:
+
+```bash
+# 2. Build the Docker image
+docker build -t my-analysis .
+
+# 3. Run with volume mounting for input/output
+docker run -v $(pwd)/data:/app/data -v $(pwd)/results:/app/results my-analysis
+```
+
+This mounts your local `data` and `results` directories to the container,
+allowing your R script to read input data and write results that persist after
+the container exits.
+
+### Running an R Environment for Interactive Use
+
+For interactive data analysis, you might want a container with specific packages and dependencies:
+
+```{r}
+#| eval: false
+# 1. Generate a Dockerfile with your packages
+library(dockitect)
+dk_template_base(
+  r_version = "4.4.3",
+  additional_pkgs = c("visualize")
+) |>
+  write_dockerfile()
+```
+
+In your terminal:
+
+```bash
+# 2. Build the image
+docker build -t r-interactive .
+
+# 3. Run interactively with volume mount for your project files
+docker run -it -v $(pwd):/app r-interactive R
+```
+
+This gives you an interactive R session with all your packages pre-installed, and your current directory mounted so you can access your files.
+
+## Troubleshooting Common Issues
+
+### Build Fails with Package Installation Errors
+
+If your build fails during package installation, it might be due to missing 
+system dependencies. The `dk_add_sysreqs()` function in `dockitect` can help 
+with this:
+
+```{r}
+#| eval: false
+# Add system requirements for specific packages
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.3") |>
+  dk_add_sysreqs(c("tidyverse", "rJava"))
+```
+
+### Container Exits Immediately
+
+If your container exits immediately after starting, it might be because the CMD
+instruction in your `Dockerfile` is not designed to keep the container running. 
+For services, ensure the `CMD` runs a process that stays in the foreground.
+
+### Cannot Access Shiny App or Plumber API
+
+Make sure you've mapped the ports correctly with the `-p` flag and your 
+application is configured to listen on all interfaces inside the container.
+For Shiny apps, this can be set with:
+
+```r
+options(shiny.host = '0.0.0.0')
+```
+
+## Conclusion
+
+While `{dockitect}` simplifies `Dockerfile` creation, understanding how to build, 
+run, and manage Docker containers is required for the complete workflow. This 
+vignette covered the basics of working with Docker after generating your 
+`Dockerfile` via `{dockitect}`.
+
+For more information, consult the [Docker documentation](https://docs.docker.com/)
+or the [Rocker project](https://www.rocker-project.org/) which provides pre-built
+Docker images for R.

@@ -109,6 +109,7 @@ articles:
     Learn how to use dockitect to create and manage Docker files for R projects
   contents:
   - getting-started-with-dockitect
+  - making-a-dockitect-dockerfile-into-a-running-container
 
 home:
   sidebar:
