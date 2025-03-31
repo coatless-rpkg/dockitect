@@ -116,6 +116,12 @@
 <span>  <span class="fu"><a href="reference/dfi_cmd.html">dfi_cmd</a></span><span class="op">(</span><span class="st">"Rscript /app/analysis.R"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">df_rscript</span></span>
+<span><span class="co">#&gt; FROM rocker/r-ver:4.4.3</span></span>
+<span><span class="co">#&gt; LABEL maintainer="user@example.com"</span></span>
+<span><span class="co">#&gt; RUN apt-get update &amp;&amp; apt-get install -y libcurl4-openssl-dev</span></span>
+<span><span class="co">#&gt; WORKDIR /app</span></span>
+<span><span class="co">#&gt; COPY analysis.R /app/</span></span>
+<span><span class="co">#&gt; CMD Rscript /app/analysis.R</span></span>
 <span></span>
 <span><span class="co">## Write the Dockerfile to disk</span></span>
 <span><span class="co"># write_dockerfile(df_rscript)</span></span></code></pre></div>

@@ -181,7 +181,7 @@ script:</p>
 <span><span class="co">#&gt; LABEL maintainer="user@example.com"</span></span>
 <span><span class="co">#&gt; WORKDIR /app</span></span>
 <span><span class="co">#&gt; COPY analysis.R /app/</span></span>
-<span><span class="co">#&gt; CMD Rscript /app/analysis.R</span></span></code></pre></div>
+<span><span class="co">#&gt; CMD ["Rscript","/app/analysis.R"]</span></span></code></pre></div>
 <p>This example shows the most common Docker instructions:</p>
 <ul>
 <li>
@@ -258,6 +258,7 @@ that follow best practices.</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Updating metadata database</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Updating metadata database ... done</span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Failed to update system requirement mappings, will use cached mappings.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df_base</span><span class="op">)</span></span>
 <span><span class="co">#&gt; FROM rocker/r-ver:4.4.0</span></span>
 <span><span class="co">#&gt; LABEL maintainer="runner" description="Base R image for analysis"</span></span>
@@ -266,7 +267,7 @@ that follow best practices.</p>
 <span><span class="co">#&gt; RUN mkdir -p /app/scripts /app/data /app/output</span></span>
 <span><span class="co">#&gt; VOLUME /app/data</span></span>
 <span><span class="co">#&gt; VOLUME /app/output</span></span>
-<span><span class="co">#&gt; CMD R --no-save</span></span></code></pre></div>
+<span><span class="co">#&gt; CMD ["R","--no-save"]</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="shiny-app-template">Shiny App Template<a class="anchor" aria-label="anchor" href="#shiny-app-template"></a>
@@ -282,15 +283,12 @@ that follow best practices.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df_shiny</span><span class="op">)</span></span>
 <span><span class="co">#&gt; FROM rocker/shiny:4.4.0</span></span>
 <span><span class="co">#&gt; LABEL maintainer="runner" description="Shiny application"</span></span>
-<span><span class="co">#&gt; RUN apt-get update -y &amp;&amp; \</span></span>
-<span><span class="co">#&gt;     apt-get install -y --no-install-recommends make zlib1g-dev &amp;&amp; \</span></span>
-<span><span class="co">#&gt;     apt-get clean &amp;&amp; \</span></span>
-<span><span class="co">#&gt;     rm -rf /var/lib/apt/lists/*</span></span>
+<span><span class="co">#&gt; RUN apt-get update -y &amp;&amp; apt-get install -y --no-install-recommends make zlib1g-dev &amp;&amp; apt-get clean &amp;&amp; rm -rf /var/lib/apt/lists/*</span></span>
 <span><span class="co">#&gt; RUN R -e "install.packages(c('shiny', 'dplyr', 'ggplot2'), repos='https://cloud.r-project.org/')"</span></span>
 <span><span class="co">#&gt; COPY . /srv/shiny-server/app</span></span>
 <span><span class="co">#&gt; WORKDIR /srv/shiny-server/app</span></span>
 <span><span class="co">#&gt; EXPOSE 3838</span></span>
-<span><span class="co">#&gt; CMD shiny-server</span></span></code></pre></div>
+<span><span class="co">#&gt; CMD ["shiny-server"]</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="plumber-api-template">Plumber API Template<a class="anchor" aria-label="anchor" href="#plumber-api-template"></a>
