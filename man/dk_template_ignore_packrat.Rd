@@ -4,7 +4,10 @@
 \alias{dk_template_ignore_packrat}
 \title{Create a dockerignore template for packrat-related files}
 \usage{
-dk_template_ignore_packrat()
+dk_template_ignore_packrat(.dockerignore = NULL)
+}
+\arguments{
+\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
 }
 \value{
 A dockerignore object with packrat-related ignore patterns

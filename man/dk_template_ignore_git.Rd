@@ -4,7 +4,10 @@
 \alias{dk_template_ignore_git}
 \title{Create a dockerignore template for Git-related files}
 \usage{
-dk_template_ignore_git()
+dk_template_ignore_git(.dockerignore = NULL)
+}
+\arguments{
+\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
 }
 \value{
 A dockerignore object with Git-related ignore patterns

@@ -4,7 +4,10 @@
 \alias{dk_template_ignore_python}
 \title{Create a dockerignore template for Python projects}
 \usage{
-dk_template_ignore_python()
+dk_template_ignore_python(.dockerignore = NULL)
+}
+\arguments{
+\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
 }
 \value{
 A dockerignore object with Python-related ignore patterns

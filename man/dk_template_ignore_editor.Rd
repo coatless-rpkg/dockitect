@@ -4,7 +4,10 @@
 \alias{dk_template_ignore_editor}
 \title{Create a dockerignore template for editor-related files}
 \usage{
-dk_template_ignore_editor()
+dk_template_ignore_editor(.dockerignore = NULL)
+}
+\arguments{
+\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
 }
 \value{
 A dockerignore object with editor-related ignore patterns

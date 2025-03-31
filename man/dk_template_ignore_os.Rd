@@ -4,7 +4,10 @@
 \alias{dk_template_ignore_os}
 \title{Create a dockerignore template for OS-related files}
 \usage{
-dk_template_ignore_os()
+dk_template_ignore_os(.dockerignore = NULL)
+}
+\arguments{
+\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
 }
 \value{
 A dockerignore object with OS-related ignore patterns

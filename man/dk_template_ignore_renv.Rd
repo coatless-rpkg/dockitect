@@ -4,7 +4,10 @@
 \alias{dk_template_ignore_renv}
 \title{Create a dockerignore template for renv-related files}
 \usage{
-dk_template_ignore_renv()
+dk_template_ignore_renv(.dockerignore = NULL)
+}
+\arguments{
+\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
 }
 \value{
 A dockerignore object with renv-related ignore patterns

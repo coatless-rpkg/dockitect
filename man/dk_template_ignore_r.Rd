@@ -4,9 +4,15 @@
 \alias{dk_template_ignore_r}
 \title{Create a dockerignore template for R-related files}
 \usage{
-dk_template_ignore_r(include_renv = TRUE, include_packrat = TRUE)
+dk_template_ignore_r(
+  .dockerignore = NULL,
+  include_renv = TRUE,
+  include_packrat = TRUE
+)
 }
 \arguments{
+\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
+
 \item{include_renv}{Include renv folders (default: TRUE)}
 
 \item{include_packrat}{Include packrat folders (default: TRUE)}

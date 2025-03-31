@@ -5,6 +5,7 @@
 \title{Create a dockerignore template combining multiple categories}
 \usage{
 dk_template_ignore_common(
+  .dockerignore = NULL,
   git = TRUE,
   r = TRUE,
   os = TRUE,
@@ -15,6 +16,8 @@ dk_template_ignore_common(
 )
 }
 \arguments{
+\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
+
 \item{git}{Include Git-related files (default: TRUE)}
 
 \item{r}{Include R-related files (default: TRUE)}

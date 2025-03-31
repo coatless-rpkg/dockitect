@@ -4,9 +4,11 @@
 \alias{dk_template_ignore_data}
 \title{Create a dockerignore template for common data files}
 \usage{
-dk_template_ignore_data(include_raw = TRUE)
+dk_template_ignore_data(.dockerignore = NULL, include_raw = TRUE)
 }
 \arguments{
+\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
+
 \item{include_raw}{Include raw data directories (default: TRUE)}
 }
 \value{

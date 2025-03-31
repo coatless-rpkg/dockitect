@@ -4,7 +4,10 @@
 \alias{dk_template_ignore_raw_data}
 \title{Create a dockerignore template for raw data directories}
 \usage{
-dk_template_ignore_raw_data()
+dk_template_ignore_raw_data(.dockerignore = NULL)
+}
+\arguments{
+\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
 }
 \value{
 A dockerignore object with raw data directory patterns

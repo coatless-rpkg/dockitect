@@ -4,7 +4,10 @@
 \alias{dk_template_ignore_node}
 \title{Create a dockerignore template for Node.js/JavaScript projects}
 \usage{
-dk_template_ignore_node()
+dk_template_ignore_node(.dockerignore = NULL)
+}
+\arguments{
+\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
 }
 \value{
 A dockerignore object with Node.js-related ignore patterns
