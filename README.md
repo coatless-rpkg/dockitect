@@ -65,14 +65,18 @@ For example, let’s create a Dockerfile for an R script:
 library(dockitect)
 
 # Create a basic Dockerfile for an R script
-dockerfile() |>
-  dfi_from("rocker/r-ver:4.2.3") |>
+df_rscript <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.3") |>
   dfi_label(maintainer = "user@example.com") |>
   dfi_run("apt-get update && apt-get install -y libcurl4-openssl-dev") |>
   dfi_workdir("/app") |>
   dfi_copy("analysis.R", "/app/") |>
-  dfi_cmd("Rscript analysis.R") |>
-  write_dockerfile("Dockerfile")
+  dfi_cmd("Rscript /app/analysis.R")
+
+df_rscript
+
+## Write the Dockerfile to disk
+# write_dockerfile(df_rscript)
 ```
 
 ### Use Templates
@@ -92,7 +96,7 @@ a Dockerfile for a Shiny app with proper port configuration:
 ``` r
 # Create a Dockerfile for a Shiny app
 dk_template_shiny(
-  r_version = "4.2.3",       # Specify R version
+  r_version = "4.4.3",       # Specify R version
   port = 3838,               # Expose Shiny port
   app_dir = "app/"           # Location of app files
 ) |>
@@ -111,7 +115,7 @@ own templates throughout your projects:
 # Create a custom template function
 my_template <- function(my_param = "default") {
   dockerfile() |>
-    dfi_from("rocker/r-ver:4.2.3") |>
+    dfi_from("rocker/r-ver:4.4.3") |>
     dfi_run(paste0("echo ", my_param))
 }
 
