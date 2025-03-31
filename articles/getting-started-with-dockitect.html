@@ -97,7 +97,7 @@ from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"coatless-rpkg/dockitect"</span><span class="op">)</span></span></code></pre></div>
-<p>Let’s start by loading the package:</p>
+<p>Access the package by loading it:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-pkg.thecoatlessprofessor.com/dockitect/" class="external-link">dockitect</a></span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -169,11 +169,11 @@ script:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a Dockerfile for an R script</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dockerfile.html">dockerfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/dfi_from.html">dfi_from</a></span><span class="op">(</span><span class="st">"rocker/r-ver:4.4.0"</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># Base image with R 4.4.0</span></span>
+<span>  <span class="fu"><a href="../reference/dfi_from.html">dfi_from</a></span><span class="op">(</span><span class="st">"rocker/r-ver:4.4.0"</span><span class="op">)</span> <span class="op">|&gt;</span>   <span class="co"># Base image with R 4.4.0</span></span>
 <span>  <span class="fu"><a href="../reference/dfi_label.html">dfi_label</a></span><span class="op">(</span>maintainer <span class="op">=</span> <span class="st">"user@example.com"</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># Add metadata</span></span>
-<span>  <span class="fu"><a href="../reference/dfi_workdir.html">dfi_workdir</a></span><span class="op">(</span><span class="st">"/app"</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># Set working directory</span></span>
+<span>  <span class="fu"><a href="../reference/dfi_workdir.html">dfi_workdir</a></span><span class="op">(</span><span class="st">"/app"</span><span class="op">)</span> <span class="op">|&gt;</span>              <span class="co"># Set working directory</span></span>
 <span>  <span class="fu"><a href="../reference/dfi_copy.html">dfi_copy</a></span><span class="op">(</span><span class="st">"analysis.R"</span>, <span class="st">"/app/"</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># Copy R script to container</span></span>
-<span>  <span class="fu"><a href="../reference/dfi_cmd.html">dfi_cmd</a></span><span class="op">(</span><span class="st">"Rscript analysis.R"</span><span class="op">)</span>  <span class="co"># Command to run when container starts</span></span>
+<span>  <span class="fu"><a href="../reference/dfi_cmd.html">dfi_cmd</a></span><span class="op">(</span><span class="st">"Rscript /app/analysis.R"</span><span class="op">)</span>  <span class="co"># Command to run when container starts</span></span>
 <span></span>
 <span><span class="co"># Print the Dockerfile</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
@@ -181,7 +181,7 @@ script:</p>
 <span><span class="co">#&gt; LABEL maintainer="user@example.com"</span></span>
 <span><span class="co">#&gt; WORKDIR /app</span></span>
 <span><span class="co">#&gt; COPY analysis.R /app/</span></span>
-<span><span class="co">#&gt; CMD Rscript analysis.R</span></span></code></pre></div>
+<span><span class="co">#&gt; CMD Rscript /app/analysis.R</span></span></code></pre></div>
 <p>This example shows the most common Docker instructions:</p>
 <ul>
 <li>
@@ -249,7 +249,7 @@ that follow best practices.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a basic R image</span></span>
 <span><span class="va">df_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dk_template_base.html">dk_template_base</a></span><span class="op">(</span></span>
-<span>  r_version <span class="op">=</span> <span class="st">"4.4.0"</span>,  <span class="co"># Specify R version</span></span>
+<span>  r_version <span class="op">=</span> <span class="st">"4.4.0"</span>,                     <span class="co"># Specify R version</span></span>
 <span>  additional_pkgs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span><span class="op">)</span>  <span class="co"># Add R packages</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -258,7 +258,6 @@ that follow best practices.</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Updating metadata database</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Updating metadata database ... done</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Failed to update system requirement mappings, will use cached mappings.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df_base</span><span class="op">)</span></span>
 <span><span class="co">#&gt; FROM rocker/r-ver:4.4.0</span></span>
 <span><span class="co">#&gt; LABEL maintainer="runner" description="Base R image for analysis"</span></span>
@@ -276,8 +275,8 @@ that follow best practices.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a Shiny app image</span></span>
 <span><span class="va">df_shiny</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dk_template_shiny.html">dk_template_shiny</a></span><span class="op">(</span></span>
-<span>  r_version <span class="op">=</span> <span class="st">"4.4.0"</span>,  <span class="co"># Specify R version</span></span>
-<span>  port <span class="op">=</span> <span class="fl">3838</span>,  <span class="co"># Port for Shiny server</span></span>
+<span>  r_version <span class="op">=</span> <span class="st">"4.4.0"</span>,                     <span class="co"># Specify R version</span></span>
+<span>  port <span class="op">=</span> <span class="fl">3838</span>,                             <span class="co"># Port for Shiny server</span></span>
 <span>  additional_pkgs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span><span class="op">)</span>  <span class="co"># Add R packages</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df_shiny</span><span class="op">)</span></span>
@@ -329,14 +328,18 @@ object and add patterns:</p>
 <span></span>
 <span><span class="co"># Add patterns to ignore</span></span>
 <span><span class="va">di</span> <span class="op">&lt;-</span> <span class="va">di</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/di_add.html">di_add</a></span><span class="op">(</span><span class="st">".git/"</span><span class="op">)</span> <span class="op">|&gt;</span>    <span class="co"># Ignore Git directory</span></span>
-<span>  <span class="fu"><a href="../reference/di_add.html">di_add</a></span><span class="op">(</span><span class="st">"*.Rdata"</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># Ignore R data files</span></span>
-<span>  <span class="fu"><a href="../reference/di_add.html">di_add</a></span><span class="op">(</span><span class="st">"data/*.csv"</span><span class="op">)</span>  <span class="co"># Ignore CSV files in data directory</span></span>
+<span>  <span class="fu"><a href="../reference/di_add.html">di_add</a></span><span class="op">(</span><span class="st">"*.Rdata"</span><span class="op">)</span> <span class="op">|&gt;</span>     <span class="co"># Ignore R data files</span></span>
+<span>  <span class="fu"><a href="../reference/di_add.html">di_add</a></span><span class="op">(</span><span class="st">"data/*.csv"</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># Ignore CSV files in data directory</span></span>
+<span>  <span class="fu"><a href="../reference/dk_template_ignore_git.html">dk_template_ignore_git</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Add common Git patterns</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">di</span><span class="op">)</span></span>
-<span><span class="co">#&gt; .git/</span></span>
 <span><span class="co">#&gt; *.Rdata</span></span>
-<span><span class="co">#&gt; data/*.csv</span></span></code></pre></div>
+<span><span class="co">#&gt; data/*.csv</span></span>
+<span><span class="co">#&gt; .git/</span></span>
+<span><span class="co">#&gt; .gitignore</span></span>
+<span><span class="co">#&gt; .gitattributes</span></span>
+<span><span class="co">#&gt; .github/</span></span>
+<span><span class="co">#&gt; .gitlab-ci.yml</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="using-templates-for-common-patterns">Using Templates for Common Patterns<a class="anchor" aria-label="anchor" href="#using-templates-for-common-patterns"></a>
