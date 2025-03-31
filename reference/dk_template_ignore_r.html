@@ -39,14 +39,22 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dk_template_ignore_r</span><span class="op">(</span>include_renv <span class="op">=</span> <span class="cn">TRUE</span>, include_packrat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dk_template_ignore_r</span><span class="op">(</span></span>
+<span>  .dockerignore <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  include_renv <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  include_packrat <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-include-renv">include_renv<a class="anchor" aria-label="anchor" href="#arg-include-renv"></a></dt>
+<dl><dt id="arg--dockerignore">.dockerignore<a class="anchor" aria-label="anchor" href="#arg--dockerignore"></a></dt>
+<dd><p>Optional existing dockerignore object to add patterns to</p></dd>
+
+
+<dt id="arg-include-renv">include_renv<a class="anchor" aria-label="anchor" href="#arg-include-renv"></a></dt>
 <dd><p>Include renv folders (default: TRUE)</p></dd>
 
 
