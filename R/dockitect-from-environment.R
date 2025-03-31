@@ -100,7 +100,7 @@ dk_add_sysreqs <- function(dockerfile, packages, package_manager = "auto") {
   install_cmd <- generate_pkg_install_cmd(package_manager, system_packages)
   
   # Add the installation command
-  dockerfile <- dfi_run(dockerfile, paste(install_cmd, collapse = " && \\\n    "))
+  dockerfile <- dfi_run(dockerfile, paste(install_cmd, collapse = " && "))
   
   dockerfile
 }

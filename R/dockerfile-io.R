@@ -69,22 +69,39 @@ write_dockerfile <- function(dockerfile, file = "Dockerfile", multiline = TRUE) 
   
   if (multiline) {
     # Process lines for better formatting
-    formatted_lines <- character(length(dockerfile$lines))
+    formatted_lines <- character(0)
     
-    for (i in seq_along(dockerfile$lines)) {
+    i <- 1
+    while (i <= length(dockerfile$lines)) {
       line <- dockerfile$lines[i]
       
       # Check if it's a RUN command with && that could be split
       if (grepl("^RUN ", line) && nchar(line) > 80 && grepl(" && ", line)) {
-        parts <- strsplit(line, " && ")[[1]]
-        formatted_line <- paste0(
-          "RUN ", parts[1], " && \\\n",
-          paste0("    ", parts[-1], collapse = " && \\\n")
-        )
-        formatted_lines[i] <- formatted_line
+        # Extract the command part (remove RUN prefix)
+        command <- sub("^RUN\\s+", "", line)
+        
+        # Split by && and trim whitespace
+        parts <- trimws(strsplit(command, " && ")[[1]])
+        
+        # Filter out empty parts
+        parts <- parts[parts != ""]
+        
+        # Format with correct continuation
+        if (length(parts) > 1) {
+          formatted_line <- paste0(
+            "RUN ", parts[1], " && \\\n",
+            paste0("    ", parts[-1], collapse = " && \\\n")
+          )
+        } else {
+          formatted_line <- paste0("RUN ", parts[1])
+        }
+        
+        formatted_lines <- c(formatted_lines, formatted_line)
       } else {
-        formatted_lines[i] <- line
+        formatted_lines <- c(formatted_lines, line)
       }
+      
+      i <- i + 1
     }
     
     # Write to file
