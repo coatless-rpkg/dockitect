@@ -1,10 +1,17 @@
-
 #' Create a dockerignore template for Git-related files
 #'
+#' @param .dockerignore Optional existing dockerignore object to add patterns to
 #' @return A dockerignore object with Git-related ignore patterns
 #' @export
-dk_template_ignore_git <- function() {
-  di <- dockerignore()
+dk_template_ignore_git <- function(.dockerignore = NULL) {
+  # Create or use existing dockerignore object
+  di <- if (!is.null(.dockerignore)) {
+    check_dockerignore(.dockerignore)
+    .dockerignore
+  } else {
+    dockerignore()
+  }
+  
   patterns <- c(
     ".git/",
     ".gitignore",
@@ -17,10 +24,18 @@ dk_template_ignore_git <- function() {
 
 #' Create a dockerignore template for renv-related files
 #'
+#' @param .dockerignore Optional existing dockerignore object to add patterns to
 #' @return A dockerignore object with renv-related ignore patterns
 #' @export
-dk_template_ignore_renv <- function() {
-  di <- dockerignore()
+dk_template_ignore_renv <- function(.dockerignore = NULL) {
+  # Create or use existing dockerignore object
+  di <- if (!is.null(.dockerignore)) {
+    check_dockerignore(.dockerignore)
+    .dockerignore
+  } else {
+    dockerignore()
+  }
+  
   patterns <- c(
     "renv/library/",
     "renv/staging/",
@@ -32,10 +47,18 @@ dk_template_ignore_renv <- function() {
 
 #' Create a dockerignore template for packrat-related files
 #'
+#' @param .dockerignore Optional existing dockerignore object to add patterns to
 #' @return A dockerignore object with packrat-related ignore patterns
 #' @export
-dk_template_ignore_packrat <- function() {
-  di <- dockerignore()
+dk_template_ignore_packrat <- function(.dockerignore = NULL) {
+  # Create or use existing dockerignore object
+  di <- if (!is.null(.dockerignore)) {
+    check_dockerignore(.dockerignore)
+    .dockerignore
+  } else {
+    dockerignore()
+  }
+  
   patterns <- c(
     "packrat/lib*/",
     "packrat/src/"
@@ -45,12 +68,20 @@ dk_template_ignore_packrat <- function() {
 
 #' Create a dockerignore template for R-related files
 #'
+#' @param .dockerignore Optional existing dockerignore object to add patterns to
 #' @param include_renv Include renv folders (default: TRUE)
 #' @param include_packrat Include packrat folders (default: TRUE)
 #' @return A dockerignore object with R-related ignore patterns
 #' @export
-dk_template_ignore_r <- function(include_renv = TRUE, include_packrat = TRUE) {
-  di <- dockerignore()
+dk_template_ignore_r <- function(.dockerignore = NULL, include_renv = TRUE, include_packrat = TRUE) {
+  # Create or use existing dockerignore object
+  di <- if (!is.null(.dockerignore)) {
+    check_dockerignore(.dockerignore)
+    .dockerignore
+  } else {
+    dockerignore()
+  }
+  
   patterns <- c(
     ".Rproj.user/",
     ".Rhistory",
@@ -66,11 +97,11 @@ dk_template_ignore_r <- function(include_renv = TRUE, include_packrat = TRUE) {
   di <- di_add(di, patterns)
   
   if (include_renv) {
-    di <- c(di, dk_template_ignore_renv())
+    di <- dk_template_ignore_renv(di)
   }
   
   if (include_packrat) {
-    di <- c(di, dk_template_ignore_packrat())
+    di <- dk_template_ignore_packrat(di)
   }
   
   di
@@ -78,10 +109,18 @@ dk_template_ignore_r <- function(include_renv = TRUE, include_packrat = TRUE) {
 
 #' Create a dockerignore template for OS-related files
 #'
+#' @param .dockerignore Optional existing dockerignore object to add patterns to
 #' @return A dockerignore object with OS-related ignore patterns
 #' @export
-dk_template_ignore_os <- function() {
-  di <- dockerignore()
+dk_template_ignore_os <- function(.dockerignore = NULL) {
+  # Create or use existing dockerignore object
+  di <- if (!is.null(.dockerignore)) {
+    check_dockerignore(.dockerignore)
+    .dockerignore
+  } else {
+    dockerignore()
+  }
+  
   patterns <- c(
     ".DS_Store",
     "Thumbs.db",
@@ -98,10 +137,18 @@ dk_template_ignore_os <- function() {
 
 #' Create a dockerignore template for editor-related files
 #'
+#' @param .dockerignore Optional existing dockerignore object to add patterns to
 #' @return A dockerignore object with editor-related ignore patterns
 #' @export
-dk_template_ignore_editor <- function() {
-  di <- dockerignore()
+dk_template_ignore_editor <- function(.dockerignore = NULL) {
+  # Create or use existing dockerignore object
+  di <- if (!is.null(.dockerignore)) {
+    check_dockerignore(.dockerignore)
+    .dockerignore
+  } else {
+    dockerignore()
+  }
+  
   patterns <- c(
     # VS Code
     ".vscode/",
@@ -140,10 +187,18 @@ dk_template_ignore_editor <- function() {
 
 #' Create a dockerignore template for Node.js/JavaScript projects
 #'
+#' @param .dockerignore Optional existing dockerignore object to add patterns to
 #' @return A dockerignore object with Node.js-related ignore patterns
 #' @export
-dk_template_ignore_node <- function() {
-  di <- dockerignore()
+dk_template_ignore_node <- function(.dockerignore = NULL) {
+  # Create or use existing dockerignore object
+  di <- if (!is.null(.dockerignore)) {
+    check_dockerignore(.dockerignore)
+    .dockerignore
+  } else {
+    dockerignore()
+  }
+  
   patterns <- c(
     "node_modules/",
     "npm-debug.log*",
@@ -164,10 +219,18 @@ dk_template_ignore_node <- function() {
 
 #' Create a dockerignore template for Python projects
 #'
+#' @param .dockerignore Optional existing dockerignore object to add patterns to
 #' @return A dockerignore object with Python-related ignore patterns
 #' @export
-dk_template_ignore_python <- function() {
-  di <- dockerignore()
+dk_template_ignore_python <- function(.dockerignore = NULL) {
+  # Create or use existing dockerignore object
+  di <- if (!is.null(.dockerignore)) {
+    check_dockerignore(.dockerignore)
+    .dockerignore
+  } else {
+    dockerignore()
+  }
+  
   patterns <- c(
     "__pycache__/",
     "*.py[cod]",
@@ -207,10 +270,18 @@ dk_template_ignore_python <- function() {
 
 #' Create a dockerignore template for raw data directories
 #'
+#' @param .dockerignore Optional existing dockerignore object to add patterns to
 #' @return A dockerignore object with raw data directory patterns
 #' @export
-dk_template_ignore_raw_data <- function() {
-  di <- dockerignore()
+dk_template_ignore_raw_data <- function(.dockerignore = NULL) {
+  # Create or use existing dockerignore object
+  di <- if (!is.null(.dockerignore)) {
+    check_dockerignore(.dockerignore)
+    .dockerignore
+  } else {
+    dockerignore()
+  }
+  
   patterns <- c(
     "data/raw/",
     "data/interim/",
@@ -222,11 +293,19 @@ dk_template_ignore_raw_data <- function() {
 
 #' Create a dockerignore template for common data files
 #'
+#' @param .dockerignore Optional existing dockerignore object to add patterns to
 #' @param include_raw Include raw data directories (default: TRUE)
 #' @return A dockerignore object with data-related ignore patterns
 #' @export
-dk_template_ignore_data <- function(include_raw = TRUE) {
-  di <- dockerignore()
+dk_template_ignore_data <- function(.dockerignore = NULL, include_raw = TRUE) {
+  # Create or use existing dockerignore object
+  di <- if (!is.null(.dockerignore)) {
+    check_dockerignore(.dockerignore)
+    .dockerignore
+  } else {
+    dockerignore()
+  }
+  
   patterns <- c(
     "*.csv",
     "*.tsv",
@@ -246,7 +325,7 @@ dk_template_ignore_data <- function(include_raw = TRUE) {
   di <- di_add(di, patterns)
   
   if (include_raw) {
-    di <- c(di, dk_template_ignore_raw_data())
+    di <- dk_template_ignore_raw_data(di)
   }
   
   di
@@ -254,6 +333,7 @@ dk_template_ignore_data <- function(include_raw = TRUE) {
 
 #' Create a dockerignore template combining multiple categories
 #'
+#' @param .dockerignore Optional existing dockerignore object to add patterns to
 #' @param git Include Git-related files (default: TRUE)
 #' @param r Include R-related files (default: TRUE)
 #' @param os Include OS-specific files (default: TRUE)
@@ -263,37 +343,44 @@ dk_template_ignore_data <- function(include_raw = TRUE) {
 #' @param data Include data-related files (default: FALSE)
 #' @return A dockerignore object with combined ignore patterns
 #' @export
-dk_template_ignore_common <- function(git = TRUE, r = TRUE, os = TRUE, 
+dk_template_ignore_common <- function(.dockerignore = NULL, git = TRUE, r = TRUE, os = TRUE, 
                                       editor = FALSE, node = FALSE, python = FALSE, 
                                       data = FALSE) {
-  result <- dockerignore()
+  # Create or use existing dockerignore object
+  result <- if (!is.null(.dockerignore)) {
+    check_dockerignore(.dockerignore)
+    .dockerignore
+  } else {
+    dockerignore()
+  }
   
+  # Add patterns for selected categories
   if (git) {
-    result <- c(result, dk_template_ignore_git())
+    result <- dk_template_ignore_git(result)
   }
   
   if (r) {
-    result <- c(result, dk_template_ignore_r())
+    result <- dk_template_ignore_r(result)
   }
   
   if (os) {
-    result <- c(result, dk_template_ignore_os())
+    result <- dk_template_ignore_os(result)
   }
   
   if (editor) {
-    result <- c(result, dk_template_ignore_editor())
+    result <- dk_template_ignore_editor(result)
   }
   
   if (node) {
-    result <- c(result, dk_template_ignore_node())
+    result <- dk_template_ignore_node(result)
   }
   
   if (python) {
-    result <- c(result, dk_template_ignore_python())
+    result <- dk_template_ignore_python(result)
   }
   
   if (data) {
-    result <- c(result, dk_template_ignore_data())
+    result <- dk_template_ignore_data(result)
   }
   
   result

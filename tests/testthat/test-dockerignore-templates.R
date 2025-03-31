@@ -1,5 +1,3 @@
-
-
 # Test individual component templates ----
 test_that("Component template functions create correct templates", {
   # Test renv template
@@ -264,4 +262,76 @@ test_that("Template functions integrate with di_* functions", {
   di <- di_replace(di, ".git/", "git-directory/")
   expect_false(".git/" %in% di$patterns)
   expect_true("git-directory/" %in% di$patterns)
+})
+
+# Testing passing an existing dockerignore object
+test_that("dk_template_ignore_*(): functions accept existing dockerignore object", {
+  # Test passing a dockerignore object to dk_template_ignore_git
+  base_di <- dockerignore()
+  base_di <- di_add(base_di, "custom-pattern")
+  
+  # Add git patterns to existing object
+  git_di <- dk_template_ignore_git(base_di)
+  expect_true(is_dockerignore(git_di))
+  expect_true("custom-pattern" %in% git_di$patterns)
+  expect_true(".git/" %in% git_di$patterns)
+  
+  # Test with other template functions
+  r_di <- dk_template_ignore_r(base_di)
+  expect_true("custom-pattern" %in% r_di$patterns)
+  expect_true(".Rhistory" %in% r_di$patterns)
+  
+  # Test chaining multiple template functions
+  chained_di <- base_di |>
+    dk_template_ignore_git() |>
+    dk_template_ignore_os() |>
+    dk_template_ignore_editor()
+  
+  expect_true("custom-pattern" %in% chained_di$patterns)
+  expect_true(".git/" %in% chained_di$patterns)
+  expect_true(".DS_Store" %in% chained_di$patterns)
+  expect_true(".vscode/" %in% chained_di$patterns)
+})
+
+test_that("Individual template functions create correct templates", {
+  ## Test dk_template_ignore_git() ----
+  di_git <- dk_template_ignore_git()
+  expect_s3_class(di_git, "dockerignore")
+  expect_true(".git/" %in% di_git$patterns)
+  
+  ## Test dk_template_ignore_r() ----
+  di_r <- dk_template_ignore_r(include_renv = TRUE, include_packrat = FALSE)
+  expect_true(".Rhistory" %in% di_r$patterns)
+  expect_true("renv/library/" %in% di_r$patterns)
+  expect_false("packrat/lib*/" %in% di_r$patterns)
+})
+
+# Test dk_template_ignore_common() ----
+test_that("dk_template_ignore_common(): works with existing object and passes parameters correctly", {
+  base_di <- dockerignore()
+  base_di <- di_add(base_di, "custom-pattern")
+  
+  # Test with selected components
+  custom_di <- dk_template_ignore_common(
+    .dockerignore = base_di,
+    git = TRUE,
+    r = FALSE,
+    os = FALSE,
+    python = TRUE
+  )
+  
+  # Should include base pattern
+  expect_true("custom-pattern" %in% custom_di$patterns)
+  
+  # Should include git patterns
+  expect_true(".git/" %in% custom_di$patterns)
+  
+  # Should include python patterns
+  expect_true("*.py[cod]" %in% custom_di$patterns)
+  
+  # Should NOT include R patterns
+  expect_false(".Rhistory" %in% custom_di$patterns)
+  
+  # Should NOT include OS patterns
+  expect_false(".DS_Store" %in% custom_di$patterns)
 })
