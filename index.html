@@ -107,14 +107,18 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-pkg.thecoatlessprofessor.com/dockitect/" class="external-link">dockitect</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create a basic Dockerfile for an R script</span></span>
-<span><span class="fu"><a href="reference/dockerfile.html">dockerfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/dfi_from.html">dfi_from</a></span><span class="op">(</span><span class="st">"rocker/r-ver:4.2.3"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">df_rscript</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/dockerfile.html">dockerfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/dfi_from.html">dfi_from</a></span><span class="op">(</span><span class="st">"rocker/r-ver:4.4.3"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/dfi_label.html">dfi_label</a></span><span class="op">(</span>maintainer <span class="op">=</span> <span class="st">"user@example.com"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/dfi_run.html">dfi_run</a></span><span class="op">(</span><span class="st">"apt-get update &amp;&amp; apt-get install -y libcurl4-openssl-dev"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/dfi_workdir.html">dfi_workdir</a></span><span class="op">(</span><span class="st">"/app"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/dfi_copy.html">dfi_copy</a></span><span class="op">(</span><span class="st">"analysis.R"</span>, <span class="st">"/app/"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/dfi_cmd.html">dfi_cmd</a></span><span class="op">(</span><span class="st">"Rscript analysis.R"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/write_dockerfile.html">write_dockerfile</a></span><span class="op">(</span><span class="st">"Dockerfile"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/dfi_cmd.html">dfi_cmd</a></span><span class="op">(</span><span class="st">"Rscript /app/analysis.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df_rscript</span></span>
+<span></span>
+<span><span class="co">## Write the Dockerfile to disk</span></span>
+<span><span class="co"># write_dockerfile(df_rscript)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="use-templates">Use Templates<a class="anchor" aria-label="anchor" href="#use-templates"></a>
@@ -127,7 +131,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a Dockerfile for a Shiny app</span></span>
 <span><span class="fu"><a href="reference/dk_template_shiny.html">dk_template_shiny</a></span><span class="op">(</span></span>
-<span>  r_version <span class="op">=</span> <span class="st">"4.2.3"</span>,       <span class="co"># Specify R version</span></span>
+<span>  r_version <span class="op">=</span> <span class="st">"4.4.3"</span>,       <span class="co"># Specify R version</span></span>
 <span>  port <span class="op">=</span> <span class="fl">3838</span>,               <span class="co"># Expose Shiny port</span></span>
 <span>  app_dir <span class="op">=</span> <span class="st">"app/"</span>           <span class="co"># Location of app files</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -143,7 +147,7 @@
 <code class="sourceCode R"><span><span class="co"># Create a custom template function</span></span>
 <span><span class="va">my_template</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">my_param</span> <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="reference/dockerfile.html">dockerfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="reference/dfi_from.html">dfi_from</a></span><span class="op">(</span><span class="st">"rocker/r-ver:4.2.3"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/dfi_from.html">dfi_from</a></span><span class="op">(</span><span class="st">"rocker/r-ver:4.4.3"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/dfi_run.html">dfi_run</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"echo "</span>, <span class="va">my_param</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
