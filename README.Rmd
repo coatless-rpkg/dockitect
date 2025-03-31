@@ -151,7 +151,6 @@ df <- read_dockerfile("path/to/Dockerfile")
 
 # Modify it
 df |>
-  dfm_add_line("RUN echo 'Hello World'", after = 3) |> # Add a line after line 3
   dfm_remove_line(5) |>                                # Remove line 5
   dfm_group_similar() |>                               # Group similar commands (e.g., RUN)
   write_dockerfile("Dockerfile.new")                   # Write to a new file
@@ -169,8 +168,8 @@ create and maintain a `.dockerignore` file through `dockerignore()`.
 #| eval: false
 # Create a .dockerignore file with common patterns
 dockerignore() |>
-  di_add_common(include_git = TRUE, include_r = TRUE) |>  # Add common patterns for Git and R
-  di_add("*.log") |>                                      # Add custom patterns
+  dk_template_ignore_common(git = TRUE, r = TRUE) |>  # Add common patterns for Git and R
+  di_add("*.log") |>                                  # Add custom patterns
   di_add("output/") |>
   write_dockerignore()
 ```
