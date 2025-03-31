@@ -56,7 +56,7 @@ test_that("dfi_cmd(): adds CMD instruction correctly", {
   
   # Single command format
   df <- dfi_cmd(df, "echo hello")
-  expect_equal(df$lines[1], "CMD echo hello")
+  expect_equal(df$lines[1], 'CMD [\"echo\",\"hello\"]')
   
   # Array format
   df <- dfi_cmd(df, c("echo", "hello"))

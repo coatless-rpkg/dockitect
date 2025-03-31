@@ -66,11 +66,18 @@ dfi_workdir <- function(dockerfile, path) {
 dfi_cmd <- function(dockerfile, command) {
   check_dockerfile(dockerfile)
   
-  # Handle vector input for JSON array format
-  if (length(command) > 1) {
+  # Always use JSON array format for safer signal handling
+  if (length(command) == 1 && !grepl("^\\[", command)) {
+    # For single string command, convert to array by splitting on spaces
+    command_parts <- strsplit(command, "\\s+")[[1]]
+    cmd_json <- jsonlite::toJSON(command_parts)
+    add_dockerfile_line(dockerfile, "CMD", cmd_json)
+  } else if (length(command) > 1) {
+    # For multiple elements, convert to JSON array
     cmd_json <- jsonlite::toJSON(command)
     add_dockerfile_line(dockerfile, "CMD", cmd_json)
   } else {
+    # Probably it's already in JSON format or is some special case
     add_dockerfile_line(dockerfile, "CMD", command)
   }
 }

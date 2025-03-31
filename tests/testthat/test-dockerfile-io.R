@@ -48,7 +48,7 @@ test_that("write_dockerfile(): writes Dockerfile correctly", {
   expect_true(any(grepl("^FROM ubuntu:24.10", lines)))
   expect_true(any(grepl("^RUN apt-get update", lines)))
   expect_true(any(grepl("^WORKDIR /app", lines)))
-  expect_true(any(grepl("^CMD bash", lines)))
+  expect_true(any(grepl('^CMD \\[\"bash\"\\]', lines)))
   
   # Test multiline formatting
   multiline_df <- dockerfile() |>
