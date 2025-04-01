@@ -2,13 +2,48 @@
 % Please edit documentation in R/dockerfile-core.R
 \name{dockerfile}
 \alias{dockerfile}
-\title{Create a new dockerfile object}
+\title{Create a new \code{dockerfile} object}
 \usage{
 dockerfile()
 }
 \value{
-A new, empty dockerfile object
+A \code{dockerfile} object with the following structure:
+\itemize{
+\item \code{lines}: Character vector containing Dockerfile instructions
+\item \code{metadata}: List containing metadata about the Dockerfile:
+\itemize{
+\item \code{base_image}: Base image name
+\item \code{package_manager}: Package manager type (e.g., "apt", "yum")
+\item \code{r_version}: R version (if using a rocker image)
+\item \code{os}: Operating system type
+}
+}
 }
 \description{
-Create a new dockerfile object
+Creates an empty \code{dockerfile} object that can be populated with Docker instructions.
 }
+\examples{
+# Create a new dockerfile
+df <- dockerfile()
+
+# Add instruction for a base image
+df <- dfi_from(df, "rocker/r-ver:4.4.0")
+df
+
+# Add an instruction to run a command to update system packages
+df <- dfi_run(df, "apt update")
+df
+
+}
+\seealso{
+\code{\link[=is_dockerfile]{is_dockerfile()}} for checking if an object is a dockerfile,
+\code{\link[=dfi_from]{dfi_from()}} for adding a base image, &
+\code{\link[=write_dockerfile]{write_dockerfile()}} for writing a dockerfile to disk
+
+Other dockerfile core functions: 
+\code{\link{add_dockerfile_line}()},
+\code{\link{check_dockerfile}()},
+\code{\link{is_dockerfile}()},
+\code{\link{print.dockerfile}()}
+}
+\concept{dockerfile core functions}

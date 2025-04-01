@@ -2,7 +2,7 @@
 % Please edit documentation in R/dockerfile-core.R
 \name{is_dockerfile}
 \alias{is_dockerfile}
-\title{Test if an object is a dockerfile}
+\title{Test if an object is a \code{dockerfile}}
 \usage{
 is_dockerfile(x)
 }
@@ -10,8 +10,25 @@ is_dockerfile(x)
 \item{x}{Object to test}
 }
 \value{
-TRUE if x is a dockerfile, FALSE otherwise
+\code{TRUE} if \code{x} is a \code{dockerfile} object, \code{FALSE} otherwise
 }
 \description{
-Test if an object is a dockerfile
+Checks whether the provided object is a valid \code{dockerfile} class object.
 }
+\examples{
+df <- dockerfile()
+is_dockerfile(df)
+is_dockerfile(list())
+
+}
+\seealso{
+\code{\link[=dockerfile]{dockerfile()}} for creating a \code{dockerfile} object &
+\code{\link[=check_dockerfile]{check_dockerfile()}} for ensuring an object is a \code{dockerfile} (with error)
+
+Other dockerfile core functions: 
+\code{\link{add_dockerfile_line}()},
+\code{\link{check_dockerfile}()},
+\code{\link{dockerfile}()},
+\code{\link{print.dockerfile}()}
+}
+\concept{dockerfile core functions}

@@ -2,15 +2,40 @@
 % Please edit documentation in R/dockerfile-core.R
 \name{print.dockerfile}
 \alias{print.dockerfile}
-\title{Print method for dockerfile objects}
+\title{Print method for \code{dockerfile} objects}
 \usage{
 \method{print}{dockerfile}(x, ...)
 }
 \arguments{
-\item{x}{A dockerfile object}
+\item{x}{A \code{dockerfile} object}
 
 \item{...}{Additional arguments (not used)}
 }
-\description{
-Print method for dockerfile objects
+\value{
+Invisibly returns the \code{dockerfile} object
 }
+\description{
+Displays the contents of a \code{dockerfile} object in a readable format,
+showing each instruction on a new line as it would appear in an
+actual \strong{Dockerfile}.
+}
+\examples{
+# Create a new dockerfile and add a couple of instructions
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:latest") |>
+  dfi_run("apt-get update")
+
+# Print the dockerfile
+print(df)
+
+}
+\seealso{
+\code{\link[=dockerfile]{dockerfile()}} for creating a \code{dockerfile} object
+
+Other dockerfile core functions: 
+\code{\link{add_dockerfile_line}()},
+\code{\link{check_dockerfile}()},
+\code{\link{dockerfile}()},
+\code{\link{is_dockerfile}()}
+}
+\concept{dockerfile core functions}

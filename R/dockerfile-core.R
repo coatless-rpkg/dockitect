@@ -1,6 +1,34 @@
-#' Create a new dockerfile object
+#' Create a new `dockerfile` object
 #'
-#' @return A new, empty dockerfile object
+#' Creates an empty `dockerfile` object that can be populated with Docker instructions.
+#'
+#' @return
+#' A `dockerfile` object with the following structure:
+#' * `lines`: Character vector containing Dockerfile instructions
+#' * `metadata`: List containing metadata about the Dockerfile:
+#'   * `base_image`: Base image name
+#'   * `package_manager`: Package manager type (e.g., "apt", "yum")
+#'   * `r_version`: R version (if using a rocker image)
+#'   * `os`: Operating system type
+#'
+#' @examples
+#' # Create a new dockerfile
+#' df <- dockerfile()
+#' 
+#' # Add instruction for a base image
+#' df <- dfi_from(df, "rocker/r-ver:4.4.0")
+#' df
+#' 
+#' # Add an instruction to run a command to update system packages
+#' df <- dfi_run(df, "apt update")
+#' df
+#'
+#' @seealso
+#' [is_dockerfile()] for checking if an object is a dockerfile,
+#' [dfi_from()] for adding a base image, &
+#' [write_dockerfile()] for writing a dockerfile to disk
+#'
+#' @family dockerfile core functions
 #' @export
 dockerfile <- function() {
   structure(
@@ -17,10 +45,25 @@ dockerfile <- function() {
   )
 }
 
-#' Test if an object is a dockerfile
+#' Test if an object is a `dockerfile`
+#'
+#' Checks whether the provided object is a valid `dockerfile` class object.
 #'
 #' @param x Object to test
-#' @return TRUE if x is a dockerfile, FALSE otherwise
+#'
+#' @return
+#' `TRUE` if `x` is a `dockerfile` object, `FALSE` otherwise
+#'
+#' @examples
+#' df <- dockerfile()
+#' is_dockerfile(df)
+#' is_dockerfile(list())
+#'
+#' @seealso
+#' [dockerfile()] for creating a `dockerfile` object &
+#' [check_dockerfile()] for ensuring an object is a `dockerfile` (with error)
+#'
+#' @family dockerfile core functions
 #' @export
 is_dockerfile <- function(x) {
   inherits(x, "dockerfile")
@@ -39,10 +82,30 @@ has_instruction <- function(dockerfile, instruction) {
   any(grepl(paste0("^", instruction, " "), dockerfile$lines))
 }
 
-#' Ensure an object is a dockerfile
+#' Ensure an object is a `dockerfile`
+#'
+#' Verifies that the provided object is a valid `dockerfile` class object,
+#' throwing an error if not. Useful for validation inside functions that
+#' expect `dockerfile` objects.
 #'
 #' @param dockerfile Object to check
-#' @return Invisible TRUE if valid, error otherwise
+#'
+#' @return
+#' Invisibly returns `TRUE` if valid, otherwise throws an error
+#'
+#' @examples
+#' df <- dockerfile()
+#' check_dockerfile(df)
+#' \dontrun{
+#' # This would throw an error
+#' check_dockerfile(list())
+#' }
+#'
+#' @seealso
+#' [is_dockerfile()] for checking if an object is a dockerfile &
+#' [dockerfile()] for creating a dockerfile object
+#'
+#' @family dockerfile core functions
 #' @export
 check_dockerfile <- function(dockerfile) {
   if (!is_dockerfile(dockerfile)) {
@@ -51,10 +114,31 @@ check_dockerfile <- function(dockerfile) {
   invisible(TRUE)
 }
 
-#' Print method for dockerfile objects
+#' Print method for `dockerfile` objects
 #'
-#' @param x A dockerfile object
+#' Displays the contents of a `dockerfile` object in a readable format,
+#' showing each instruction on a new line as it would appear in an
+#' actual **Dockerfile**.
+#'
+#' @param x A `dockerfile` object
 #' @param ... Additional arguments (not used)
+#'
+#' @return
+#' Invisibly returns the `dockerfile` object
+#'
+#' @examples
+#' # Create a new dockerfile and add a couple of instructions
+#' df <- dockerfile() |>
+#'   dfi_from("rocker/r-ver:latest") |>
+#'   dfi_run("apt-get update")
+#'
+#' # Print the dockerfile
+#' print(df)
+#'
+#' @seealso
+#' [dockerfile()] for creating a `dockerfile` object
+#'
+#' @family dockerfile core functions
 #' @export
 print.dockerfile <- function(x, ...) {
   check_dockerfile(x)
@@ -67,14 +151,37 @@ print.dockerfile <- function(x, ...) {
   invisible(x)
 }
 
-
-
-#' Add a line to a dockerfile and update metadata
+#' Add a line to a `dockerfile` and update metadata
 #'
-#' @param dockerfile A dockerfile object
-#' @param instruction Docker instruction (e.g., "FROM", "RUN")
+#' Adds a line to a `dockerfile` and updates its metadata based on the instruction.
+#' This is an internal function used by the more specific `dfi_*` functions.
+#'
+#' @param dockerfile A `dockerfile` object
+#' @param instruction Docker instruction (e.g., `"FROM"`, `"RUN"`)
 #' @param args Arguments for the instruction
-#' @return Updated dockerfile object
+#'
+#' @return
+#' Updated `dockerfile` object with the new line and updated metadata
+#'
+#' @details
+#' This internal function handles:
+#' 
+#' - Adding the instruction with proper formatting
+#' - Handling multi-line arguments with appropriate indentation
+#' - Updating metadata for special instructions like `FROM`
+#' 
+#' For `FROM` instructions, it extracts and stores:
+#' 
+#' - Base image name
+#' - Package manager
+#' - Operating system
+#' - R version (for `rocker/r-ver:version` images)
+#'
+#' @seealso
+#' [dfi_from()] for adding a FROM instruction &
+#' [dfi_run()] for adding a RUN instruction
+#'
+#' @family dockerfile core functions
 #' @keywords internal
 add_dockerfile_line <- function(dockerfile, instruction, args) {
   check_dockerfile(dockerfile)

@@ -2,21 +2,49 @@
 % Please edit documentation in R/dockerfile-core.R
 \name{add_dockerfile_line}
 \alias{add_dockerfile_line}
-\title{Add a line to a dockerfile and update metadata}
+\title{Add a line to a \code{dockerfile} and update metadata}
 \usage{
 add_dockerfile_line(dockerfile, instruction, args)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
-\item{instruction}{Docker instruction (e.g., "FROM", "RUN")}
+\item{instruction}{Docker instruction (e.g., \code{"FROM"}, \code{"RUN"})}
 
 \item{args}{Arguments for the instruction}
 }
 \value{
-Updated dockerfile object
+Updated \code{dockerfile} object with the new line and updated metadata
 }
 \description{
-Add a line to a dockerfile and update metadata
+Adds a line to a \code{dockerfile} and updates its metadata based on the instruction.
+This is an internal function used by the more specific \verb{dfi_*} functions.
 }
+\details{
+This internal function handles:
+\itemize{
+\item Adding the instruction with proper formatting
+\item Handling multi-line arguments with appropriate indentation
+\item Updating metadata for special instructions like \code{FROM}
+}
+
+For \code{FROM} instructions, it extracts and stores:
+\itemize{
+\item Base image name
+\item Package manager
+\item Operating system
+\item R version (for \code{rocker/r-ver:version} images)
+}
+}
+\seealso{
+\code{\link[=dfi_from]{dfi_from()}} for adding a FROM instruction &
+\code{\link[=dfi_run]{dfi_run()}} for adding a RUN instruction
+
+Other dockerfile core functions: 
+\code{\link{check_dockerfile}()},
+\code{\link{dockerfile}()},
+\code{\link{is_dockerfile}()},
+\code{\link{print.dockerfile}()}
+}
+\concept{dockerfile core functions}
 \keyword{internal}
