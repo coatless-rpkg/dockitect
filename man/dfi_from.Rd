@@ -2,20 +2,63 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_from}
 \alias{dfi_from}
-\title{Add a FROM instruction to a dockerfile}
+\title{Add a \code{FROM} instruction to a \code{dockerfile}}
 \usage{
 dfi_from(dockerfile, image, as = NULL)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
-\item{image}{Base image name}
+\item{image}{Base image name (e.g., "rocker/r-ver:4.4.0")}
 
-\item{as}{Name for this build stage (optional)}
+\item{as}{Name for this build stage (optional, for multi-stage builds)}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the \code{FROM} instruction added
 }
 \description{
-Add a FROM instruction to a dockerfile
+Adds a \code{FROM} instruction to specify the base image for the Docker build.
+This is typically the first instruction in a \strong{Dockerfile}.
 }
+\details{
+The \code{FROM} instruction initializes a new build stage and sets the base image.
+The metadata for the \code{dockerfile} object (package manager, OS, and R version)
+is automatically updated based on the base image.
+}
+\examples{
+# Use a specific R version
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0")
+df
+
+# Use a multi-stage build
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0", as = "build")
+df
+
+}
+\seealso{
+\code{\link[=dockerfile]{dockerfile()}} for creating a dockerfile object,
+\code{\link[=dfi_run]{dfi_run()}} for adding commands to run in the container, &
+\href{https://docs.docker.com/engine/reference/builder/#from}{Official Docker \code{FROM} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_add}()},
+\code{\link{dfi_arg}()},
+\code{\link{dfi_cmd}()},
+\code{\link{dfi_copy}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_expose}()},
+\code{\link{dfi_healthcheck}()},
+\code{\link{dfi_label}()},
+\code{\link{dfi_maintainer}()},
+\code{\link{dfi_onbuild}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_shell}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_user}()},
+\code{\link{dfi_volume}()},
+\code{\link{dfi_workdir}()}
+}
+\concept{dockerfile instruction functions}

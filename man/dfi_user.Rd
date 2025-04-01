@@ -2,20 +2,68 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_user}
 \alias{dfi_user}
-\title{Add a USER instruction to a dockerfile}
+\title{Add a \code{USER} instruction to a \code{dockerfile}}
 \usage{
 dfi_user(dockerfile, user, group = NULL)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
 \item{user}{Username or UID}
 
 \item{group}{Group or GID (optional)}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the USER instruction added
 }
 \description{
-Add a USER instruction to a dockerfile
+Adds a \code{USER} instruction to set the user or UID to use when running
+subsequent instructions and the default user for the container.
 }
+\details{
+The \code{USER} instruction sets the user and optionally the user group for
+subsequent instructions in the \strong{Dockerfile}, and as the default user for
+running the container. This is important for security, as it's a best
+practice to run containers with non-root users when possible.
+
+If the user specified does not exist in the container, you'll need to create
+it first using a \code{RUN} instruction.
+}
+\examples{
+# Set user by name
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_user("r-user")
+df
+  
+# Set user and group by ID
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_user(1000, 1000)
+df 
+
+}
+\seealso{
+\code{\link[=dfi_run]{dfi_run()}} for creating users &
+\href{https://docs.docker.com/engine/reference/builder/#user}{Official Docker \code{USER} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_add}()},
+\code{\link{dfi_arg}()},
+\code{\link{dfi_cmd}()},
+\code{\link{dfi_copy}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_expose}()},
+\code{\link{dfi_from}()},
+\code{\link{dfi_healthcheck}()},
+\code{\link{dfi_label}()},
+\code{\link{dfi_maintainer}()},
+\code{\link{dfi_onbuild}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_shell}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_volume}()},
+\code{\link{dfi_workdir}()}
+}
+\concept{dockerfile instruction functions}

@@ -2,18 +2,65 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_shell}
 \alias{dfi_shell}
-\title{Add a SHELL instruction to a dockerfile}
+\title{Add a \code{SHELL} instruction to a \code{dockerfile}}
 \usage{
 dfi_shell(dockerfile, shell)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
-\item{shell}{Shell command and parameters}
+\item{shell}{Shell command and parameters (character vector or string)}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the \code{SHELL} instruction added
 }
 \description{
-Add a SHELL instruction to a dockerfile
+Adds a \code{SHELL} instruction to override the default shell used for commands.
 }
+\details{
+The \code{SHELL} instruction allows overriding the default shell used for the
+shell form of commands. The default shell on Linux is \verb{["/bin/sh", "-c"]},
+and on Windows is \verb{["cmd", "/S", "/C"]}.
+
+This instruction is particularly useful for:
+\itemize{
+\item Using bash-specific features
+\item Enabling better error handling with options like \code{-e} (exit on error)
+\item Setting up pipefail to catch errors in pipelines
+}
+
+The function automatically converts the shell command to JSON array format
+if provided as a vector.
+}
+\examples{
+# Set shell to bash with expanded error messaging
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_shell(c("/bin/bash", "-e", "-o", "pipefail", "-c"))
+df
+
+}
+\seealso{
+\code{\link[=dfi_run]{dfi_run()}} for executing commands with the shell &
+\href{https://docs.docker.com/engine/reference/builder/#shell}{Official Docker \code{SHELL} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_add}()},
+\code{\link{dfi_arg}()},
+\code{\link{dfi_cmd}()},
+\code{\link{dfi_copy}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_expose}()},
+\code{\link{dfi_from}()},
+\code{\link{dfi_healthcheck}()},
+\code{\link{dfi_label}()},
+\code{\link{dfi_maintainer}()},
+\code{\link{dfi_onbuild}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_user}()},
+\code{\link{dfi_volume}()},
+\code{\link{dfi_workdir}()}
+}
+\concept{dockerfile instruction functions}

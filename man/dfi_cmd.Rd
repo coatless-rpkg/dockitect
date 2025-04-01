@@ -2,18 +2,64 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_cmd}
 \alias{dfi_cmd}
-\title{Add a CMD instruction to a dockerfile}
+\title{Add a \code{CMD} instruction to a \code{dockerfile}}
 \usage{
 dfi_cmd(dockerfile, command)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
-\item{command}{Command to run}
+\item{command}{Command to run (character vector or string)}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the \code{CMD} instruction added
 }
 \description{
-Add a CMD instruction to a dockerfile
+Adds a \code{CMD} instruction to provide defaults for an executing container.
+These defaults can be executable programs or commands to be executed when
+the container starts.
 }
+\details{
+The function automatically converts the command to JSON array format, which
+is the recommended approach for better signal handling.
+Only one \code{CMD} instruction is effective in a \strong{Dockerfile}; if multiple are specified,
+only the last one will take effect.
+}
+\examples{
+# Simple command
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_copy("script.R", "/app/script.R") |>
+  dfi_cmd("Rscript /app/script.R")
+
+# Array format (recommended)
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_cmd(c("R", "--no-save"))
+
+}
+\seealso{
+\code{\link[=dfi_entrypoint]{dfi_entrypoint()}} for defining the main executable of the container,
+\code{\link[=dfi_run]{dfi_run()}} for executing commands during the build, &
+\href{https://docs.docker.com/engine/reference/builder/#cmd}{Official Docker \code{CMD} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_add}()},
+\code{\link{dfi_arg}()},
+\code{\link{dfi_copy}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_expose}()},
+\code{\link{dfi_from}()},
+\code{\link{dfi_healthcheck}()},
+\code{\link{dfi_label}()},
+\code{\link{dfi_maintainer}()},
+\code{\link{dfi_onbuild}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_shell}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_user}()},
+\code{\link{dfi_volume}()},
+\code{\link{dfi_workdir}()}
+}
+\concept{dockerfile instruction functions}

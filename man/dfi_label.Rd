@@ -2,18 +2,75 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_label}
 \alias{dfi_label}
-\title{Add a LABEL instruction to a dockerfile}
+\title{Add a \code{LABEL} instruction to a \code{dockerfile}}
 \usage{
 dfi_label(dockerfile, ...)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
-\item{...}{Named labels}
+\item{...}{Named labels as key-value pairs}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the \code{LABEL} instruction added
 }
 \description{
-Add a LABEL instruction to a dockerfile
+Adds a \code{LABEL} instruction to include metadata in the Docker image.
 }
+\details{
+Labels are key-value pairs that add metadata to your image. They can be used
+to organize images, record licensing information, annotate build information,
+or help with image automation.
+
+\href{https://github.com/opencontainers/image-spec/blob/main/annotations.md}{Common label conventions}
+include:
+\itemize{
+\item \code{maintainer}: The person responsible for the image
+\item \code{org.opencontainers.image.authors}: Image authors
+\item \code{org.opencontainers.image.version}: Version of the packaged software
+\item \code{org.opencontainers.image.source}: URL to the source code
+}
+}
+\examples{
+# Add a single label
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_label(maintainer = "user@example.com")
+df
+
+# Add multiple labels
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_label(
+    maintainer = "user@example.com",
+    version = "1.0.0",
+    description = "Example R application",
+    org.opencontainers.image.source = "https://github.com/user/repo"
+  )
+df
+
+}
+\seealso{
+\code{\link[=dfi_maintainer]{dfi_maintainer()}} for the deprecated maintainer instruction &
+\href{https://docs.docker.com/engine/reference/builder/#label}{Official Docker \code{LABEL} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_add}()},
+\code{\link{dfi_arg}()},
+\code{\link{dfi_cmd}()},
+\code{\link{dfi_copy}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_expose}()},
+\code{\link{dfi_from}()},
+\code{\link{dfi_healthcheck}()},
+\code{\link{dfi_maintainer}()},
+\code{\link{dfi_onbuild}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_shell}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_user}()},
+\code{\link{dfi_volume}()},
+\code{\link{dfi_workdir}()}
+}
+\concept{dockerfile instruction functions}

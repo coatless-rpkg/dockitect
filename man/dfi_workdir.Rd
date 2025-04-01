@@ -2,18 +2,56 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_workdir}
 \alias{dfi_workdir}
-\title{Add a WORKDIR instruction to a dockerfile}
+\title{Add a \code{WORKDIR} instruction to a \code{dockerfile}}
 \usage{
 dfi_workdir(dockerfile, path)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
-\item{path}{Working directory path}
+\item{path}{Working directory path in the container}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the \code{WORKDIR} instruction added
 }
 \description{
-Add a WORKDIR instruction to a dockerfile
+Adds a \code{WORKDIR} instruction to set the working directory for any subsequent
+\code{RUN}, \code{CMD}, \code{ENTRYPOINT}, \code{COPY}, and \code{ADD} instructions.
 }
+\details{
+The \code{WORKDIR} instruction can be used multiple times in a \strong{Dockerfile}.
+If a relative path is provided, it will be relative to the previous
+\code{WORKDIR} instruction. If the directory doesn't exist, it will be created.
+}
+\examples{
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_workdir("/app") |>
+  dfi_copy(".", "/app/")
+
+}
+\seealso{
+\code{\link[=dfi_copy]{dfi_copy()}} for copying files into the container,
+\code{\link[=dfi_run]{dfi_run()}} for executing commands in the working directory, &
+\href{https://docs.docker.com/engine/reference/builder/#workdir}{Official Docker \code{WORKDIR} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_add}()},
+\code{\link{dfi_arg}()},
+\code{\link{dfi_cmd}()},
+\code{\link{dfi_copy}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_expose}()},
+\code{\link{dfi_from}()},
+\code{\link{dfi_healthcheck}()},
+\code{\link{dfi_label}()},
+\code{\link{dfi_maintainer}()},
+\code{\link{dfi_onbuild}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_shell}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_user}()},
+\code{\link{dfi_volume}()}
+}
+\concept{dockerfile instruction functions}

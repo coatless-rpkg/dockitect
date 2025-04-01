@@ -2,7 +2,7 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_healthcheck}
 \alias{dfi_healthcheck}
-\title{Add a HEALTHCHECK instruction to a dockerfile}
+\title{Add a \code{HEALTHCHECK} instruction to a \code{dockerfile}}
 \usage{
 dfi_healthcheck(
   dockerfile,
@@ -14,7 +14,7 @@ dfi_healthcheck(
 )
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
 \item{command}{Health check command}
 
@@ -27,8 +27,59 @@ dfi_healthcheck(
 \item{retries}{Number of retries}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the \code{HEALTHCHECK} instruction added
 }
 \description{
-Add a HEALTHCHECK instruction to a dockerfile
+Adds a \code{HEALTHCHECK} instruction to tell Docker how to test if a container is
+still working properly.
 }
+\details{
+The \code{HEALTHCHECK} instruction tells Docker how to determine if a container
+is healthy. The command should exit with 0 if the container is healthy, or
+with 1 if it's unhealthy. This is particularly useful for web applications
+or services where you want to ensure they're running correctly.
+
+Parameter meanings:
+\itemize{
+\item \code{interval}: How often to run the check (default: 30s)
+\item \code{timeout}: Maximum time the check can take (default: 30s)
+\item \code{start-period}: Grace period before counting retries (default: 0s)
+\item \code{retries}: Number of consecutive failures needed to mark unhealthy (default: 3)
+}
+}
+\examples{
+# Simple health check using curl
+df <- dockerfile() |>
+  dfi_from("rocker/shiny:4.4.0") |>
+  dfi_healthcheck("curl -f http://localhost:3838/ || exit 1",
+                   interval = "30s",
+                   timeout = "10s",
+                   retries = 3)
+df
+
+}
+\seealso{
+\code{\link[=dk_template_shiny]{dk_template_shiny()}} for a template for Shiny apps,
+\code{\link[=dk_template_plumber]{dk_template_plumber()}} for a template for Plumber APIs, &
+\href{https://docs.docker.com/engine/reference/builder/#healthcheck}{Official Docker \code{HEALTHCHECK} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_add}()},
+\code{\link{dfi_arg}()},
+\code{\link{dfi_cmd}()},
+\code{\link{dfi_copy}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_expose}()},
+\code{\link{dfi_from}()},
+\code{\link{dfi_label}()},
+\code{\link{dfi_maintainer}()},
+\code{\link{dfi_onbuild}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_shell}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_user}()},
+\code{\link{dfi_volume}()},
+\code{\link{dfi_workdir}()}
+}
+\concept{dockerfile instruction functions}

@@ -2,18 +2,64 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_expose}
 \alias{dfi_expose}
-\title{Add an EXPOSE instruction to a dockerfile}
+\title{Add an \code{EXPOSE} instruction to a \code{dockerfile}}
 \usage{
 dfi_expose(dockerfile, ports)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
-\item{ports}{Ports to expose (numeric or character)}
+\item{ports}{Ports to expose (numeric or character vector)}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the \code{EXPOSE} instruction added
 }
 \description{
-Add an EXPOSE instruction to a dockerfile
+Adds an \code{EXPOSE} instruction to inform Docker that the container will listen
+on the specified network ports at runtime.
 }
+\details{
+The \code{EXPOSE} instruction does not actually publish the port. It functions
+as documentation between the person who builds the image and the person who
+runs the container, about which ports are intended to be published.
+
+To actually publish the port when running the container, use the \code{-p} flag
+in the \verb{docker run} command.
+}
+\examples{
+# Expose a single port
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_expose(8080)
+  
+# Expose multiple ports
+df <- dockerfile() |>
+  dfi_from("rocker/shiny:4.4.0") |>
+  dfi_expose(c(3838, 8080))
+
+}
+\seealso{
+\code{\link[=dk_template_shiny]{dk_template_shiny()}} for a template that exposes Shiny ports,
+\code{\link[=dk_template_plumber]{dk_template_plumber()}} for a template that exposes Plumber API ports, &
+\href{https://docs.docker.com/engine/reference/builder/#expose}{Official Docker \code{EXPOSE} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_add}()},
+\code{\link{dfi_arg}()},
+\code{\link{dfi_cmd}()},
+\code{\link{dfi_copy}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_from}()},
+\code{\link{dfi_healthcheck}()},
+\code{\link{dfi_label}()},
+\code{\link{dfi_maintainer}()},
+\code{\link{dfi_onbuild}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_shell}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_user}()},
+\code{\link{dfi_volume}()},
+\code{\link{dfi_workdir}()}
+}
+\concept{dockerfile instruction functions}

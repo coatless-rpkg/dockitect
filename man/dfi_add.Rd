@@ -2,20 +2,67 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_add}
 \alias{dfi_add}
-\title{Add an ADD instruction to a dockerfile}
+\title{Add an \code{ADD} instruction to a \code{dockerfile}}
 \usage{
 dfi_add(dockerfile, src, dest)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
-\item{src}{Source path (can be a URL)}
+\item{src}{Source path (can be a URL or tar archive)}
 
-\item{dest}{Destination path}
+\item{dest}{Destination path in the container}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the \code{ADD} instruction added
 }
 \description{
-Add an ADD instruction to a dockerfile
+Adds an \code{ADD} instruction to copy files, directories, or remote files
+from source to the container's filesystem at destination.
 }
+\details{
+\code{ADD} is similar to \code{COPY}, but with additional features:
+\itemize{
+\item If \code{src} is a URL, the file is downloaded from the URL
+\item If \code{src} is a local tar archive, it will be automatically unpacked
+}
+
+Note that \code{COPY} is generally preferred for simple file copying because
+it's more explicit and has fewer side effects than \code{ADD}.
+}
+\examples{
+# Add a local file
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_add("local.txt", "/app/local.txt")
+  
+# Add a file from a URL
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_add("https://example.com/file.txt", "/app/file.txt")
+
+}
+\seealso{
+\code{\link[=dfi_copy]{dfi_copy()}} for simpler file copying (generally preferred) &
+\href{https://docs.docker.com/engine/reference/builder/#add}{Official Docker \code{ADD} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_arg}()},
+\code{\link{dfi_cmd}()},
+\code{\link{dfi_copy}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_expose}()},
+\code{\link{dfi_from}()},
+\code{\link{dfi_healthcheck}()},
+\code{\link{dfi_label}()},
+\code{\link{dfi_maintainer}()},
+\code{\link{dfi_onbuild}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_shell}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_user}()},
+\code{\link{dfi_volume}()},
+\code{\link{dfi_workdir}()}
+}
+\concept{dockerfile instruction functions}

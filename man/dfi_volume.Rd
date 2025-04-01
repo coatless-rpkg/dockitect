@@ -2,18 +2,69 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_volume}
 \alias{dfi_volume}
-\title{Add a VOLUME instruction to a dockerfile}
+\title{Add a \code{VOLUME} instruction to a \code{dockerfile}}
 \usage{
 dfi_volume(dockerfile, paths)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
 \item{paths}{Path(s) to create as volumes}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the \code{VOLUME} instruction added
 }
 \description{
-Add a VOLUME instruction to a dockerfile
+Adds a \code{VOLUME} instruction to create a mount point with the specified name
+and mark it as holding externally mounted volumes.
 }
+\details{
+The \code{VOLUME} instruction creates a mount point and marks it as being externally
+mounted. This is useful for:
+\itemize{
+\item Persistent data that should survive container restarts
+\item Data you want to share between containers
+\item Data you want to access from the host
+}
+
+Note that the actual binding of host directories happens at runtime using the
+\code{-v} flag with \verb{docker run}, not during the image build.
+}
+\examples{
+# Create a single volume
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_volume("/data")
+df 
+   
+# Create multiple volumes
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_volume(c("/data", "/output", "/config"))
+df
+
+}
+\seealso{
+\code{\link[=dk_template_base]{dk_template_base()}} for a template that sets up common volume patterns &
+\href{https://docs.docker.com/engine/reference/builder/#volume}{Official Docker \code{VOLUME} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_add}()},
+\code{\link{dfi_arg}()},
+\code{\link{dfi_cmd}()},
+\code{\link{dfi_copy}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_expose}()},
+\code{\link{dfi_from}()},
+\code{\link{dfi_healthcheck}()},
+\code{\link{dfi_label}()},
+\code{\link{dfi_maintainer}()},
+\code{\link{dfi_onbuild}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_shell}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_user}()},
+\code{\link{dfi_workdir}()}
+}
+\concept{dockerfile instruction functions}

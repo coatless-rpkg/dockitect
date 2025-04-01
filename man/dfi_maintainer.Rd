@@ -2,18 +2,63 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_maintainer}
 \alias{dfi_maintainer}
-\title{Add a MAINTAINER instruction to a dockerfile (deprecated)}
+\title{Add a \code{MAINTAINER} instruction to a \code{dockerfile} (deprecated)}
 \usage{
 dfi_maintainer(dockerfile, maintainer)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
-\item{maintainer}{Maintainer info}
+\item{maintainer}{Maintainer info (e.g., "Name \href{mailto:email@example.com}{email@example.com}")}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the \code{MAINTAINER} instruction added
 }
 \description{
-Add a MAINTAINER instruction to a dockerfile (deprecated)
+Adds a \code{MAINTAINER} instruction to specify the author of the image.
+This instruction is deprecated in favor of using \verb{LABEL maintainer=...}.
 }
+\details{
+The \code{MAINTAINER} instruction has been deprecated since Docker 1.13.0 (2017)
+in favor of using \verb{LABEL maintainer=...}. This function is provided for
+compatibility with older Dockerfiles, but new \strong{Dockerfile}s should use
+\code{dfi_label(maintainer = ...)} instead.
+}
+\examples{
+# Using the deprecated MAINTAINER instruction
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_maintainer("John Doe <john@example.com>")
+df
+   
+# Better approach using LABEL
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_label(maintainer = "John Doe <john@example.com>")
+df
+
+}
+\seealso{
+\code{\link[=dfi_label]{dfi_label()}} for the recommended way to specify the maintainer &
+\href{https://docs.docker.com/engine/reference/builder/#maintainer-deprecated}{Official Docker deprecated \code{MAINTAINER} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_add}()},
+\code{\link{dfi_arg}()},
+\code{\link{dfi_cmd}()},
+\code{\link{dfi_copy}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_expose}()},
+\code{\link{dfi_from}()},
+\code{\link{dfi_healthcheck}()},
+\code{\link{dfi_label}()},
+\code{\link{dfi_onbuild}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_shell}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_user}()},
+\code{\link{dfi_volume}()},
+\code{\link{dfi_workdir}()}
+}
+\concept{dockerfile instruction functions}

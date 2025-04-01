@@ -2,22 +2,70 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_copy}
 \alias{dfi_copy}
-\title{Add a COPY instruction to a dockerfile}
+\title{Add a \code{COPY} instruction to a \code{dockerfile}}
 \usage{
 dfi_copy(dockerfile, src, dest, from = NULL)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
-\item{src}{Source path}
+\item{src}{Source path (relative to build context)}
 
-\item{dest}{Destination path}
+\item{dest}{Destination path (in the container)}
 
-\item{from}{Build stage to copy from (optional)}
+\item{from}{Build stage to copy from (optional, for multi-stage builds)}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the \code{COPY} instruction added
 }
 \description{
-Add a COPY instruction to a dockerfile
+Adds a \code{COPY} instruction to copy files or directories from the build context
+to the container's filesystem.
 }
+\details{
+The \code{COPY} instruction copies new files or directories from \code{src}
+and adds them to the filesystem of the container at the path \code{dest}.
+When used with the \code{from} parameter, it can copy files from previous
+build stages in multi-stage builds.
+}
+\examples{
+# Copy a single file
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_copy("script.R", "/app/script.R")
+
+# Copy from a previous build stage
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0", as = "build") |>
+  dfi_run("R -e \"install.packages('renv')\"") |>
+  dfi_from("rocker/r-ver:4.4.0", as = "final") |>
+  dfi_copy("/usr/local/lib/R/site-library/renv", 
+          "/usr/local/lib/R/site-library/renv", 
+          from = "build")
+
+}
+\seealso{
+\code{\link[=dfi_add]{dfi_add()}} for similar functionality with additional features (like URL support),
+\code{\link[=dfi_workdir]{dfi_workdir()}} for setting the working directory, &
+\href{https://docs.docker.com/engine/reference/builder/#copy}{Official Docker \code{COPY} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_add}()},
+\code{\link{dfi_arg}()},
+\code{\link{dfi_cmd}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_expose}()},
+\code{\link{dfi_from}()},
+\code{\link{dfi_healthcheck}()},
+\code{\link{dfi_label}()},
+\code{\link{dfi_maintainer}()},
+\code{\link{dfi_onbuild}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_shell}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_user}()},
+\code{\link{dfi_volume}()},
+\code{\link{dfi_workdir}()}
+}
+\concept{dockerfile instruction functions}

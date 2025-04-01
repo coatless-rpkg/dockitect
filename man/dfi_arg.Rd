@@ -2,20 +2,70 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_arg}
 \alias{dfi_arg}
-\title{Add an ARG instruction to a dockerfile}
+\title{Add an \code{ARG} instruction to a \code{dockerfile}}
 \usage{
 dfi_arg(dockerfile, name, default = NULL)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
 \item{name}{Argument name}
 
 \item{default}{Default value (optional)}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the \code{ARG} instruction added
 }
 \description{
-Add an ARG instruction to a dockerfile
+Adds an \code{ARG} instruction to define a variable that users can pass at build-time
+to the builder using the \code{--build-arg} flag.
 }
+\details{
+Build arguments are only available during the build of a Docker image and
+not when a container is running. They can be used to parameterize the build
+process, allowing users to specify values like versions or configuration
+options at build time.
+
+When building the image, use:
+
+\if{html}{\out{<div class="sourceCode bash">}}\preformatted{docker build --build-arg R_VERSION=4.4.0 -t my-image .
+}\if{html}{\out{</div>}}
+}
+\examples{
+# Define an argument with no default
+df <- dockerfile() |>
+  dfi_arg("R_VERSION") |>
+  dfi_from(paste0("rocker/r-ver:", "$R_VERSION"))
+df
+   
+# Define an argument with a default value
+df <- dockerfile() |>
+  dfi_arg("R_VERSION", "4.4.0") |>
+  dfi_from(paste0("rocker/r-ver:", "$R_VERSION"))
+df
+
+}
+\seealso{
+\code{\link[=dfi_env]{dfi_env()}} for runtime environment variables &
+\href{https://docs.docker.com/engine/reference/builder/#arg}{Official Docker \code{ARG} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_add}()},
+\code{\link{dfi_cmd}()},
+\code{\link{dfi_copy}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_expose}()},
+\code{\link{dfi_from}()},
+\code{\link{dfi_healthcheck}()},
+\code{\link{dfi_label}()},
+\code{\link{dfi_maintainer}()},
+\code{\link{dfi_onbuild}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_shell}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_user}()},
+\code{\link{dfi_volume}()},
+\code{\link{dfi_workdir}()}
+}
+\concept{dockerfile instruction functions}

@@ -2,18 +2,63 @@
 % Please edit documentation in R/dockerfile-instructions.R
 \name{dfi_onbuild}
 \alias{dfi_onbuild}
-\title{Add an ONBUILD instruction to a dockerfile}
+\title{Add an \code{ONBUILD} instruction to a \code{dockerfile}}
 \usage{
 dfi_onbuild(dockerfile, instruction)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
-\item{instruction}{Instruction to run on build}
+\item{instruction}{Instruction to run on build (without the instruction name)}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the \code{ONBUILD} instruction added
 }
 \description{
-Add an ONBUILD instruction to a dockerfile
+Adds an \code{ONBUILD} instruction to register trigger instructions to be
+executed later, when the image is used as the base for another build.
 }
+\details{
+The \code{ONBUILD} instruction registers a trigger instruction that will be
+executed when the image is used as the base for another build. The trigger
+is executed in the context of the downstream build, as if it had been
+inserted immediately after the \code{FROM} instruction in the downstream \strong{Dockerfile}.
+
+This is useful for creating "builder" images that can set up a common build
+environment for applications.
+
+Note: \code{ONBUILD} instructions are not inherited by "grand-children" builds.
+}
+\examples{
+# Add ONBUILD triggers for package installation
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_onbuild("COPY renv.lock /app/renv.lock") |>
+  dfi_onbuild("RUN R -e \"renv::restore()\"")
+df
+
+}
+\seealso{
+\code{\link[=dfi_from]{dfi_from()}} for specifying the base image &
+\href{https://docs.docker.com/engine/reference/builder/#onbuild}{Official Docker \code{ONBUILD} documentation}
+
+Other dockerfile instruction functions: 
+\code{\link{dfi_add}()},
+\code{\link{dfi_arg}()},
+\code{\link{dfi_cmd}()},
+\code{\link{dfi_copy}()},
+\code{\link{dfi_entrypoint}()},
+\code{\link{dfi_env}()},
+\code{\link{dfi_expose}()},
+\code{\link{dfi_from}()},
+\code{\link{dfi_healthcheck}()},
+\code{\link{dfi_label}()},
+\code{\link{dfi_maintainer}()},
+\code{\link{dfi_run}()},
+\code{\link{dfi_shell}()},
+\code{\link{dfi_stopsignal}()},
+\code{\link{dfi_user}()},
+\code{\link{dfi_volume}()},
+\code{\link{dfi_workdir}()}
+}
+\concept{dockerfile instruction functions}
