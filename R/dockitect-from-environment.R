@@ -154,8 +154,8 @@ dk_from_renv <- function(lock_file = "renv.lock", r_version = NULL,
       dfi_workdir("/app") |>
       dfi_copy(lock_file, "/app/renv.lock") |>
       dfi_run(c(
-        "R -e \"install.packages('renv', repos = 'https://cloud.r-project.org/')\"",
-        "R -e \"renv::init()\"",
+        "R -e \"install.packages('renv', repos = 'https://cloud.r-project.org/')\" \\",
+        "R -e \"renv::init()\" \\",
         "R -e \"renv::restore()\""
       ))
   }
