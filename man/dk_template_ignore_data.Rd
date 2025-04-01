@@ -47,7 +47,7 @@ If \code{raw = TRUE}, it also ignores common data directories:
 di <- dk_template_ignore_data()
 
 # Exclude raw data directories
-di <- dk_template_ignore_data(include_raw = FALSE)
+di <- dk_template_ignore_data(raw = FALSE)
 
 }
 \seealso{

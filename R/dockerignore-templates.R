@@ -637,7 +637,7 @@ dk_template_ignore_raw_data <- function(.dockerignore = NULL) {
 #' di <- dk_template_ignore_data()
 #' 
 #' # Exclude raw data directories
-#' di <- dk_template_ignore_data(include_raw = FALSE)
+#' di <- dk_template_ignore_data(raw = FALSE)
 #'
 #' @details
 #' This template adds patterns to ignore common data files and directories that
