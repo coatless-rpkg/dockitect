@@ -2,18 +2,68 @@
 % Please edit documentation in R/dockerignore-templates.R
 \name{dk_template_ignore_data}
 \alias{dk_template_ignore_data}
-\title{Create a dockerignore template for common data files}
+\title{Create a \code{dockerignore} template for data-related files}
 \usage{
-dk_template_ignore_data(.dockerignore = NULL, include_raw = TRUE)
+dk_template_ignore_data(.dockerignore = NULL, raw = TRUE)
 }
 \arguments{
 \item{.dockerignore}{Optional existing dockerignore object to add patterns to}
 
-\item{include_raw}{Include raw data directories (default: TRUE)}
+\item{raw}{Include raw data directories (default: TRUE)}
 }
 \value{
-A dockerignore object with data-related ignore patterns
+A \code{dockerignore} object with data-related ignore patterns
 }
 \description{
-Create a dockerignore template for common data files
+Creates a `dockerignore`` template with patterns to ignore common data files
+and directories.
 }
+\details{
+This template adds patterns to ignore common data files and directories that
+are often large and can significantly slow down Docker builds. It includes
+patterns for various data file formats:
+\itemize{
+\item \verb{data/}: Data directories
+\item \verb{*.csv}, \verb{*.tsv}: CSV and TSV files
+\item \verb{*.xls*}: Excel files
+\item \verb{*.db}, \verb{*.sqlite*}: Database files
+\item \verb{*.h5}, \verb{*.hdf5}: HDF5 files
+\item \verb{*.parquet}, \verb{*.feather}: Columnar storage formats
+\item \verb{*.json}: JSON files
+\item \verb{*.pickle}: Python pickle files
+\item \verb{*.rdata}, \verb{*.rda}: R data files
+}
+
+If \code{raw = TRUE}, it also ignores common data directories:
+\itemize{
+\item \verb{data-raw/}, \verb{data/raw/}: Raw data
+\item \verb{data/interim/}: Intermediate processed data
+\item \verb{data/processed/}: Final processed data
+\item \verb{data/external/}: Data from external sources
+}
+}
+\examples{
+# Create a new dockerignore with data patterns
+di <- dk_template_ignore_data()
+
+# Exclude raw data directories
+di <- dk_template_ignore_data(include_raw = FALSE)
+
+}
+\seealso{
+\code{\link[=dk_template_ignore_raw_data]{dk_template_ignore_raw_data()}} for raw data directories only &
+\code{\link[=dk_template_ignore_common]{dk_template_ignore_common()}} for a more comprehensive template
+
+Other dockerignore template functions: 
+\code{\link{dk_template_ignore_common}()},
+\code{\link{dk_template_ignore_editor}()},
+\code{\link{dk_template_ignore_git}()},
+\code{\link{dk_template_ignore_node}()},
+\code{\link{dk_template_ignore_os}()},
+\code{\link{dk_template_ignore_packrat}()},
+\code{\link{dk_template_ignore_python}()},
+\code{\link{dk_template_ignore_r}()},
+\code{\link{dk_template_ignore_raw_data}()},
+\code{\link{dk_template_ignore_renv}()}
+}
+\concept{dockerignore template functions}

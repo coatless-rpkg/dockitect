@@ -7,11 +7,57 @@
 dk_template_ignore_editor(.dockerignore = NULL)
 }
 \arguments{
-\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
+\item{.dockerignore}{Optional existing \code{dockerignore} object to add patterns to}
 }
 \value{
-A dockerignore object with editor-related ignore patterns
+A \code{dockerignore} object with editor-related ignore patterns
 }
 \description{
-Create a dockerignore template for editor-related files
+Creates a \code{dockerignore} template with patterns to ignore files and directories
+created by common code editors and IDEs.
 }
+\details{
+This template adds patterns to ignore files and directories created by
+common code editors and IDEs, including:
+\itemize{
+\item VS Code: \verb{.vscode/}, \verb{*.code-workspace}
+\item JetBrains IDEs (e.g., RStudio, PyCharm): \verb{.idea/}, \verb{*.iml}, \verb{*.iws}
+\item Sublime Text: \verb{*.sublime-workspace}, \verb{*.sublime-project}
+\item Vim: \verb{*.swp}, \verb{*.swo}, \verb{*~}
+\item Emacs: \verb{#*#}, \code{.#*}, \code{.projectile}
+\item Eclipse: \code{.classpath}, \code{.project}, \verb{.settings/}
+\item Visual Studio: \verb{.vs/}, \verb{*.suo}, \verb{*.njsproj}, \verb{*.sln}
+}
+
+These files are typically not needed in a Docker image and can reduce the
+build context size.
+}
+\examples{
+# Create a new dockerignore with editor patterns
+di <- dk_template_ignore_editor()
+di
+
+# Add editor patterns to an existing dockerignore
+di <- dockerignore() |>
+  di_add("*.log") |>
+  dk_template_ignore_editor()
+di
+
+}
+\seealso{
+\code{\link[=dk_template_ignore_os]{dk_template_ignore_os()}} for OS-specific patterns &
+\code{\link[=dk_template_ignore_common]{dk_template_ignore_common()}} for a more comprehensive template
+
+Other dockerignore template functions: 
+\code{\link{dk_template_ignore_common}()},
+\code{\link{dk_template_ignore_data}()},
+\code{\link{dk_template_ignore_git}()},
+\code{\link{dk_template_ignore_node}()},
+\code{\link{dk_template_ignore_os}()},
+\code{\link{dk_template_ignore_packrat}()},
+\code{\link{dk_template_ignore_python}()},
+\code{\link{dk_template_ignore_r}()},
+\code{\link{dk_template_ignore_raw_data}()},
+\code{\link{dk_template_ignore_renv}()}
+}
+\concept{dockerignore template functions}

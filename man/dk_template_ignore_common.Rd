@@ -2,7 +2,7 @@
 % Please edit documentation in R/dockerignore-templates.R
 \name{dk_template_ignore_common}
 \alias{dk_template_ignore_common}
-\title{Create a dockerignore template combining multiple categories}
+\title{Create a \code{dockerignore} template for common ignore patterns}
 \usage{
 dk_template_ignore_common(
   .dockerignore = NULL,
@@ -33,8 +33,55 @@ dk_template_ignore_common(
 \item{data}{Include data-related files (default: FALSE)}
 }
 \value{
-A dockerignore object with combined ignore patterns
+A \code{dockerignore} object with selected ignore patterns
 }
 \description{
-Create a dockerignore template combining multiple categories
+Creates a comprehensive \strong{.dockerignore} template with patterns for various
+file categories based on the selected options.
 }
+\details{
+This function provides a convenient way to create a comprehensive .dockerignore
+file tailored to your project's needs. Each category adds patterns relevant to
+specific types of files:
+\itemize{
+\item \code{git}: Git repositories, .gitignore, etc.
+\item \code{r}: R history, RData, Rproj.user, etc.
+\item \code{os}: .DS_Store, Thumbs.db, etc.
+\item \code{editor}: .vscode, .idea, *.swp, etc.
+\item \code{node}: node_modules, package-lock.json, etc.
+\item \code{python}: \strong{pycache}, *.pyc, venv, etc.
+\item \code{data}: *.csv, *.json, *.xlsx, etc.
+}
+}
+\examples{
+# Basic template with Git, R, and OS patterns
+di <- dk_template_ignore_common()
+
+# Customize with additional categories
+di <- dk_template_ignore_common(
+  git = TRUE,
+  r = TRUE,
+  os = TRUE,
+  editor = TRUE,
+  data = TRUE
+)
+
+}
+\seealso{
+\code{\link[=dk_template_ignore_git]{dk_template_ignore_git()}} for Git-specific patterns,
+\code{\link[=dk_template_ignore_r]{dk_template_ignore_r()}} for R-specific patterns, &
+\code{\link[=di_add]{di_add()}} for adding custom patterns
+
+Other dockerignore template functions: 
+\code{\link{dk_template_ignore_data}()},
+\code{\link{dk_template_ignore_editor}()},
+\code{\link{dk_template_ignore_git}()},
+\code{\link{dk_template_ignore_node}()},
+\code{\link{dk_template_ignore_os}()},
+\code{\link{dk_template_ignore_packrat}()},
+\code{\link{dk_template_ignore_python}()},
+\code{\link{dk_template_ignore_r}()},
+\code{\link{dk_template_ignore_raw_data}()},
+\code{\link{dk_template_ignore_renv}()}
+}
+\concept{dockerignore template functions}

@@ -53,19 +53,19 @@ test_that("dk_template_ignore_r(): correctly includes/excludes components", {
   expect_true("packrat/lib*/" %in% di$patterns)
   
   # Test without renv
-  di_no_renv <- dk_template_ignore_r(include_renv = FALSE)
+  di_no_renv <- dk_template_ignore_r(renv = FALSE)
   expect_true(all(basic_patterns %in% di_no_renv$patterns))
   expect_false("renv/library/" %in% di_no_renv$patterns)
   expect_true("packrat/lib*/" %in% di_no_renv$patterns)
   
   # Test without packrat
-  di_no_packrat <- dk_template_ignore_r(include_packrat = FALSE)
+  di_no_packrat <- dk_template_ignore_r(packrat = FALSE)
   expect_true(all(basic_patterns %in% di_no_packrat$patterns))
   expect_true("renv/library/" %in% di_no_packrat$patterns)
   expect_false("packrat/lib*/" %in% di_no_packrat$patterns)
   
   # Test with both disabled
-  di_basic <- dk_template_ignore_r(include_renv = FALSE, include_packrat = FALSE)
+  di_basic <- dk_template_ignore_r(renv = FALSE, packrat = FALSE)
   expect_true(all(basic_patterns %in% di_basic$patterns))
   expect_false("renv/library/" %in% di_basic$patterns)
   expect_false("packrat/lib*/" %in% di_basic$patterns)
@@ -162,7 +162,7 @@ test_that("dk_template_ignore_data(): correctly includes/excludes raw data", {
   expect_true("data/processed/" %in% di$patterns)
   
   # Test without raw data
-  di_no_raw <- dk_template_ignore_data(include_raw = FALSE)
+  di_no_raw <- dk_template_ignore_data(raw = FALSE)
   expect_true(all(file_patterns %in% di_no_raw$patterns))
   expect_false("data/raw/" %in% di_no_raw$patterns)
   expect_false("data/processed/" %in% di_no_raw$patterns)
@@ -300,7 +300,7 @@ test_that("Individual template functions create correct templates", {
   expect_true(".git/" %in% di_git$patterns)
   
   ## Test dk_template_ignore_r() ----
-  di_r <- dk_template_ignore_r(include_renv = TRUE, include_packrat = FALSE)
+  di_r <- dk_template_ignore_r(renv = TRUE, packrat = FALSE)
   expect_true(".Rhistory" %in% di_r$patterns)
   expect_true("renv/library/" %in% di_r$patterns)
   expect_false("packrat/lib*/" %in% di_r$patterns)

@@ -2,16 +2,60 @@
 % Please edit documentation in R/dockerignore-templates.R
 \name{dk_template_ignore_git}
 \alias{dk_template_ignore_git}
-\title{Create a dockerignore template for Git-related files}
+\title{Create a \code{dockerignore} template for Git-related files}
 \usage{
 dk_template_ignore_git(.dockerignore = NULL)
 }
 \arguments{
-\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
+\item{.dockerignore}{Optional existing \code{dockerignore} object to add patterns to}
 }
 \value{
-A dockerignore object with Git-related ignore patterns
+A \code{dockerignore} object with Git-related ignore patterns
 }
 \description{
-Create a dockerignore template for Git-related files
+Creates a \code{dockerignore} template with patterns to ignore common Git-related files
+and directories.
 }
+\details{
+This template adds patterns to ignore common Git-related files and directories,
+including:
+\itemize{
+\item \verb{.git/}: The Git repository directory
+\item \code{.gitignore}: Git ignore files
+\item \code{.gitattributes}: Git attributes file
+\item \verb{.github/}: GitHub-specific files
+\item \code{.gitlab-ci.yml}: GitLab CI configuration
+}
+
+These files are typically not needed in a Docker image and can reduce the
+build context size.
+}
+\examples{
+# Create a new dockerignore with Git patterns
+di <- dk_template_ignore_git()
+di
+
+# Add Git patterns to an existing dockerignore
+di <- dockerignore() |>
+  di_add("*.log") |>
+  dk_template_ignore_git()
+di
+
+}
+\seealso{
+\code{\link[=dk_template_ignore_common]{dk_template_ignore_common()}} for a more comprehensive template &
+\code{\link[=di_add]{di_add()}} for adding custom patterns
+
+Other dockerignore template functions: 
+\code{\link{dk_template_ignore_common}()},
+\code{\link{dk_template_ignore_data}()},
+\code{\link{dk_template_ignore_editor}()},
+\code{\link{dk_template_ignore_node}()},
+\code{\link{dk_template_ignore_os}()},
+\code{\link{dk_template_ignore_packrat}()},
+\code{\link{dk_template_ignore_python}()},
+\code{\link{dk_template_ignore_r}()},
+\code{\link{dk_template_ignore_raw_data}()},
+\code{\link{dk_template_ignore_renv}()}
+}
+\concept{dockerignore template functions}

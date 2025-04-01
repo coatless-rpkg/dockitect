@@ -2,16 +2,61 @@
 % Please edit documentation in R/dockerignore-templates.R
 \name{dk_template_ignore_renv}
 \alias{dk_template_ignore_renv}
-\title{Create a dockerignore template for renv-related files}
+\title{Create a dockerignore template for \code{{renv}}-related files}
 \usage{
 dk_template_ignore_renv(.dockerignore = NULL)
 }
 \arguments{
-\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
+\item{.dockerignore}{Optional existing \code{dockerignore} object to add patterns to}
 }
 \value{
-A dockerignore object with renv-related ignore patterns
+A \code{dockerignore} object with \code{{renv}}-related ignore patterns
 }
 \description{
-Create a dockerignore template for renv-related files
+Creates a \code{dockerignore} template with patterns to ignore \code{{renv}} library and cache
+directories.
 }
+\details{
+This template adds patterns to ignore \code{{renv}} library and cache directories,
+which are typically not needed in a Docker image. These include:
+\itemize{
+\item \verb{renv/library/}: Package library
+\item \verb{renv/staging/}: Staging area for packages
+\item \verb{renv/python/}: Python libraries
+\item \verb{renv/local/}: Local cache
+}
+
+When using \code{{renv}} in a Dockerfile, you typically want to copy just the
+\code{renv.lock} file and use \code{renv::restore()} to rebuild the library inside
+the container, rather than copying the entire library.
+}
+\examples{
+# Create a new dockerignore with renv patterns
+di <- dk_template_ignore_renv()
+di
+
+# Add renv patterns to an existing dockerignore
+di <- dockerignore() |>
+  di_add("*.log") |>
+  dk_template_ignore_renv()
+di
+
+}
+\seealso{
+\code{\link[=dk_template_ignore_r]{dk_template_ignore_r()}} for R-specific patterns,
+\code{\link[=dk_from_renv]{dk_from_renv()}} for creating a Dockerfile from an renv.lock file, &
+\code{\link[=dk_template_ignore_common]{dk_template_ignore_common()}} for a more comprehensive template
+
+Other dockerignore template functions: 
+\code{\link{dk_template_ignore_common}()},
+\code{\link{dk_template_ignore_data}()},
+\code{\link{dk_template_ignore_editor}()},
+\code{\link{dk_template_ignore_git}()},
+\code{\link{dk_template_ignore_node}()},
+\code{\link{dk_template_ignore_os}()},
+\code{\link{dk_template_ignore_packrat}()},
+\code{\link{dk_template_ignore_python}()},
+\code{\link{dk_template_ignore_r}()},
+\code{\link{dk_template_ignore_raw_data}()}
+}
+\concept{dockerignore template functions}

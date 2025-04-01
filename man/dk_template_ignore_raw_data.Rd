@@ -2,7 +2,7 @@
 % Please edit documentation in R/dockerignore-templates.R
 \name{dk_template_ignore_raw_data}
 \alias{dk_template_ignore_raw_data}
-\title{Create a dockerignore template for raw data directories}
+\title{Create a \code{dockerignore} template for raw data directories}
 \usage{
 dk_template_ignore_raw_data(.dockerignore = NULL)
 }
@@ -10,8 +10,53 @@ dk_template_ignore_raw_data(.dockerignore = NULL)
 \item{.dockerignore}{Optional existing dockerignore object to add patterns to}
 }
 \value{
-A dockerignore object with raw data directory patterns
+A \code{dockerignore} object with raw data directory patterns
 }
 \description{
-Create a dockerignore template for raw data directories
+Creates a \code{dockerignore} template with patterns to ignore common raw data
+directories.
 }
+\details{
+This template adds patterns to ignore common raw data directories following
+the \href{https://usethis.r-lib.org/reference/use_data.html}{\code{usethis}}
+and \href{https://cookiecutter-data-science.drivendata.org/#directory-structure}{Cookiecutter Data Science} conventions:
+\itemize{
+\item \verb{data-raw/}
+\item \verb{data/raw/}: Raw, immutable data
+\item \verb{data/interim/}: Intermediate data that has been transformed
+\item \verb{data/processed/}: The final, canonical data sets for modeling
+\item \verb{data/external/}: Data from third party sources
+}
+
+Raw data is often large and not needed in the Docker image. Instead, it's
+usually better to mount the data as a volume at runtime.
+}
+\examples{
+# Create a new dockerignore with raw data patterns
+di <- dk_template_ignore_raw_data()
+
+# Add raw data patterns to an existing dockerignore
+di <- dockerignore() |>
+  di_add("*.log") |>
+  dk_template_ignore_raw_data()
+
+}
+\seealso{
+\code{\link[=dk_template_ignore_data]{dk_template_ignore_data()}} for ignoring data file formats,
+\code{\link[=dk_template_ignore_common]{dk_template_ignore_common()}} for a more comprehensive template,
+\href{https://cookiecutter-data-science.drivendata.org/#directory-structure}{Cookiecutter Data Science Directory Structure Overview}, &
+\href{https://usethis.r-lib.org/reference/use_data.html}{\code{usethis::use_raw_data()}}
+
+Other dockerignore template functions: 
+\code{\link{dk_template_ignore_common}()},
+\code{\link{dk_template_ignore_data}()},
+\code{\link{dk_template_ignore_editor}()},
+\code{\link{dk_template_ignore_git}()},
+\code{\link{dk_template_ignore_node}()},
+\code{\link{dk_template_ignore_os}()},
+\code{\link{dk_template_ignore_packrat}()},
+\code{\link{dk_template_ignore_python}()},
+\code{\link{dk_template_ignore_r}()},
+\code{\link{dk_template_ignore_renv}()}
+}
+\concept{dockerignore template functions}

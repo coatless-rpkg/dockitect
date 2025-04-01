@@ -2,16 +2,63 @@
 % Please edit documentation in R/dockerignore-templates.R
 \name{dk_template_ignore_python}
 \alias{dk_template_ignore_python}
-\title{Create a dockerignore template for Python projects}
+\title{Create a \code{dockerignore} template for Python projects}
 \usage{
 dk_template_ignore_python(.dockerignore = NULL)
 }
 \arguments{
-\item{.dockerignore}{Optional existing dockerignore object to add patterns to}
+\item{.dockerignore}{Optional existing \code{dockerignore} object to add patterns to}
 }
 \value{
-A dockerignore object with Python-related ignore patterns
+A \code{dockerignore} object with Python-related ignore patterns
 }
 \description{
-Create a dockerignore template for Python projects
+Creates a \code{dockerignore} template with patterns to ignore Python related files
+and directories.
 }
+\details{
+This template adds patterns to ignore Python related files and directories,
+including:
+\itemize{
+\item \verb{__pycache__/}: Compiled Python files
+\item \verb{*.py[cod]}: Python compiled files
+\item \verb{.pytest_cache/}: PyTest cache
+\item \code{.coverage}, \verb{htmlcov/}: Coverage reports
+\item \verb{.tox/}, \verb{.nox/}: Testing environments
+\item \verb{.venv/}, \verb{venv/}, \verb{ENV/}: Virtual environments
+\item \code{.Python}, \verb{build/}, \verb{dist/}: Build artifacts
+\item \verb{.egg-info/}, \verb{*.egg}: Package metadata
+\item \verb{.ipynb_checkpoints/}: Jupyter notebook checkpoints
+}
+
+These files are typically not needed in a Docker image or can be regenerated
+during the build process. Ignoring them can significantly reduce the build
+context size.
+}
+\examples{
+# Create a new dockerignore with Python patterns
+di <- dk_template_ignore_python()
+
+# Add Python patterns to an existing dockerignore
+di <- dockerignore() |>
+  di_add("*.log") |>
+  dk_template_ignore_python()
+
+}
+\seealso{
+\code{\link[=dk_template_ignore_node]{dk_template_ignore_node()}} for Node.js-specific patterns &
+\code{\link[=dk_template_ignore_common]{dk_template_ignore_common()}} for a more comprehensive template
+
+Other dockerignore template functions: 
+\code{\link{dk_template_ignore_common}()},
+\code{\link{dk_template_ignore_data}()},
+\code{\link{dk_template_ignore_editor}()},
+\code{\link{dk_template_ignore_git}()},
+\code{\link{dk_template_ignore_node}()},
+\code{\link{dk_template_ignore_os}()},
+\code{\link{dk_template_ignore_packrat}()},
+\code{\link{dk_template_ignore_r}()},
+\code{\link{dk_template_ignore_raw_data}()},
+\code{\link{dk_template_ignore_renv}()}
+}
+\concept{dockerignore template functions}
