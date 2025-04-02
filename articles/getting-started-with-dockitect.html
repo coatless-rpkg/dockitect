@@ -214,9 +214,7 @@ pass a character vector:</p>
 <span>    <span class="st">"apt-get clean"</span></span>
 <span>  <span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; FROM rocker/r-ver:4.4.0</span></span>
-<span><span class="co">#&gt; RUN apt-get update</span></span>
-<span><span class="co">#&gt;     apt-get install -y libcurl4-openssl-dev</span></span>
-<span><span class="co">#&gt;     apt-get clean</span></span></code></pre></div>
+<span><span class="co">#&gt; RUN apt-get update &amp;&amp; apt-get install -y libcurl4-openssl-dev &amp;&amp; apt-get clean</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="writing-to-a-file">Writing to a File<a class="anchor" aria-label="anchor" href="#writing-to-a-file"></a>
@@ -258,6 +256,7 @@ that follow best practices.</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Updating metadata database</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Updating metadata database ... done</span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Failed to update system requirement mappings, will use cached mappings.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df_base</span><span class="op">)</span></span>
 <span><span class="co">#&gt; FROM rocker/r-ver:4.4.0</span></span>
 <span><span class="co">#&gt; LABEL maintainer="runner" description="Base R image for analysis"</span></span>
