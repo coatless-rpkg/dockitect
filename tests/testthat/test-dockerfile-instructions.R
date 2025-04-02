@@ -26,8 +26,7 @@ test_that("dfi_run(): adds RUN instruction correctly", {
   
   # Multiple commands
   df <- dfi_run(df, c("apt-get update", "apt-get install -y curl"))
-  expect_equal(df$lines[2], "RUN apt-get update")
-  expect_equal(df$lines[3], "    apt-get install -y curl")
+  expect_equal(df$lines[2], "RUN apt-get update && apt-get install -y curl")
 })
 
 # Test dfi_copy() ----

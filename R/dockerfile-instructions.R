@@ -87,7 +87,10 @@ dfi_from <- function(dockerfile, image, as = NULL) {
 #' @export
 dfi_run <- function(dockerfile, commands) {
   check_dockerfile(dockerfile)
-  add_dockerfile_line(dockerfile, "RUN", commands)
+    
+  # Join multiple commands with &&
+  command_str <- paste(commands, collapse = " && ")
+  add_dockerfile_line(dockerfile, "RUN", command_str)
 }
 
 #' Add a `COPY` instruction to a `dockerfile`
