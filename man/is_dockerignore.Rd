@@ -10,8 +10,25 @@ is_dockerignore(x)
 \item{x}{Object to test}
 }
 \value{
-TRUE if x is a dockerignore, FALSE otherwise
+\code{TRUE} if \code{x} is a dockerignore object, \code{FALSE} otherwise
 }
 \description{
-Test if an object is a dockerignore
+Checks whether the provided object is a valid \code{dockerignore} class object.
 }
+\examples{
+di <- dockerignore()
+is_dockerignore(di)  # TRUE
+is_dockerignore(list())  # FALSE
+
+}
+\seealso{
+\code{\link[=dockerignore]{dockerignore()}} for creating a dockerignore object &
+\code{\link[=check_dockerignore]{check_dockerignore()}} for ensuring an object is a dockerignore (with error)
+
+Other dockerignore core functions: 
+\code{\link{c.dockerignore}()},
+\code{\link{check_dockerignore}()},
+\code{\link{dockerignore}()},
+\code{\link{print.dockerignore}()}
+}
+\concept{dockerignore core functions}

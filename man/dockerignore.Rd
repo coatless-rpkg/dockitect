@@ -2,13 +2,34 @@
 % Please edit documentation in R/dockerignore-core.R
 \name{dockerignore}
 \alias{dockerignore}
-\title{Create a new dockerignore object}
+\title{Create a new \code{dockerignore} object}
 \usage{
 dockerignore()
 }
 \value{
-A new, empty dockerignore object
+A \code{dockerignore} object with a \code{patterns} character vector
 }
 \description{
-Create a new dockerignore object
+Creates an empty `dockerignore`` object that can be populated with patterns
+to ignore during Docker builds.
 }
+\examples{
+# Create a new dockerignore object
+di <- dockerignore()
+
+# Add patterns
+di <- di_add(di, c(".git/", "*.log"))
+
+}
+\seealso{
+\code{\link[=di_add]{di_add()}} for adding patterns,
+\code{\link[=write_dockerignore]{write_dockerignore()}} for writing to a .dockerignore file, &
+\code{\link[=dk_template_ignore_common]{dk_template_ignore_common()}} for adding common patterns
+
+Other dockerignore core functions: 
+\code{\link{c.dockerignore}()},
+\code{\link{check_dockerignore}()},
+\code{\link{is_dockerignore}()},
+\code{\link{print.dockerignore}()}
+}
+\concept{dockerignore core functions}

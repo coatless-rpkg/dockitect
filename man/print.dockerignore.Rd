@@ -7,10 +7,32 @@
 \method{print}{dockerignore}(x, ...)
 }
 \arguments{
-\item{x}{A dockerignore object}
+\item{x}{A \code{dockerignore} object}
 
 \item{...}{Additional arguments (not used)}
 }
-\description{
-Print method for dockerignore objects
+\value{
+Invisibly returns the dockerignore object
 }
+\description{
+Displays the contents of a dockerignore object in a readable format,
+showing each pattern on a new line as it would appear in an
+actual .dockerignore file.
+}
+\examples{
+di <- dockerignore() |>
+  di_add(c(".git/", "*.log", "node_modules/"))
+print(di)
+
+}
+\seealso{
+\code{\link[=dockerignore]{dockerignore()}} for creating a dockerignore object &
+\code{\link[=write_dockerignore]{write_dockerignore()}} for writing to a .dockerignore file
+
+Other dockerignore core functions: 
+\code{\link{c.dockerignore}()},
+\code{\link{check_dockerignore}()},
+\code{\link{dockerignore}()},
+\code{\link{is_dockerignore}()}
+}
+\concept{dockerignore core functions}

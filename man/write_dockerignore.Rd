@@ -2,18 +2,35 @@
 % Please edit documentation in R/dockerignore-io.R
 \name{write_dockerignore}
 \alias{write_dockerignore}
-\title{Write a dockerignore object to a file}
+\title{Write a \code{dockerignore} object to a file}
 \usage{
 write_dockerignore(dockerignore, file = ".dockerignore")
 }
 \arguments{
-\item{dockerignore}{A dockerignore object}
+\item{dockerignore}{A \code{dockerignore} object}
 
-\item{file}{Output file path (default: ".dockerignore")}
+\item{file}{Output file path (default: \code{".dockerignore"})}
 }
 \value{
-Invisible dockerignore object
+Invisibly returns the \code{dockerignore} object
 }
 \description{
-Write a dockerignore object to a file
+Writes a \code{dockerignore} object to disk as a formatted \strong{.dockerignore} file.
 }
+\examples{
+\dontrun{
+# Create and write a .dockerignore file
+dockerignore() |>
+  di_add(c(".git/", "*.log")) |>
+  write_dockerignore()
+}
+
+}
+\seealso{
+\code{\link[=read_dockerignore]{read_dockerignore()}} for reading a .dockerignore file from disk &
+\code{\link[=dockerignore]{dockerignore()}} for creating a new dockerignore object
+
+Other dockerignore I/O functions: 
+\code{\link{read_dockerignore}()}
+}
+\concept{dockerignore I/O functions}

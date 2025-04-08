@@ -2,7 +2,7 @@
 % Please edit documentation in R/dockerignore-core.R
 \name{check_dockerignore}
 \alias{check_dockerignore}
-\title{Ensure an object is a dockerignore}
+\title{Ensure an object is a \code{dockerignore}}
 \usage{
 check_dockerignore(dockerignore)
 }
@@ -10,8 +10,31 @@ check_dockerignore(dockerignore)
 \item{dockerignore}{Object to check}
 }
 \value{
-Invisible TRUE if valid, error otherwise
+Invisibly returns \code{TRUE} if valid, otherwise throws an error
 }
 \description{
-Ensure an object is a dockerignore
+Verifies that the provided object is a valid \code{dockerignore} class object,
+throwing an error if not. Useful for validation inside functions that
+expect \code{dockerignore} objects.
 }
+\examples{
+di <- dockerignore()
+check_dockerignore(di)  # Valid, returns TRUE invisibly
+
+\dontrun{
+# This would throw an error
+check_dockerignore(list())
+}
+
+}
+\seealso{
+\code{\link[=is_dockerignore]{is_dockerignore()}} for checking if an object is a dockerignore &
+\code{\link[=dockerignore]{dockerignore()}} for creating a dockerignore object
+
+Other dockerignore core functions: 
+\code{\link{c.dockerignore}()},
+\code{\link{dockerignore}()},
+\code{\link{is_dockerignore}()},
+\code{\link{print.dockerignore}()}
+}
+\concept{dockerignore core functions}

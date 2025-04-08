@@ -2,16 +2,37 @@
 % Please edit documentation in R/dockerignore-core.R
 \name{c.dockerignore}
 \alias{c.dockerignore}
-\title{Combine multiple dockerignore objects}
+\title{Combine multiple \code{dockerignore} objects}
 \usage{
 \method{c}{dockerignore}(...)
 }
 \arguments{
-\item{...}{Dockerignore objects to combine}
+\item{...}{\code{dockerignore} objects to combine}
 }
 \value{
-A new dockerignore object with combined patterns
+A new \code{dockerignore} object with combined patterns from all inputs
 }
 \description{
-Combine multiple dockerignore objects
+Merges patterns from multiple \code{dockerignore} objects into a single one.
+This is useful for combining different template patterns.
 }
+\examples{
+# Create dockerignore objects with different patterns
+di_git <- dk_template_ignore_git()
+di_r <- dk_template_ignore_r()
+
+# Combine them
+di_combined <- c(di_git, di_r)
+
+}
+\seealso{
+\code{\link[=dockerignore]{dockerignore()}} for creating a new \code{dockerignore} object &
+\code{\link[=dk_template_ignore_common]{dk_template_ignore_common()}} for adding common patterns
+
+Other dockerignore core functions: 
+\code{\link{check_dockerignore}()},
+\code{\link{dockerignore}()},
+\code{\link{is_dockerignore}()},
+\code{\link{print.dockerignore}()}
+}
+\concept{dockerignore core functions}

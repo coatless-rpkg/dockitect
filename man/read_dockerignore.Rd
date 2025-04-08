@@ -2,16 +2,38 @@
 % Please edit documentation in R/dockerignore-io.R
 \name{read_dockerignore}
 \alias{read_dockerignore}
-\title{Read a .dockerignore file}
+\title{Read a \strong{.dockerignore} file}
 \usage{
 read_dockerignore(file = ".dockerignore")
 }
 \arguments{
-\item{file}{Path to .dockerignore file}
+\item{file}{Path to \strong{.dockerignore} file (default: \code{".dockerignore"})}
 }
 \value{
-A dockerignore object
+A \code{dockerignore} object containing the parsed patterns
 }
 \description{
-Read a .dockerignore file
+Reads a \strong{.dockerignore} file from disk into a \code{dockerignore} object that
+can be manipulated programmatically.
 }
+\details{
+Empty lines and comments (lines starting with \verb{#}) are filtered out.
+}
+\examples{
+\dontrun{
+# Read an existing .dockerignore file
+di <- read_dockerignore()
+
+# Add more patterns
+di <- di_add(di, "*.tmp")
+}
+
+}
+\seealso{
+\code{\link[=dockerignore]{dockerignore()}} for creating a new dockerignore object &
+\code{\link[=write_dockerignore]{write_dockerignore()}} for writing a dockerignore to disk
+
+Other dockerignore I/O functions: 
+\code{\link{write_dockerignore}()}
+}
+\concept{dockerignore I/O functions}
