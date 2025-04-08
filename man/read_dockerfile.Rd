@@ -7,11 +7,36 @@
 read_dockerfile(file)
 }
 \arguments{
-\item{file}{Path to Dockerfile}
+\item{file}{Path to \strong{Dockerfile}}
 }
 \value{
-A dockerfile object
+A \code{dockerfile} object containing the parsed instructions and metadata
 }
 \description{
-Read a Dockerfile from a file
+Parses a \strong{Dockerfile} from disk into a \code{dockerfile} object that can be
+manipulated programmatically.
 }
+\details{
+The function handles line continuations and extracts metadata like the
+base image, package manager, OS, and R version (if applicable).
+Comments and empty lines are skipped.
+}
+\examples{
+\dontrun{
+# Read an existing Dockerfile
+df <- read_dockerfile("path/to/Dockerfile")
+
+# Modify it
+df <- dfi_run(df, "apt-get update")
+df
+}
+
+}
+\seealso{
+\code{\link[=dockerfile]{dockerfile()}} for creating a new dockerfile object &
+\code{\link[=write_dockerfile]{write_dockerfile()}} for writing a dockerfile to disk
+
+Other dockerfile I/O functions: 
+\code{\link{write_dockerfile}()}
+}
+\concept{dockerfile I/O functions}

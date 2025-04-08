@@ -1,7 +1,33 @@
 #' Read a Dockerfile from a file
 #'
-#' @param file Path to Dockerfile
-#' @return A dockerfile object
+#' Parses a **Dockerfile** from disk into a `dockerfile` object that can be
+#' manipulated programmatically.
+#'
+#' @param file Path to **Dockerfile**
+#'
+#' @return
+#' A `dockerfile` object containing the parsed instructions and metadata
+#'
+#' @examples
+#' \dontrun{
+#' # Read an existing Dockerfile
+#' df <- read_dockerfile("path/to/Dockerfile")
+#' 
+#' # Modify it
+#' df <- dfi_run(df, "apt-get update")
+#' df
+#' }
+#'
+#' @details
+#' The function handles line continuations and extracts metadata like the
+#' base image, package manager, OS, and R version (if applicable).
+#' Comments and empty lines are skipped.
+#'
+#' @seealso
+#' [dockerfile()] for creating a new dockerfile object &
+#' [write_dockerfile()] for writing a dockerfile to disk
+#'
+#' @family dockerfile I/O functions
 #' @export
 read_dockerfile <- function(file) {
   if (!file.exists(file)) {
@@ -57,12 +83,41 @@ read_dockerfile <- function(file) {
   df
 }
 
-#' Write a dockerfile to a file
+#' Write a `dockerfile` to a file
 #'
-#' @param dockerfile A dockerfile object
+#' Writes a `dockerfile` object to disk as a **Dockerfile**.
+#'
+#' @param dockerfile A `dockerfile` object
 #' @param file Output file path (default: "Dockerfile")
 #' @param multiline Logical indicating if long RUN commands should be split (default: TRUE)
-#' @return Invisible dockerfile object
+#'
+#' @return
+#' Invisibly returns the `dockerfile` object
+#'
+#' @examples
+#' \dontrun{
+#' # Create and write a simple Dockerfile
+#' dockerfile() |>
+#'   dfi_from("rocker/r-ver:4.4.0") |>
+#'   dfi_run("apt-get update") |>
+#'   write_dockerfile()
+#'   
+#' # Specify a different file name
+#' dockerfile() |>
+#'   dfi_from("rocker/r-ver:4.4.0") |>
+#'   write_dockerfile("Dockerfile.dev")
+#' }
+#'
+#' @details
+#' When `multiline = TRUE` (the default), long `RUN` commands with `&&` 
+#' will be formatted with line continuations (`\`) for better readability.
+#' This makes the Dockerfile more maintainable without changing its functionality.
+#'
+#' @seealso
+#' [read_dockerfile()] for reading a Dockerfile from disk &
+#' [dockerfile()] for creating a new dockerfile object
+#'
+#' @family dockerfile I/O functions
 #' @export
 write_dockerfile <- function(dockerfile, file = "Dockerfile", multiline = TRUE) {
   check_dockerfile(dockerfile)

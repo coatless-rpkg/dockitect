@@ -2,20 +2,48 @@
 % Please edit documentation in R/dockerfile-io.R
 \name{write_dockerfile}
 \alias{write_dockerfile}
-\title{Write a dockerfile to a file}
+\title{Write a \code{dockerfile} to a file}
 \usage{
 write_dockerfile(dockerfile, file = "Dockerfile", multiline = TRUE)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
 \item{file}{Output file path (default: "Dockerfile")}
 
 \item{multiline}{Logical indicating if long RUN commands should be split (default: TRUE)}
 }
 \value{
-Invisible dockerfile object
+Invisibly returns the \code{dockerfile} object
 }
 \description{
-Write a dockerfile to a file
+Writes a \code{dockerfile} object to disk as a \strong{Dockerfile}.
 }
+\details{
+When \code{multiline = TRUE} (the default), long \code{RUN} commands with \code{&&}
+will be formatted with line continuations (\verb{\\}) for better readability.
+This makes the Dockerfile more maintainable without changing its functionality.
+}
+\examples{
+\dontrun{
+# Create and write a simple Dockerfile
+dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_run("apt-get update") |>
+  write_dockerfile()
+  
+# Specify a different file name
+dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  write_dockerfile("Dockerfile.dev")
+}
+
+}
+\seealso{
+\code{\link[=read_dockerfile]{read_dockerfile()}} for reading a Dockerfile from disk &
+\code{\link[=dockerfile]{dockerfile()}} for creating a new dockerfile object
+
+Other dockerfile I/O functions: 
+\code{\link{read_dockerfile}()}
+}
+\concept{dockerfile I/O functions}
