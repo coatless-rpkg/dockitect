@@ -2,7 +2,7 @@
 % Please edit documentation in R/dockitect-from-environment.R
 \name{dk_from_description}
 \alias{dk_from_description}
-\title{Create a dockerfile from a DESCRIPTION file}
+\title{Create a \code{dockerfile} from a \strong{DESCRIPTION} file}
 \usage{
 dk_from_description(
   description_file = "DESCRIPTION",
@@ -12,7 +12,7 @@ dk_from_description(
 )
 }
 \arguments{
-\item{description_file}{Path to DESCRIPTION file}
+\item{description_file}{Path to \strong{DESCRIPTION} file}
 
 \item{r_version}{R version to use (default: from DESCRIPTION)}
 
@@ -21,8 +21,40 @@ dk_from_description(
 \item{include_sysreqs}{Include system requirements (default: TRUE)}
 }
 \value{
-A dockerfile object
+A \code{dockerfile} object configured based on the DESCRIPTION file
 }
 \description{
-Create a dockerfile from a DESCRIPTION file
+Generates a `dockerfile`` based on a package \strong{DESCRIPTION} file, ensuring all
+package dependencies are installed in the container.
 }
+\details{
+This function:
+\itemize{
+\item Extracts the R version from the \strong{DESCRIPTION}'s \code{Depends} field (if available)
+\item Uses the appropriate \code{rocker/r-ver} base image
+\item Extracts package dependencies from \code{Depends}, \code{Imports}, and \code{Suggests} fields
+\item Adds system requirements for those packages
+\item Sets up the package installation
+}
+
+The resulting \code{dockerfile} will install all the dependencies required by
+your package and then install the package itself from the source.
+}
+\examples{
+\dontrun{
+# Create a dockerfile from a DESCRIPTION file
+df <- dk_from_description("DESCRIPTION")
+}
+
+}
+\seealso{
+\code{\link[=dk_from_session]{dk_from_session()}} for creating from the current session,
+\code{\link[=dk_from_renv]{dk_from_renv()}} for creating from renv.lock files, &
+\code{\link[=dk_add_sysreqs]{dk_add_sysreqs()}} for adding system requirements
+
+Other dockerfile from environment functions: 
+\code{\link{dk_from_renv}()},
+\code{\link{dk_from_script}()},
+\code{\link{dk_from_session}()}
+}
+\concept{dockerfile from environment functions}

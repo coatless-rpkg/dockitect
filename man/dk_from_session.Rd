@@ -2,7 +2,7 @@
 % Please edit documentation in R/dockitect-from-environment.R
 \name{dk_from_session}
 \alias{dk_from_session}
-\title{Create a dockerfile from the current R session}
+\title{Create a \code{dockerfile} from the current R session}
 \usage{
 dk_from_session(
   base_image = NULL,
@@ -12,17 +12,49 @@ dk_from_session(
 )
 }
 \arguments{
-\item{base_image}{Base image to use (default: rocker/r-ver with current R version)}
+\item{base_image}{Base image to use
+(default: \code{"rocker/r-ver"} with current R version)}
 
-\item{include_packages}{Include loaded packages (default: TRUE)}
+\item{include_packages}{Include loaded packages (default: \code{TRUE})}
 
-\item{include_sysreqs}{Include system requirements for packages (default: TRUE)}
+\item{include_sysreqs}{Include system requirements for packages (default: \code{TRUE})}
 
-\item{package_manager}{Package manager to use (default: auto-detected)}
+\item{package_manager}{Package manager to use (default: \code{"auto"})}
 }
 \value{
-A dockerfile object
+A \code{dockerfile} object based on the current R session
 }
 \description{
-Create a dockerfile from the current R session
+Generates a \code{dockerfile} based on the current R session's loaded packages
+and environment, making it easy to containerize your current workflow.
 }
+\details{
+This function:
+\itemize{
+\item Uses the current R version by default (or a specified base image)
+\item Detects loaded packages in the current session
+\item Adds necessary system requirements using the pak package
+\item Adds commands to install the detected R packages
+}
+
+The resulting \code{dockerfile} will recreate an environment similar to your
+current R session, making it easier to containerize your work.
+}
+\examples{
+\dontrun{
+# Create a dockerfile from the current session
+df <- dk_from_session()
+}
+
+}
+\seealso{
+\code{\link[=dk_from_renv]{dk_from_renv()}} for creating from renv.lock files,
+\code{\link[=dk_from_description]{dk_from_description()}} for creating from DESCRIPTION files, &
+\code{\link[=dk_add_sysreqs]{dk_add_sysreqs()}} for adding system requirements
+
+Other dockerfile from environment functions: 
+\code{\link{dk_from_description}()},
+\code{\link{dk_from_renv}()},
+\code{\link{dk_from_script}()}
+}
+\concept{dockerfile from environment functions}

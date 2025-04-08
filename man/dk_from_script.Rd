@@ -2,7 +2,7 @@
 % Please edit documentation in R/dockitect-from-environment.R
 \name{dk_from_script}
 \alias{dk_from_script}
-\title{Create a dockerfile from an R script}
+\title{Create a \code{dockerfile} from an R script}
 \usage{
 dk_from_script(
   script_file,
@@ -13,13 +13,48 @@ dk_from_script(
 \arguments{
 \item{script_file}{Path to R script}
 
-\item{base_image}{Base image to use (default: latest rocker/r-ver)}
+\item{base_image}{Base image to use (default: latest \code{rocker/r-ver})}
 
-\item{include_sysreqs}{Include system requirements (default: TRUE)}
+\item{include_sysreqs}{Include system requirements (default: \code{TRUE})}
 }
 \value{
-A dockerfile object
+A \code{dockerfile} object configured to run the specified R script
 }
 \description{
-Create a dockerfile from an R script
+Generates a \code{dockerfile} based on an R script, analyzing its dependencies
+and creating a container that can run the script.
 }
+\details{
+This function analyzes the R script to identify package dependencies by
+scanning for \code{library()} and \code{require()} calls. It then:
+\itemize{
+\item Creates a dockerfile with the specified base image
+\item Adds necessary system requirements for the detected packages
+\item Installs the required R packages
+\item Copies the script to the container
+\item Sets up a command to run the script
+}
+
+The \code{dockerfile} can be customized further after creation if needed.
+}
+\examples{
+\dontrun{
+# Create a dockerfile for an R script
+df <- dk_from_script("analysis.R")
+
+# Use a specific base image
+df <- dk_from_script("analysis.R", base_image = "rocker/tidyverse:4.4.0")
+}
+
+}
+\seealso{
+\code{\link[=dk_from_session]{dk_from_session()}} for creating from the current session,
+\code{\link[=dk_from_renv]{dk_from_renv()}} for creating from renv.lock files, &
+\code{\link[=dk_from_description]{dk_from_description()}} for creating from DESCRIPTION files
+
+Other dockerfile from environment functions: 
+\code{\link{dk_from_description}()},
+\code{\link{dk_from_renv}()},
+\code{\link{dk_from_session}()}
+}
+\concept{dockerfile from environment functions}

@@ -33,6 +33,7 @@ determine_linux_distribution("centos:7")            # Returns "centos"
 
 Other utility functions: 
 \code{\link{determine_package_manager}()},
+\code{\link{dk_add_sysreqs}()},
 \code{\link{map_to_sysreqs_platform}()}
 }
 \concept{utility functions}

@@ -39,7 +39,8 @@ is used directly.
 
 Other utility functions: 
 \code{\link{determine_linux_distribution}()},
-\code{\link{determine_package_manager}()}
+\code{\link{determine_package_manager}()},
+\code{\link{dk_add_sysreqs}()}
 }
 \concept{utility functions}
 \keyword{internal}

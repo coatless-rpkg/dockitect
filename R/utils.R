@@ -236,3 +236,85 @@ generate_pkg_install_cmd <- function(package_manager, packages) {
          }
   )
 }
+
+
+
+#' Add system requirements for R packages to a `dockerfile`
+#'
+#' Identifies and adds the necessary system requirements for R packages 
+#' to a `dockerfile` using the `pak` package to determine dependencies.
+#'
+#' @param dockerfile      A `dockerfile` object
+#' @param packages        Character vector of package names
+#' @param package_manager Package manager to use (default: `"auto"`)
+#'
+#' @return
+#' An updated `dockerfile` object with system requirements added
+#'
+#' @examples
+#' \dontrun{
+#' # Create a dockerfile
+#' df <- dockerfile() |>
+#'   dfi_from("rocker/r-ver:4.4.0")
+#' 
+#' # Add system requirements for packages
+#' df <- dk_add_sysreqs(df, c("xml2", "RPostgreSQL", "rJava"))
+#' }
+#'
+#' @details
+#' This function uses the pak package to determine the system requirements
+#' for the specified R packages. It then formats the appropriate installation
+#' commands for the detected package manager and adds them as `RUN` instructions
+#' to the `dockerfile`.
+#'
+#' The `pak` package must be installed for this function to work.
+#'
+#' @seealso
+#' [generate_pkg_install_cmd()] for generating package installation commands &
+#' [determine_package_manager()] for determining the package manager
+#'
+#' @family utility functions
+#' @export
+dk_add_sysreqs <- function(dockerfile, packages, package_manager = "auto") {
+  check_dockerfile(dockerfile)
+  
+  if (package_manager == "auto") {
+    package_manager <- dockerfile$metadata$package_manager
+    if (is.null(package_manager)) {
+      package_manager <- "apt"
+      cli::cli_warn("Could not determine package manager. Defaulting to apt.")
+    }
+  }
+  
+  # Get system requirements using pak
+  if (!requireNamespace("pak", quietly = TRUE)) {
+    cli::cli_warn("Package 'pak' is required to determine system requirements. Skipping.")
+    return(dockerfile)
+  }
+  
+  # Map package manager to appropriate sysreqs platform
+  os <- determine_linux_distribution(dockerfile$metadata$base_image)
+  platform <- map_to_sysreqs_platform(package_manager, os)
+  
+  # Get system requirements data frame
+  sysreqs_df <- pak::pkg_sysreqs(packages, sysreqs_platform = platform)
+  
+  if (is.null(sysreqs_df$packages) || nrow(sysreqs_df$packages) == 0) {
+    return(dockerfile)
+  }
+  
+  # Extract system packages from the data frame and remove duplicates
+  system_packages <- unique(unlist(sysreqs_df$packages$system_packages))
+  
+  if (length(system_packages) == 0) {
+    return(dockerfile)
+  }
+  
+  # Generate system-specific install commands using utility function
+  install_cmd <- generate_pkg_install_cmd(package_manager, system_packages)
+  
+  # Add the installation command
+  dockerfile <- dfi_run(dockerfile, paste(install_cmd, collapse = " && "))
+  
+  dockerfile
+}

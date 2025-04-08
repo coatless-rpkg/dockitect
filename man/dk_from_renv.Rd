@@ -2,7 +2,7 @@
 % Please edit documentation in R/dockitect-from-environment.R
 \name{dk_from_renv}
 \alias{dk_from_renv}
-\title{Create a dockerfile from an renv.lock file}
+\title{Create a \code{dockerfile} from an \strong{renv.lock} file}
 \usage{
 dk_from_renv(
   lock_file = "renv.lock",
@@ -12,17 +12,51 @@ dk_from_renv(
 )
 }
 \arguments{
-\item{lock_file}{Path to renv.lock file}
+\item{lock_file}{Path to \strong{renv.lock} file}
 
 \item{r_version}{R version to use (default: from lock file)}
 
 \item{base_image}{Base image to use (default: determined from R version)}
 
-\item{include_sysreqs}{Include system requirements (default: TRUE)}
+\item{include_sysreqs}{Include system requirements (default: \code{TRUE})}
 }
 \value{
-A dockerfile object
+A \code{dockerfile} object configured based on the renv.lock file
 }
 \description{
-Create a dockerfile from an renv.lock file
+Generates a \code{dockerfile} based on an \strong{renv.lock} file, ensuring reproducible
+package dependencies in the container.
 }
+\details{
+This function:
+\itemize{
+\item Extracts the R version from the lock file (if available)
+\item Uses the appropriate rocker/r-ver base image
+\item Adds system requirements for the packages in the lock file
+\item Sets up renv and restores the packages from the lock file
+}
+
+The resulting dockerfile will recreate the exact environment specified
+in your renv.lock file, ensuring reproducible results.
+}
+\examples{
+\dontrun{
+# Create a dockerfile from an renv.lock file
+df <- dk_from_renv("renv.lock")
+
+# Specify a different R version
+df <- dk_from_renv("renv.lock", r_version = "4.4.0")
+}
+
+}
+\seealso{
+\code{\link[=dk_from_session]{dk_from_session()}} for creating from the current session,
+\code{\link[=dk_from_description]{dk_from_description()}} for creating from DESCRIPTION files, &
+\code{\link[=dk_add_sysreqs]{dk_add_sysreqs()}} for adding system requirements
+
+Other dockerfile from environment functions: 
+\code{\link{dk_from_description}()},
+\code{\link{dk_from_script}()},
+\code{\link{dk_from_session}()}
+}
+\concept{dockerfile from environment functions}
