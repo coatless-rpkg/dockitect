@@ -13,7 +13,7 @@ template:
     twitter:
       creator: "@"
       card: summary_large_image
-  
+
 navbar:
   structure:
     left: [intro, reference, articles, tutorials, news]
@@ -98,7 +98,7 @@ reference:
   desc: "Helper functions for working with Docker environments"
   contents:
   - determine_package_manager
-  - determine_os
+  - determine_linux_distribution
   - map_to_sysreqs_platform
   - generate_pkg_install_cmd
 

@@ -196,7 +196,8 @@ docker build -t r-interactive .
 docker run -it -v $(pwd):/app r-interactive R
 ```
 
-This gives you an interactive R session with all your packages pre-installed, and your current directory mounted so you can access your files.
+This gives you an interactive R session with all your packages pre-installed,
+and your current directory mounted so you can access your files.
 
 ## Troubleshooting Common Issues
 
