@@ -2,18 +2,36 @@
 % Please edit documentation in R/dockerignore-instructions.R
 \name{di_remove}
 \alias{di_remove}
-\title{Remove patterns from a dockerignore object}
+\title{Remove patterns from a \code{dockerignore} object}
 \usage{
 di_remove(dockerignore, pattern)
 }
 \arguments{
-\item{dockerignore}{A dockerignore object}
+\item{dockerignore}{A \code{dockerignore} object}
 
 \item{pattern}{Character vector of patterns to remove}
 }
 \value{
-Updated dockerignore object
+An updated \code{dockerignore} object with the specified patterns removed
 }
 \description{
-Remove patterns from a dockerignore object
+Removes one or more patterns from a \code{dockerignore} object.
 }
+\examples{
+# Create a dockerignore object and add some patterns
+di <- dockerignore() |>
+  di_add(c(".git/", "*.log", "node_modules/"))
+
+# Remove a pattern
+di <- di_remove(di, "*.log")
+
+}
+\seealso{
+\code{\link[=di_add]{di_add()}} for adding patterns &
+\code{\link[=di_replace]{di_replace()}} for replacing patterns
+
+Other dockerignore instruction functions: 
+\code{\link{di_add}()},
+\code{\link{di_replace}()}
+}
+\concept{dockerignore instruction functions}

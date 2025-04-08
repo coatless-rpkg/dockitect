@@ -7,15 +7,52 @@
 di_replace(dockerignore, old_pattern, new_pattern)
 }
 \arguments{
-\item{dockerignore}{A dockerignore object}
+\item{dockerignore}{A \code{dockerignore} object}
 
 \item{old_pattern}{Pattern(s) to replace}
 
 \item{new_pattern}{New pattern(s)}
 }
 \value{
-Updated dockerignore object
+An updated \code{dockerignore} object with the specified patterns replaced
 }
 \description{
-Replace patterns in a dockerignore object
+Replaces one or more patterns in a dockerignore object with new patterns.
 }
+\details{
+This function allows you to replace patterns in a dockerignore object.
+Three modes of operation are supported:
+\enumerate{
+\item Replace a single pattern with a single pattern
+\item Replace multiple patterns with a single pattern
+\item Replace multiple patterns with corresponding new patterns (one-to-one)
+}
+
+For the third mode, \code{old_pattern} and \code{new_pattern} must have the same length.
+}
+\examples{
+# Create a dockerignore object and add some patterns
+di <- dockerignore() |>
+  di_add(c("*.log", "*.tmp", "node_modules/"))
+
+# Replace a single pattern
+di <- di_replace(di, "*.log", "logs/")
+
+# Replace multiple patterns with a single pattern
+di <- di_replace(di, c("*.tmp", "node_modules/"), "temp/")
+
+# Replace patterns one-to-one
+di <- di_replace(di, 
+                c("*.log", "*.tmp"), 
+                c("logs/*", "temp/*"))
+
+}
+\seealso{
+\code{\link[=di_add]{di_add()}} for adding patterns &
+\code{\link[=di_remove]{di_remove()}} for removing patterns
+
+Other dockerignore instruction functions: 
+\code{\link{di_add}()},
+\code{\link{di_remove}()}
+}
+\concept{dockerignore instruction functions}

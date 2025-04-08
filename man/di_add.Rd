@@ -7,13 +7,42 @@
 di_add(dockerignore, pattern)
 }
 \arguments{
-\item{dockerignore}{A dockerignore object}
+\item{dockerignore}{A \code{dockerignore} object}
 
 \item{pattern}{Character vector of patterns to add}
 }
 \value{
-Updated dockerignore object
+An updated \code{dockerignore} object with the new patterns added
 }
 \description{
-Add patterns to a dockerignore object
+Adds one or more patterns to a \code{dockerignore} object, avoiding duplicates.
 }
+\details{
+Patterns follow the same syntax as \code{.gitignore} files:
+\itemize{
+\item Lines starting with \verb{#} are comments
+\item Blank lines are ignored
+\item Trailing slashes \code{/} specify directories
+\item Patterns with special characters like \code{*}, \verb{?}, and \verb{[]} use glob syntax
+\item Lines starting with \code{!} negate a pattern (include a file that would otherwise be ignored)
+}
+}
+\examples{
+di <- dockerignore()
+
+# Add a single pattern
+di <- di_add(di, ".git/")
+
+# Add multiple patterns
+di <- di_add(di, c("*.log", "node_modules/", "*.tmp"))
+
+}
+\seealso{
+\code{\link[=di_remove]{di_remove()}} for removing patterns &
+\code{\link[=di_replace]{di_replace()}} for replacing patterns
+
+Other dockerignore instruction functions: 
+\code{\link{di_remove}()},
+\code{\link{di_replace}()}
+}
+\concept{dockerignore instruction functions}
