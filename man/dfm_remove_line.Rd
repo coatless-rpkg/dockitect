@@ -2,18 +2,40 @@
 % Please edit documentation in R/dockerfile-modifications.R
 \name{dfm_remove_line}
 \alias{dfm_remove_line}
-\title{Remove a line from a dockerfile}
+\title{Remove a line from a \code{dockerfile}}
 \usage{
 dfm_remove_line(dockerfile, line_num)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
 \item{line_num}{Line number to remove}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the specified line removed
 }
 \description{
-Remove a line from a dockerfile
+Removes a line at the specified position from a \code{dockerfile}.
 }
+\examples{
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_run("apt-get update") |>
+  dfi_run("apt-get install -y libcurl4-openssl-dev")
+  
+# Remove the second RUN instruction (line 3)
+df <- dfm_remove_line(df, 3)
+
+}
+\seealso{
+\code{\link[=dfm_add_line]{dfm_add_line()}} for adding a line &
+\code{\link[=dfm_replace_line]{dfm_replace_line()}} for replacing a line
+
+Other dockerfile modification functions: 
+\code{\link{dfm_add_line}()},
+\code{\link{dfm_group_similar}()},
+\code{\link{dfm_move_line}()},
+\code{\link{dfm_replace_line}()},
+\code{\link{dfm_sort_by_instruction}()}
+}
+\concept{dockerfile modification functions}

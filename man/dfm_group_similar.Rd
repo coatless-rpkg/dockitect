@@ -2,16 +2,46 @@
 % Please edit documentation in R/dockerfile-modifications.R
 \name{dfm_group_similar}
 \alias{dfm_group_similar}
-\title{Group similar instructions in a dockerfile}
+\title{Group similar instructions in a \code{dockerfile}}
 \usage{
 dfm_group_similar(dockerfile)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 }
 \value{
-Updated dockerfile object with similar instructions grouped
+A new \code{dockerfile} object with similar instructions grouped
 }
 \description{
-Group similar instructions in a dockerfile
+Optimizes a \code{dockerfile} by grouping similar consecutive instructions
+into single multi-command instructions where appropriate. This can reduce
+the number of layers in the final Docker image.
 }
+\details{
+This function primarily targets \code{RUN} instructions, combining them with \code{&&}
+to create single multi-command instructions. This follows Docker best practices
+by reducing the number of layers in the final image. Instructions like \code{FROM},
+\code{WORKDIR}, \code{USER}, \code{ENTRYPOINT}, and \code{CMD} are left as separate instructions.
+}
+\examples{
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_run("apt-get update") |>
+  dfi_run("apt-get install -y curl") |>
+  dfi_run("apt-get clean")
+  
+# Group the three RUN instructions into one
+df <- dfm_group_similar(df)
+
+}
+\seealso{
+\code{\link[=dfm_sort_by_instruction]{dfm_sort_by_instruction()}} for sorting instructions by type
+
+Other dockerfile modification functions: 
+\code{\link{dfm_add_line}()},
+\code{\link{dfm_move_line}()},
+\code{\link{dfm_remove_line}()},
+\code{\link{dfm_replace_line}()},
+\code{\link{dfm_sort_by_instruction}()}
+}
+\concept{dockerfile modification functions}

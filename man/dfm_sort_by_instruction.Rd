@@ -2,18 +2,50 @@
 % Please edit documentation in R/dockerfile-modifications.R
 \name{dfm_sort_by_instruction}
 \alias{dfm_sort_by_instruction}
-\title{Sort instructions in a dockerfile by type}
+\title{Sort instructions in a \code{dockerfile} by type}
 \usage{
 dfm_sort_by_instruction(dockerfile, order = NULL)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
 \item{order}{Custom order for instructions (optional)}
 }
 \value{
-Updated dockerfile with sorted instructions
+A new \code{dockerfile} object with instructions sorted by type
 }
 \description{
-Sort instructions in a dockerfile by type
+Reorders the instructions in a \code{dockerfile} according to Docker best practices
+or a custom order specification.
 }
+\details{
+The default order follows Docker best practices, with instructions that change
+less frequently appearing first (e.g., \code{FROM}, \code{ARG}, \code{LABEL}), and instructions
+that change more frequently appearing later (e.g., \code{COPY}, \code{RUN}). This improves
+caching and build performance.
+}
+\examples{
+df <- dockerfile() |>
+  dfi_cmd("R --no-save") |>
+  dfi_run("apt-get update") |>
+  dfi_from("rocker/r-ver:4.4.0")
+  
+# Sort according to best practices (FROM first, etc.)
+df <- dfm_sort_by_instruction(df)
+
+# Use a custom order
+df <- dfm_sort_by_instruction(df, 
+  order = c("FROM", "RUN", "WORKDIR", "CMD"))
+
+}
+\seealso{
+\code{\link[=dfm_group_similar]{dfm_group_similar()}} for grouping similar instructions
+
+Other dockerfile modification functions: 
+\code{\link{dfm_add_line}()},
+\code{\link{dfm_group_similar}()},
+\code{\link{dfm_move_line}()},
+\code{\link{dfm_remove_line}()},
+\code{\link{dfm_replace_line}()}
+}
+\concept{dockerfile modification functions}

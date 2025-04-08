@@ -1,11 +1,33 @@
-#' Add a line to a dockerfile at a specific position
+#' Add a line to a `dockerfile` at a specific position
 #'
-#' @param dockerfile A dockerfile object
-#' @param line Line to add
-#' @param after Position after which to add the line (default: end)
-#' @return Updated dockerfile object
+#' Adds a raw line to a `dockerfile`` at a specified position. This is a lower-level
+#' function typically used internally by higher-level functions.
+#'
+#' @param dockerfile A `dockerfile` object
+#' @param line       Line to add (raw text)
+#' @param after      Position after which to add the line (default: end of file)
+#'
+#' @return
+#' An updated `dockerfile` object with the new line added
+#'
+#' @examples
+#' df <- dockerfile() |>
+#'   dfi_from("rocker/r-ver:4.4.0")
+#'   
+#' # Add a comment after the FROM instruction
+#' df <- dfm_add_line(df, "# This is a comment", after = 1)
+#'
+#' @details
+#' Unlike the instruction-specific functions (`dfi_*`), this function adds
+#' raw text without any formatting or validation. It's useful for adding
+#' comments or custom instructions not covered by the built-in functions.
+#'
+#' @seealso
+#' [dfm_remove_line()] for removing a line &
+#' [dfm_replace_line()] for replacing a line
+#'
+#' @family dockerfile modification functions
 #' @export
-#' @keywords internal
 dfm_add_line <- function(dockerfile, line, after = NULL) {
   check_dockerfile(dockerfile)
   
@@ -20,11 +42,30 @@ dfm_add_line <- function(dockerfile, line, after = NULL) {
   dockerfile
 }
 
-#' Remove a line from a dockerfile
+#' Remove a line from a `dockerfile`
 #'
-#' @param dockerfile A dockerfile object
-#' @param line_num Line number to remove
-#' @return Updated dockerfile object
+#' Removes a line at the specified position from a `dockerfile`.
+#'
+#' @param dockerfile A `dockerfile` object
+#' @param line_num   Line number to remove
+#'
+#' @return
+#' An updated `dockerfile` object with the specified line removed
+#'
+#' @examples
+#' df <- dockerfile() |>
+#'   dfi_from("rocker/r-ver:4.4.0") |>
+#'   dfi_run("apt-get update") |>
+#'   dfi_run("apt-get install -y libcurl4-openssl-dev")
+#'   
+#' # Remove the second RUN instruction (line 3)
+#' df <- dfm_remove_line(df, 3)
+#'
+#' @seealso
+#' [dfm_add_line()] for adding a line &
+#' [dfm_replace_line()] for replacing a line
+#'
+#' @family dockerfile modification functions
 #' @export
 dfm_remove_line <- function(dockerfile, line_num) {
   check_dockerfile(dockerfile)
@@ -38,12 +79,31 @@ dfm_remove_line <- function(dockerfile, line_num) {
   dockerfile
 }
 
-#' Replace a line in a dockerfile
+#' Replace a line in a `dockerfile`
 #'
-#' @param dockerfile A dockerfile object
-#' @param line_num Line number to replace
-#' @param new_line New line content
-#' @return Updated dockerfile object
+#' Replaces a line at the specified position with new content.
+#'
+#' @param dockerfile A `dockerfile` object
+#' @param line_num   Line number to replace
+#' @param new_line   New line content
+#'
+#' @return
+#' An updated `dockerfile` object with the specified line replaced
+#'
+#' @examples
+#' df <- dockerfile() |>
+#'   dfi_from("rocker/r-ver:4.4.0") |>
+#'   dfi_run("apt-get update")
+#'   
+#' # Replace the RUN instruction with a more comprehensive one
+#' df <- dfm_replace_line(df, 2, 
+#'   "RUN apt-get update && apt-get install -y libcurl4-openssl-dev && apt-get clean")
+#'
+#' @seealso
+#' [dfm_add_line()] for adding a line &
+#' [dfm_remove_line()] for removing a line
+#'
+#' @family dockerfile modification functions
 #' @export
 dfm_replace_line <- function(dockerfile, line_num, new_line) {
   check_dockerfile(dockerfile)
@@ -57,12 +117,45 @@ dfm_replace_line <- function(dockerfile, line_num, new_line) {
   dockerfile
 }
 
-#' Move a line in a dockerfile
+#' Move a line in a `dockerfile`
 #'
-#' @param dockerfile A dockerfile object
-#' @param from Source line number
-#' @param to Target position
-#' @return Updated dockerfile object
+#' Moves a line from one position to another in a `dockerfile`.
+#'
+#' @param dockerfile A `dockerfile` object
+#' @param from       Source line number
+#' @param to         Target position
+#'
+#' @return
+#' An updated `dockerfile` object with the line moved to the new position
+#'
+#' @examples
+#' df <- dockerfile() |>
+#'   dfi_from("rocker/r-ver:4.4.0") |>
+#'   dfi_workdir("/app") |>
+#'   dfi_run("apt-get update") |>
+#'   dfi_copy(".", "/app/")
+#' 
+#' df
+#'   
+#' # Move the RUN instruction to be after COPY
+#' df <- dfm_move_line(df, 3, 4)
+#' df
+#' 
+#' @details
+#' This function allows for reorganizing instructions in a **Dockerfile** by moving
+#' lines to different positions. It's useful for correcting the order of
+#' instructions without having to recreate the entire **Dockerfile**.
+#' 
+#' Note that moving certain instructions to incompatible positions can make
+#' the **Dockerfile** invalid (e.g., moving a `FROM` instruction after a `RUN`).
+#' Consider using [dfm_sort_by_instruction()] to follow Docker best practices.
+#'
+#' @seealso
+#' [dfm_add_line()] for adding a line,
+#' [dfm_remove_line()] for removing a line, &
+#' [dfm_sort_by_instruction()] for sorting instructions by type
+#'
+#' @family dockerfile modification functions
 #' @export
 dfm_move_line <- function(dockerfile, from, to) {
   check_dockerfile(dockerfile)
@@ -104,10 +197,37 @@ dfm_move_line <- function(dockerfile, from, to) {
   dockerfile
 }
 
-#' Group similar instructions in a dockerfile
+#' Group similar instructions in a `dockerfile`
 #'
-#' @param dockerfile A dockerfile object
-#' @return Updated dockerfile object with similar instructions grouped
+#' Optimizes a `dockerfile` by grouping similar consecutive instructions
+#' into single multi-command instructions where appropriate. This can reduce
+#' the number of layers in the final Docker image.
+#'
+#' @param dockerfile A `dockerfile` object
+#'
+#' @return
+#' A new `dockerfile` object with similar instructions grouped
+#'
+#' @examples
+#' df <- dockerfile() |>
+#'   dfi_from("rocker/r-ver:4.4.0") |>
+#'   dfi_run("apt-get update") |>
+#'   dfi_run("apt-get install -y curl") |>
+#'   dfi_run("apt-get clean")
+#'   
+#' # Group the three RUN instructions into one
+#' df <- dfm_group_similar(df)
+#'
+#' @details
+#' This function primarily targets `RUN` instructions, combining them with `&&`
+#' to create single multi-command instructions. This follows Docker best practices
+#' by reducing the number of layers in the final image. Instructions like `FROM`,
+#' `WORKDIR`, `USER`, `ENTRYPOINT`, and `CMD` are left as separate instructions.
+#'
+#' @seealso
+#' [dfm_sort_by_instruction()] for sorting instructions by type
+#'
+#' @family dockerfile modification functions
 #' @export
 dfm_group_similar <- function(dockerfile) {
   check_dockerfile(dockerfile)
@@ -189,11 +309,40 @@ dfm_group_similar <- function(dockerfile) {
   result
 }
 
-#' Sort instructions in a dockerfile by type
+#' Sort instructions in a `dockerfile` by type
 #'
-#' @param dockerfile A dockerfile object
-#' @param order Custom order for instructions (optional)
-#' @return Updated dockerfile with sorted instructions
+#' Reorders the instructions in a `dockerfile` according to Docker best practices
+#' or a custom order specification.
+#'
+#' @param dockerfile A `dockerfile` object
+#' @param order      Custom order for instructions (optional)
+#'
+#' @return
+#' A new `dockerfile` object with instructions sorted by type
+#'
+#' @examples
+#' df <- dockerfile() |>
+#'   dfi_cmd("R --no-save") |>
+#'   dfi_run("apt-get update") |>
+#'   dfi_from("rocker/r-ver:4.4.0")
+#'   
+#' # Sort according to best practices (FROM first, etc.)
+#' df <- dfm_sort_by_instruction(df)
+#'
+#' # Use a custom order
+#' df <- dfm_sort_by_instruction(df, 
+#'   order = c("FROM", "RUN", "WORKDIR", "CMD"))
+#'
+#' @details
+#' The default order follows Docker best practices, with instructions that change
+#' less frequently appearing first (e.g., `FROM`, `ARG`, `LABEL`), and instructions
+#' that change more frequently appearing later (e.g., `COPY`, `RUN`). This improves
+#' caching and build performance.
+#'
+#' @seealso
+#' [dfm_group_similar()] for grouping similar instructions
+#'
+#' @family dockerfile modification functions
 #' @export
 dfm_sort_by_instruction <- function(dockerfile, order = NULL) {
   check_dockerfile(dockerfile)

@@ -2,20 +2,56 @@
 % Please edit documentation in R/dockerfile-modifications.R
 \name{dfm_move_line}
 \alias{dfm_move_line}
-\title{Move a line in a dockerfile}
+\title{Move a line in a \code{dockerfile}}
 \usage{
 dfm_move_line(dockerfile, from, to)
 }
 \arguments{
-\item{dockerfile}{A dockerfile object}
+\item{dockerfile}{A \code{dockerfile} object}
 
 \item{from}{Source line number}
 
 \item{to}{Target position}
 }
 \value{
-Updated dockerfile object
+An updated \code{dockerfile} object with the line moved to the new position
 }
 \description{
-Move a line in a dockerfile
+Moves a line from one position to another in a \code{dockerfile}.
 }
+\details{
+This function allows for reorganizing instructions in a \strong{Dockerfile} by moving
+lines to different positions. It's useful for correcting the order of
+instructions without having to recreate the entire \strong{Dockerfile}.
+
+Note that moving certain instructions to incompatible positions can make
+the \strong{Dockerfile} invalid (e.g., moving a \code{FROM} instruction after a \code{RUN}).
+Consider using \code{\link[=dfm_sort_by_instruction]{dfm_sort_by_instruction()}} to follow Docker best practices.
+}
+\examples{
+df <- dockerfile() |>
+  dfi_from("rocker/r-ver:4.4.0") |>
+  dfi_workdir("/app") |>
+  dfi_run("apt-get update") |>
+  dfi_copy(".", "/app/")
+
+df
+  
+# Move the RUN instruction to be after COPY
+df <- dfm_move_line(df, 3, 4)
+df
+
+}
+\seealso{
+\code{\link[=dfm_add_line]{dfm_add_line()}} for adding a line,
+\code{\link[=dfm_remove_line]{dfm_remove_line()}} for removing a line, &
+\code{\link[=dfm_sort_by_instruction]{dfm_sort_by_instruction()}} for sorting instructions by type
+
+Other dockerfile modification functions: 
+\code{\link{dfm_add_line}()},
+\code{\link{dfm_group_similar}()},
+\code{\link{dfm_remove_line}()},
+\code{\link{dfm_replace_line}()},
+\code{\link{dfm_sort_by_instruction}()}
+}
+\concept{dockerfile modification functions}
