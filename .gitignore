@@ -5,3 +5,5 @@
 docs
 .DS_Store
 inst/doc
+.dockerignore
+Dockerfile

@@ -7,3 +7,5 @@
 ^dockitect\.Rproj$
 ^\.devcontainer$
 ^\.Rproj\.user$
+^Dockerfile$
+^\.dockerignore$
