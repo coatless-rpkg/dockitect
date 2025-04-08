@@ -15,7 +15,7 @@ A \code{dockerfile} object with the following structure:
 \item \code{base_image}: Base image name
 \item \code{package_manager}: Package manager type (e.g., "apt", "yum")
 \item \code{r_version}: R version (if using a rocker image)
-\item \code{os}: Operating system type
+\item \code{distribution}: Linux distribution flavor
 }
 }
 }

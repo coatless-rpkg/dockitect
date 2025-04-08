@@ -9,7 +9,7 @@
 #'   * `base_image`: Base image name
 #'   * `package_manager`: Package manager type (e.g., "apt", "yum")
 #'   * `r_version`: R version (if using a rocker image)
-#'   * `os`: Operating system type
+#'   * `distribution`: Linux distribution flavor
 #'
 #' @examples
 #' # Create a new dockerfile
@@ -206,7 +206,7 @@ add_dockerfile_line <- function(dockerfile, instruction, args) {
     base_image <- strsplit(args, " AS ")[[1]][1]
     dockerfile$metadata$base_image <- base_image
     dockerfile$metadata$package_manager <- determine_package_manager(base_image)
-    dockerfile$metadata$os <- determine_os(base_image)
+    dockerfile$metadata$distribution <- determine_linux_distribution(base_image)
     
     # Try to extract R version from rocker images
     if (grepl("^rocker/r-ver:", base_image)) {

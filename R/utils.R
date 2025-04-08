@@ -1,9 +1,30 @@
-#' Determine the operating system from a base image
+#' Determine the Linux Distribution from a base image
+#'
+#' Analyzes a Docker base image name to determine the underlying distribution
 #'
 #' @param base_image Base image name
-#' @return Character string of OS type (e.g., "ubuntu", "centos", "debian")
+#'
+#' @return
+#' Character string of OS type (e.g., "ubuntu", "centos", "debian", "alpine")
+#'
+#' @examples
+#' determine_linux_distribution("rocker/r-ver:4.4.0")  # Returns "ubuntu"
+#' determine_linux_distribution("alpine:3.16")         # Returns "alpine"
+#' determine_linux_distribution("centos:7")            # Returns "centos"
+#'
+#' @details
+#' This function parses the base image name to extract the underlying
+#' distribution. For Rocker Project images (which are based on Ubuntu/Debian),
+#' it returns "ubuntu". For other distributions, it attempts to identify
+#' common ones like Debian, CentOS, Fedora, Alpine, etc.
+#'
+#' @seealso
+#' [determine_package_manager()] for determining the package manager &
+#' [map_to_sysreqs_platform()] for mapping to sysreqs platform
+#'
+#' @family utility functions
 #' @export
-determine_os <- function(base_image) {
+determine_linux_distribution <- function(base_image) {
   if (is.null(base_image)) {
     return(NULL)
   }
@@ -47,18 +68,44 @@ determine_os <- function(base_image) {
 
 #' Determine the package manager from a base image
 #'
+#' Analyzes a Docker base image name to determine the appropriate package manager.
+#'
 #' @param base_image Base image name
-#' @return Character string of package manager type ("apt", "yum", "apk", etc.)
+#'
+#' @return
+#' Character string of package manager type ("apt", "yum", "apk", "zypper", "pacman")
+#'
+#' @examples
+#' determine_package_manager("rocker/r-ver:4.4.0")  # Returns "apt"
+#' determine_package_manager("alpine:3.16")         # Returns "apk"
+#' determine_package_manager("centos:7")            # Returns "yum"
+#'
+#' @details
+#' This function first identifies the linux distribution using 
+#' [determine_linux_distribution()], then maps that to the appropriate
+#' package manager:
+#' 
+#' * Ubuntu/Debian → apt
+#' * CentOS/Fedora/RHEL → yum
+#' * Alpine → apk
+#' * OpenSUSE → zypper
+#' * Arch → pacman
+#'
+#' @seealso
+#' [determine_linux_distribution()] for determining the operating system &
+#' [generate_pkg_install_cmd()] for generating package installation commands
+#'
+#' @family utility functions
 #' @export
 determine_package_manager <- function(base_image) {
   if (is.null(base_image)) {
     return(NULL)
   }
   
-  # Get the OS first
-  os <- determine_os(base_image)
+  # Get the distribution first
+  os <- determine_linux_distribution(base_image)
   
-  # Map OS to package manager
+  # Map distribution to package manager
   if (os %in% c("ubuntu", "debian")) {
     return("apt")
   } else if (os %in% c("centos", "fedora", "redhat", "rockylinux")) {
@@ -77,9 +124,34 @@ determine_package_manager <- function(base_image) {
 
 #' Map package manager to sysreqs platform
 #'
-#' @param package_manager Package manager type
+#' Maps a package manager to the corresponding platform identifier used by
+#' the pak package's system requirements feature.
+#'
+#' @param package_manager Package manager type (e.g., "apt", "yum")
 #' @param os Operating system (if known)
-#' @return Character string of platform for sysreqs
+#'
+#' @return
+#' Character string of platform for sysreqs
+#'
+#' @details
+#' This internal function maps package managers to platform identifiers
+#' understood by the pak package's system requirements feature. It uses
+#' the following mappings:
+#' 
+#' - apt → ubuntu (or debian if specified)
+#' - yum → centos (or fedora, redhat, rockylinux if specified)
+#' - zypper → opensuse (or sle if specified)
+#' - apk → ubuntu (Alpine not directly supported)
+#' - pacman → ubuntu (Arch not directly supported)
+#' 
+#' If the OS is explicitly provided and supported by pak, that platform
+#' is used directly.
+#'
+#' @seealso
+#' [determine_package_manager()] for determining the package manager &
+#' [dk_add_sysreqs()] for adding system requirements to a dockerfile
+#'
+#' @family utility functions
 #' @keywords internal
 map_to_sysreqs_platform <- function(package_manager, os = NULL) {
   if (!is.null(os)) {

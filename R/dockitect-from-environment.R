@@ -79,7 +79,7 @@ dk_add_sysreqs <- function(dockerfile, packages, package_manager = "auto") {
   }
   
   # Map package manager to appropriate sysreqs platform
-  os <- determine_os(dockerfile$metadata$base_image)
+  os <- determine_linux_distribution(dockerfile$metadata$base_image)
   platform <- map_to_sysreqs_platform(package_manager, os)
   
   # Get system requirements data frame

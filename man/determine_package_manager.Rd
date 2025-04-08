@@ -10,8 +10,35 @@ determine_package_manager(base_image)
 \item{base_image}{Base image name}
 }
 \value{
-Character string of package manager type ("apt", "yum", "apk", etc.)
+Character string of package manager type ("apt", "yum", "apk", "zypper", "pacman")
 }
 \description{
-Determine the package manager from a base image
+Analyzes a Docker base image name to determine the appropriate package manager.
 }
+\details{
+This function first identifies the linux distribution using
+\code{\link[=determine_linux_distribution]{determine_linux_distribution()}}, then maps that to the appropriate
+package manager:
+\itemize{
+\item Ubuntu/Debian → apt
+\item CentOS/Fedora/RHEL → yum
+\item Alpine → apk
+\item OpenSUSE → zypper
+\item Arch → pacman
+}
+}
+\examples{
+determine_package_manager("rocker/r-ver:4.4.0")  # Returns "apt"
+determine_package_manager("alpine:3.16")         # Returns "apk"
+determine_package_manager("centos:7")            # Returns "yum"
+
+}
+\seealso{
+\code{\link[=determine_linux_distribution]{determine_linux_distribution()}} for determining the operating system &
+\code{\link[=generate_pkg_install_cmd]{generate_pkg_install_cmd()}} for generating package installation commands
+
+Other utility functions: 
+\code{\link{determine_linux_distribution}()},
+\code{\link{map_to_sysreqs_platform}()}
+}
+\concept{utility functions}
