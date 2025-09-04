@@ -1,17 +1,17 @@
 ---
 title: "Getting Started with dockitect"
-output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Getting Started with dockitect}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+```{r}
+#| include: false
 
 Sys.setenv(R_USER_CACHE_DIR = tempfile())
 ```

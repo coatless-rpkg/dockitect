@@ -9,3 +9,5 @@
 ^\.Rproj\.user$
 ^Dockerfile$
 ^\.dockerignore$
+^vignettes/\.quarto$
+^vignettes/*_files$

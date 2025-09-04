@@ -1,17 +1,17 @@
 ---
 title: "Making a dockitect Dockerfile into a Running Container"
-output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Making a dockitect Dockerfile into a Running Container}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+```{r}
+#| include: false
 
 Sys.setenv(R_USER_CACHE_DIR = tempfile())
 ```
@@ -143,7 +143,12 @@ docker build --platform linux/amd64 -t my-shiny-app .
 docker run -p 3838:3838 my-shiny-app
 ```
 
-Now you can access your Shiny app by navigating to <http://localhost:3838/app> in your web browser.
+Now, you can access your Shiny app by navigating 
+in your web browser to: 
+
+```default
+http://localhost:3838/app
+```
 
 ### Running an R Script with Volume Mounting
 
@@ -239,5 +244,5 @@ vignette covered the basics of working with Docker after generating your
 `Dockerfile` via `{dockitect}`.
 
 For more information, consult the [Docker documentation](https://docs.docker.com/)
-or the [Rocker project](https://www.rocker-project.org/) which provides pre-built
+or the [Rocker project](https://rocker-project.org/) which provides pre-built
 Docker images for R.
