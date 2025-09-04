@@ -4,9 +4,9 @@
 \name{dockitect-package}
 \alias{dockitect}
 \alias{dockitect-package}
-\title{dockitect: Create and Validate Dockerfiles Programmatically}
+\title{dockitect: Create and Validate 'Dockerfiles' Programmatically}
 \description{
-A toolkit for programmatically creating, modifying, and validating Dockerfiles in R. Provides a pipe-friendly interface for building Docker environments from R sessions, packages, and scripts, with support for templates and automatic system requirement detection.
+A toolkit for programmatically creating, modifying, and validating 'Dockerfiles' in R. Provides a pipe-friendly interface for building 'Docker' environments from R sessions, packages, and scripts, with support for templates and automatic system requirement detection.
 }
 \section{Dockerfile Instructions}{
 

@@ -1,5 +1,5 @@
 Package: dockitect
-Title: Create and Validate Dockerfiles Programmatically
+Title: Create and Validate 'Dockerfiles' Programmatically
 Version: 0.0.1
 Authors@R: c(
     person("James Joseph", "Balamuta",
@@ -9,7 +9,7 @@ Authors@R: c(
            )
     )
 Description: A toolkit for programmatically creating, modifying, and validating
-    Dockerfiles in R. Provides a pipe-friendly interface for building Docker
+    'Dockerfiles' in R. Provides a pipe-friendly interface for building 'Docker'
     environments from R sessions, packages, and scripts, with support for templates
     and automatic system requirement detection.
 URL: https://r-pkg.thecoatlessprofessor.com/dockitect/, https://github.com/coatless-rpkg/dockitect
