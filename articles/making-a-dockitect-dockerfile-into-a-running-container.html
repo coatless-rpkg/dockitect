@@ -10,7 +10,14 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Making a dockitect Dockerfile into a Running Container">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="making-a-dockitect-dockerfile-into-a-running-container_files/libs/quarto-html/popper.min.js"></script><script src="making-a-dockitect-dockerfile-into-a-running-container_files/libs/quarto-html/tippy.umd.min.js"></script><link href="making-a-dockitect-dockerfile-into-a-running-container_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="making-a-dockitect-dockerfile-into-a-running-container_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Making a dockitect Dockerfile into a Running Container">
+<meta property="og:image" content="/reference/figures/dockitect-logo.svg">
+<meta property="og:image:alt" content="dockitect: An R package for programmatically creating Dockerfiles">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:site" content="@">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -42,133 +49,104 @@
 
 
   </div>
-</nav><div class="container template-article">
-
-
-
-
+</nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Making a dockitect Dockerfile into a Running Container</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/coatless-rpkg/dockitect/blob/main/vignettes/making-a-dockitect-dockerfile-into-a-running-container.Rmd" class="external-link"><code>vignettes/making-a-dockitect-dockerfile-into-a-running-container.Rmd</code></a></small>
-      <div class="d-none name"><code>making-a-dockitect-dockerfile-into-a-running-container.Rmd</code></div>
+
+
+
+
+      <small class="dont-index">Source: <a href="https://github.com/coatless-rpkg/dockitect/blob/main/vignettes/making-a-dockitect-dockerfile-into-a-running-container.qmd" class="external-link"><code>vignettes/making-a-dockitect-dockerfile-into-a-running-container.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<div class="section level2">
-<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+
+
+
+
+
+    <section class="level2"><h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>After creating a Dockerfile with <code>dockitect</code>, the next
-steps involve building a Docker image and running it as a container.
-This vignette walks through this process with practical examples,
-assuming you have Docker installed on your system.</p>
-<p>If you haven’t installed Docker yet, visit the <a href="https://docs.docker.com/get-docker/" class="external-link">Docker installation page</a>
-for instructions specific to your operating system.</p>
-</div>
-<div class="section level2">
-<h2 id="building-your-docker-image">Building Your Docker Image<a class="anchor" aria-label="anchor" href="#building-your-docker-image"></a>
+<p>After creating a Dockerfile with <code>dockitect</code>, the next steps involve building a Docker image and running it as a container. This vignette walks through this process with practical examples, assuming you have Docker installed on your system.</p>
+<p>If you haven’t installed Docker yet, visit the <a href="https://docs.docker.com/get-docker/" class="external-link">Docker installation page</a> for instructions specific to your operating system.</p>
+</section><section class="level2"><h2 id="building-your-docker-image">Building Your Docker Image<a class="anchor" aria-label="anchor" href="#building-your-docker-image"></a>
 </h2>
-<p>Once you’ve generated a Dockerfile with <code>dockitect</code>,
-you’ll need to build a Docker image from it. This is done by interacting
-with Docker on the command-line interface:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Basic build command</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> my-r-project .</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># Build with a specific tag (e.g., for versioning)</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> my-r-project:1.0.0 .</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co"># Build with build arguments (if your Dockerfile uses ARG)</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">--build-arg</span> R_VERSION=4.4.0 <span class="at">-t</span> my-r-project .</span></code></pre></div>
-<p>The <code>-t</code> option tags your image with a name, making it
-easier to reference later. The <code>.</code> at the end tells Docker to
-look for a <code>Dockerfile</code> in the current directory.</p>
-<p>During the build process, Docker will execute each instruction in
-your <code>Dockerfile</code> sequentially and create a series of
-intermediate layers. These layers are cached, which means subsequent
-builds can be much faster if parts of your <code>Dockerfile</code>
-haven’t changed.</p>
-<div class="callout-tip">
-<p>Effective use of layer caching can significantly speed up your Docker
-image builds.</p>
+<p>Once you’ve generated a Dockerfile with <code>dockitect</code>, you’ll need to build a Docker image from it. This is done by interacting with Docker on the command-line interface:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic build command</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> my-r-project .</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build with a specific tag (e.g., for versioning)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> my-r-project:1.0.0 .</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Build with build arguments (if your Dockerfile uses ARG)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">--build-arg</span> R_VERSION=4.4.0 <span class="at">-t</span> my-r-project .</span></code></pre></div>
+<p>The <code>-t</code> option tags your image with a name, making it easier to reference later. The <code>.</code> at the end tells Docker to look for a <code>Dockerfile</code> in the current directory.</p>
+<p>During the build process, Docker will execute each instruction in your <code>Dockerfile</code> sequentially and create a series of intermediate layers. These layers are cached, which means subsequent builds can be much faster if parts of your <code>Dockerfile</code> haven’t changed.</p>
+<div>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>Effective use of layer caching can significantly speed up your Docker image builds.</p>
+</blockquote>
 </div>
-</div>
-<div class="section level2">
-<h2 id="running-containers-based-on-your-image">Running Containers Based on Your Image<a class="anchor" aria-label="anchor" href="#running-containers-based-on-your-image"></a>
+</section><section class="level2"><h2 id="running-containers-based-on-your-image">Running Containers Based on Your Image<a class="anchor" aria-label="anchor" href="#running-containers-based-on-your-image"></a>
 </h2>
-<p>After building the image, you can run it as a container using various
-configurations:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Basic run command</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">docker</span> run my-r-project</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># Run interactively with a shell</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> my-r-project bash</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co"># Run with environment variables</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> <span class="st">"DEBUG=TRUE"</span> my-r-project</span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co"># Run with a volume for data persistence</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>/data:/app/data my-r-project</span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co"># Run a Shiny app with port mapping</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-p</span> 3838:3838 my-shiny-app</span></code></pre></div>
+<p>After building the image, you can run it as a container using various configurations:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic run command</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run my-r-project</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run interactively with a shell</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> my-r-project bash</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run with environment variables</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> <span class="st">"DEBUG=TRUE"</span> my-r-project</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Run with a volume for data persistence</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>/data:/app/data my-r-project</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Run a Shiny app with port mapping</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-p</span> 3838:3838 my-shiny-app</span></code></pre></div>
 <p>Here’s what these options do:</p>
 <ul>
 <li>
 <code>-it</code>: Provides an interactive terminal</li>
 <li>
-<code>-p 3838:3838</code>: Maps port 3838 from the container to port
-3838 on your host</li>
+<code>-p 3838:3838</code>: Maps port 3838 from the container to port 3838 on your host</li>
 <li>
-<code>-e "DEBUG=TRUE"</code>: Sets an environment variable inside
-the container</li>
+<code>-e "DEBUG=TRUE"</code>: Sets an environment variable inside the container</li>
 <li>
-<code>-v $(pwd)/data:/app/data</code>: Mounts your local directory
-to a location in the container</li>
+<code>-v $(pwd)/data:/app/data</code>: Mounts your local directory to a location in the container</li>
 </ul>
-<p>For Shiny apps and Plumber APIs, the <code>-p</code> flag is crucial
-as it maps a port from the container to your host machine, allowing you
-to access the web application.</p>
-</div>
-<div class="section level2">
-<h2 id="container-management">Container Management<a class="anchor" aria-label="anchor" href="#container-management"></a>
+<p>For Shiny apps and Plumber APIs, the <code>-p</code> flag is crucial as it maps a port from the container to your host machine, allowing you to access the web application.</p>
+</section><section class="level2"><h2 id="container-management">Container Management<a class="anchor" aria-label="anchor" href="#container-management"></a>
 </h2>
-<p>Here are some useful commands for managing your Docker containers and
-images:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># List running containers</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">docker</span> ps</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># List all containers (including stopped ones)</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="ex">docker</span> ps <span class="at">-a</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># Stop a running container</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="ex">docker</span> stop <span class="op">&lt;</span>container_id<span class="op">&gt;</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co"># Remove a container</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="ex">docker</span> rm <span class="op">&lt;</span>container_id<span class="op">&gt;</span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co"># List images</span></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="ex">docker</span> images</span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co"># Remove an image</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="ex">docker</span> rmi my-r-project</span></code></pre></div>
-<p>You can refer to containers by either their ID (shown in
-<code>docker ps</code>) or by the name assigned when running them. If
-you don’t specify a name with <code>--name</code> when starting a
-container, Docker assigns a random name.</p>
-</div>
-<div class="section level2">
-<h2 id="example-workflows">Example Workflows<a class="anchor" aria-label="anchor" href="#example-workflows"></a>
+<p>Here are some useful commands for managing your Docker containers and images:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List running containers</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> ps</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List all containers (including stopped ones)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> ps <span class="at">-a</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Stop a running container</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> stop <span class="op">&lt;</span>container_id<span class="op">&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove a container</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> rm <span class="op">&lt;</span>container_id<span class="op">&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># List images</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> images</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove an image</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> rmi my-r-project</span></code></pre></div>
+<p>You can refer to containers by either their ID (shown in <code>docker ps</code>) or by the name assigned when running them. If you don’t specify a name with <code>--name</code> when starting a container, Docker assigns a random name.</p>
+</section><section class="level2"><h2 id="example-workflows">Example Workflows<a class="anchor" aria-label="anchor" href="#example-workflows"></a>
 </h2>
-<div class="section level3">
-<h3 id="complete-workflow-for-a-shiny-app">Complete Workflow for a Shiny App<a class="anchor" aria-label="anchor" href="#complete-workflow-for-a-shiny-app"></a>
+<section class="level3"><h3 id="complete-workflow-for-a-shiny-app">Complete Workflow for a Shiny App<a class="anchor" aria-label="anchor" href="#complete-workflow-for-a-shiny-app"></a>
 </h3>
-<p>Let’s walk through a complete workflow for containerizing a Shiny
-application:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>Let’s walk through a complete workflow for containerizing a Shiny application:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 1. Generate the Dockerfile</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-pkg.thecoatlessprofessor.com/dockitect/" class="external-link">dockitect</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/dk_template_shiny.html">dk_template_shiny</a></span><span class="op">(</span></span>
@@ -177,41 +155,40 @@ application:</p>
 <span>  app_dir <span class="op">=</span> <span class="st">"shiny_app/"</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/write_dockerfile.html">write_dockerfile</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Then, in your terminal:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># 2. Build the Docker image</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">## Note: For ARM-based systems, use --platform linux/amd64.</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">--platform</span> linux/amd64 <span class="at">-t</span> my-shiny-app .</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co"># 3. Run the container</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-p</span> 3838:3838 my-shiny-app</span></code></pre></div>
-<p>Now you can access your Shiny app by navigating to <a href="http://localhost:3838/app" class="external-link uri">http://localhost:3838/app</a> in your web browser.</p>
 </div>
-<div class="section level3">
-<h3 id="running-an-r-script-with-volume-mounting">Running an R Script with Volume Mounting<a class="anchor" aria-label="anchor" href="#running-an-r-script-with-volume-mounting"></a>
+<p>Then, in your terminal:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Build the Docker image</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Note: For ARM-based systems, use --platform linux/amd64.</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">--platform</span> linux/amd64 <span class="at">-t</span> my-shiny-app .</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Run the container</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-p</span> 3838:3838 my-shiny-app</span></code></pre></div>
+</div>
+<p>Now, you can access your Shiny app by navigating in your web browser to:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>http://localhost:3838/app</span></code></pre></div>
+</section><section class="level3"><h3 id="running-an-r-script-with-volume-mounting">Running an R Script with Volume Mounting<a class="anchor" aria-label="anchor" href="#running-an-r-script-with-volume-mounting"></a>
 </h3>
-<p>For data analysis scripts, you often want to share data between your
-host and the container:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>For data analysis scripts, you often want to share data between your host and the container:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 1. Generate the Dockerfile</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-pkg.thecoatlessprofessor.com/dockitect/" class="external-link">dockitect</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/dk_from_script.html">dk_from_script</a></span><span class="op">(</span><span class="st">"analysis.R"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/write_dockerfile.html">write_dockerfile</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Then, in your terminal:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># 2. Build the Docker image</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> my-analysis .</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co"># 3. Run with volume mounting for input/output</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>/data:/app/data <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>/results:/app/results my-analysis</span></code></pre></div>
-<p>This mounts your local <code>data</code> and <code>results</code>
-directories to the container, allowing your R script to read input data
-and write results that persist after the container exits.</p>
 </div>
-<div class="section level3">
-<h3 id="running-an-r-environment-for-interactive-use">Running an R Environment for Interactive Use<a class="anchor" aria-label="anchor" href="#running-an-r-environment-for-interactive-use"></a>
+<p>Then, in your terminal:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Build the Docker image</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> my-analysis .</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Run with volume mounting for input/output</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>/data:/app/data <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>/results:/app/results my-analysis</span></code></pre></div>
+<p>This mounts your local <code>data</code> and <code>results</code> directories to the container, allowing your R script to read input data and write results that persist after the container exits.</p>
+</section><section class="level3"><h3 id="running-an-r-environment-for-interactive-use">Running an R Environment for Interactive Use<a class="anchor" aria-label="anchor" href="#running-an-r-environment-for-interactive-use"></a>
 </h3>
-<p>For interactive data analysis, you might want a container with
-specific packages and dependencies:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p>For interactive data analysis, you might want a container with specific packages and dependencies:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 1. Generate a Dockerfile with your packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-pkg.thecoatlessprofessor.com/dockitect/" class="external-link">dockitect</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/dk_template_base.html">dk_template_base</a></span><span class="op">(</span></span>
@@ -219,65 +196,124 @@ specific packages and dependencies:</p>
 <span>  additional_pkgs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"visualize"</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/write_dockerfile.html">write_dockerfile</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
 <p>In your terminal:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># 2. Build the image</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> r-interactive .</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co"># 3. Run interactively with volume mount for your project files</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>:/app r-interactive R</span></code></pre></div>
-<p>This gives you an interactive R session with all your packages
-pre-installed, and your current directory mounted so you can access your
-files.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="troubleshooting-common-issues">Troubleshooting Common Issues<a class="anchor" aria-label="anchor" href="#troubleshooting-common-issues"></a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Build the image</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> r-interactive .</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Run interactively with volume mount for your project files</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>:/app r-interactive R</span></code></pre></div>
+<p>This gives you an interactive R session with all your packages pre-installed, and your current directory mounted so you can access your files.</p>
+</section></section><section class="level2"><h2 id="troubleshooting-common-issues">Troubleshooting Common Issues<a class="anchor" aria-label="anchor" href="#troubleshooting-common-issues"></a>
 </h2>
-<div class="section level3">
-<h3 id="build-fails-with-package-installation-errors">Build Fails with Package Installation Errors<a class="anchor" aria-label="anchor" href="#build-fails-with-package-installation-errors"></a>
+<section class="level3"><h3 id="build-fails-with-package-installation-errors">Build Fails with Package Installation Errors<a class="anchor" aria-label="anchor" href="#build-fails-with-package-installation-errors"></a>
 </h3>
-<p>If your build fails during package installation, it might be due to
-missing system dependencies. The <code><a href="../reference/dk_add_sysreqs.html">dk_add_sysreqs()</a></code> function
-in <code>dockitect</code> can help with this:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<p>If your build fails during package installation, it might be due to missing system dependencies. The <code><a href="../reference/dk_add_sysreqs.html">dk_add_sysreqs()</a></code> function in <code>dockitect</code> can help with this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Add system requirements for specific packages</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dockerfile.html">dockerfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/dfi_from.html">dfi_from</a></span><span class="op">(</span><span class="st">"rocker/r-ver:4.4.3"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/dk_add_sysreqs.html">dk_add_sysreqs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"rJava"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="container-exits-immediately">Container Exits Immediately<a class="anchor" aria-label="anchor" href="#container-exits-immediately"></a>
+</section><section class="level3"><h3 id="container-exits-immediately">Container Exits Immediately<a class="anchor" aria-label="anchor" href="#container-exits-immediately"></a>
 </h3>
-<p>If your container exits immediately after starting, it might be
-because the CMD instruction in your <code>Dockerfile</code> is not
-designed to keep the container running. For services, ensure the
-<code>CMD</code> runs a process that stays in the foreground.</p>
-</div>
-<div class="section level3">
-<h3 id="cannot-access-shiny-app-or-plumber-api">Cannot Access Shiny App or Plumber API<a class="anchor" aria-label="anchor" href="#cannot-access-shiny-app-or-plumber-api"></a>
+<p>If your container exits immediately after starting, it might be because the CMD instruction in your <code>Dockerfile</code> is not designed to keep the container running. For services, ensure the <code>CMD</code> runs a process that stays in the foreground.</p>
+</section><section class="level3"><h3 id="cannot-access-shiny-app-or-plumber-api">Cannot Access Shiny App or Plumber API<a class="anchor" aria-label="anchor" href="#cannot-access-shiny-app-or-plumber-api"></a>
 </h3>
-<p>Make sure you’ve mapped the ports correctly with the <code>-p</code>
-flag and your application is configured to listen on all interfaces
-inside the container. For Shiny apps, this can be set with:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<p>Make sure you’ve mapped the ports correctly with the <code>-p</code> flag and your application is configured to listen on all interfaces inside the container. For Shiny apps, this can be set with:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>shiny.host <span class="op">=</span> <span class="st">'0.0.0.0'</span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
+</section></section><section class="level2"><h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
 </h2>
-<p>While <a href="https://r-pkg.thecoatlessprofessor.com/dockitect/" class="external-link">dockitect</a> simplifies <code>Dockerfile</code>
-creation, understanding how to build, run, and manage Docker containers
-is required for the complete workflow. This vignette covered the basics
-of working with Docker after generating your <code>Dockerfile</code> via
-<a href="https://r-pkg.thecoatlessprofessor.com/dockitect/" class="external-link">dockitect</a>.</p>
-<p>For more information, consult the <a href="https://docs.docker.com/" class="external-link">Docker documentation</a> or the <a href="https://www.rocker-project.org/" class="external-link">Rocker project</a> which provides
-pre-built Docker images for R.</p>
-</div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+<p>While <a href="https://r-pkg.thecoatlessprofessor.com/dockitect/" class="external-link">dockitect</a> simplifies <code>Dockerfile</code> creation, understanding how to build, run, and manage Docker containers is required for the complete workflow. This vignette covered the basics of working with Docker after generating your <code>Dockerfile</code> via <a href="https://r-pkg.thecoatlessprofessor.com/dockitect/" class="external-link">dockitect</a>.</p>
+<p>For more information, consult the <a href="https://docs.docker.com/" class="external-link">Docker documentation</a> or the <a href="https://rocker-project.org/" class="external-link">Rocker project</a> which provides pre-built Docker images for R.</p>
+</section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
     <footer><div class="pkgdown-footer-left">
@@ -285,7 +321,7 @@ pre-built Docker images for R.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>

@@ -10,7 +10,14 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Getting Started with dockitect">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="getting-started-with-dockitect_files/libs/quarto-html/popper.min.js"></script><script src="getting-started-with-dockitect_files/libs/quarto-html/tippy.umd.min.js"></script><link href="getting-started-with-dockitect_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="getting-started-with-dockitect_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Getting Started with dockitect">
+<meta property="og:image" content="/reference/figures/dockitect-logo.svg">
+<meta property="og:image:alt" content="dockitect: An R package for programmatically creating Dockerfiles">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:site" content="@">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -42,131 +49,106 @@
 
 
   </div>
-</nav><div class="container template-article">
-
-
-
-
+</nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Getting Started with dockitect</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/coatless-rpkg/dockitect/blob/main/vignettes/getting-started-with-dockitect.Rmd" class="external-link"><code>vignettes/getting-started-with-dockitect.Rmd</code></a></small>
-      <div class="d-none name"><code>getting-started-with-dockitect.Rmd</code></div>
+
+
+
+
+      <small class="dont-index">Source: <a href="https://github.com/coatless-rpkg/dockitect/blob/main/vignettes/getting-started-with-dockitect.qmd" class="external-link"><code>vignettes/getting-started-with-dockitect.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<div class="section level2">
-<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+
+
+
+
+
+    <section class="level2"><h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p><code>dockitect</code> is an R package that simplifies Docker
-containerization for R projects. It provides a programmatic,
-pipe-friendly interface for creating, modifying, and validating Docker
-configurations. This vignette introduces key concepts and features to
-help you get started with containerizing your R projects.</p>
-<p>For those new to Docker, here’s a quick overview of relevant
-terms:</p>
+<p><code>dockitect</code> is an R package that simplifies Docker containerization for R projects. It provides a programmatic, pipe-friendly interface for creating, modifying, and validating Docker configurations. This vignette introduces key concepts and features to help you get started with containerizing your R projects.</p>
+<p>For those new to Docker, here’s a quick overview of relevant terms:</p>
 <ul>
 <li>
-<strong>Docker</strong>: A platform that enables you to package
-applications with all their dependencies into standardized units called
-containers</li>
+<strong>Docker</strong>: A platform that enables you to package applications with all their dependencies into standardized units called containers</li>
 <li>
-<strong>Docker image</strong>: A read-only template with
-instructions for creating a Docker container</li>
+<strong>Docker image</strong>: A read-only template with instructions for creating a Docker container</li>
 <li>
-<strong>Docker container</strong>: A runnable instance of an
-image</li>
+<strong>Docker container</strong>: A runnable instance of an image</li>
 <li>
-<strong>Dockerfile</strong>: A text file that contains instructions
-for building a Docker image</li>
+<strong>Dockerfile</strong>: A text file that contains instructions for building a Docker image</li>
 <li>
-<strong>Dockerfile Instructions</strong>: Commands like
-<code>FROM</code>, <code>RUN</code>, <code>COPY</code>, etc., that
-define the image</li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+<strong>Dockerfile Instructions</strong>: Commands like <code>FROM</code>, <code>RUN</code>, <code>COPY</code>, etc., that define the image</li>
+</ul></section><section class="level2"><h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of <code>dockitect</code>
-from GitHub:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<p>You can install the development version of <code>dockitect</code> from GitHub:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"coatless-rpkg/dockitect"</span><span class="op">)</span></span></code></pre></div>
+</div>
 <p>Access the package by loading it:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-pkg.thecoatlessprofessor.com/dockitect/" class="external-link">dockitect</a></span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="package-overview">Package Overview<a class="anchor" aria-label="anchor" href="#package-overview"></a>
+</section><section class="level2"><h2 id="package-overview">Package Overview<a class="anchor" aria-label="anchor" href="#package-overview"></a>
 </h2>
-<p><code>dockitect</code> uses a consistent naming convention to make
-functions easy to discover:</p>
+<p><code>dockitect</code> uses a consistent naming convention to make functions easy to discover:</p>
 <ul>
 <li>
 <code><a href="../reference/dockerfile.html">dockerfile()</a></code> creates a Dockerfile object
 <ul>
 <li>
-<code>dfi_*()</code> functions add Dockerfile instructions (e.g.,
-<code><a href="../reference/dfi_from.html">dfi_from()</a></code>, <code><a href="../reference/dfi_run.html">dfi_run()</a></code>)</li>
+<code>dfi_*()</code> functions add Dockerfile instructions (e.g., <code><a href="../reference/dfi_from.html">dfi_from()</a></code>, <code><a href="../reference/dfi_run.html">dfi_run()</a></code>)</li>
 <li>
-<code>dfm_*()</code> functions modify existing Dockerfiles (e.g.,
-<code><a href="../reference/dfm_add_line.html">dfm_add_line()</a></code>)</li>
+<code>dfm_*()</code> functions modify existing Dockerfiles (e.g., <code><a href="../reference/dfm_add_line.html">dfm_add_line()</a></code>)</li>
 </ul>
 </li>
 <li>
 <code><a href="../reference/dockerignore.html">dockerignore()</a></code> creates a .dockerignore object
 <ul>
 <li>
-<code>di_*()</code> functions manage .dockerignore patterns (e.g.,
-<code><a href="../reference/di_add.html">di_add()</a></code>)</li>
+<code>di_*()</code> functions manage .dockerignore patterns (e.g., <code><a href="../reference/di_add.html">di_add()</a></code>)</li>
 </ul>
 </li>
 <li>
-<code>dk_*()</code> functions create Dockerfiles from templates or
-existing projects</li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="creating-basic-dockerfiles">Creating Basic Dockerfiles<a class="anchor" aria-label="anchor" href="#creating-basic-dockerfiles"></a>
+<code>dk_*()</code> functions create Dockerfiles from templates or existing projects</li>
+</ul></section><section class="level2"><h2 id="creating-basic-dockerfiles">Creating Basic Dockerfiles<a class="anchor" aria-label="anchor" href="#creating-basic-dockerfiles"></a>
 </h2>
-<p>We’ll next turn our attention to creating a Dockerfile
-programmatically. The process involves creating a Dockerfile object and
-adding various instructions to it through a series of pipe
-operations.</p>
-<div class="section level3">
-<h3 id="creating-a-dockerfile-object">Creating a Dockerfile Object<a class="anchor" aria-label="anchor" href="#creating-a-dockerfile-object"></a>
+<p>We’ll next turn our attention to creating a Dockerfile programmatically. The process involves creating a Dockerfile object and adding various instructions to it through a series of pipe operations.</p>
+<section class="level3"><h3 id="creating-a-dockerfile-object">Creating a Dockerfile Object<a class="anchor" aria-label="anchor" href="#creating-a-dockerfile-object"></a>
 </h3>
 <p>Start by creating a new Dockerfile object:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a new Dockerfile object</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dockerfile.html">dockerfile</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Empty Dockerfile</span></span></code></pre></div>
-<p>Congratulations! You’ve created your first (empty) Dockerfile object.
-Now let’s add some instructions.</p>
 </div>
-<div class="section level3">
-<h3 id="adding-docker-instructions">Adding Docker Instructions<a class="anchor" aria-label="anchor" href="#adding-docker-instructions"></a>
+<p>Congratulations! You’ve created your first (empty) Dockerfile object. Now let’s add some instructions.</p>
+</section><section class="level3"><h3 id="adding-docker-instructions">Adding Docker Instructions<a class="anchor" aria-label="anchor" href="#adding-docker-instructions"></a>
 </h3>
-<p>To add instructions to the Dockerfile, use the <code>dfi_*()</code>
-functions. For example, to set the base image:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>To add instructions to the Dockerfile, use the <code>dfi_*()</code> functions. For example, to set the base image:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a Dockerfile for an R script</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dockerfile.html">dockerfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/dfi_from.html">dfi_from</a></span><span class="op">(</span><span class="st">"rocker/r-ver:4.4.0"</span><span class="op">)</span>  <span class="co"># Base image with R 4.4.0</span></span></code></pre></div>
+</div>
 <p>You can print the Dockerfile to see the added instruction:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; FROM rocker/r-ver:4.4.0</span></span></code></pre></div>
-<p>Usually, you’ll add multiple instructions to the Dockerfile. Let’s
-add a few more instructions to the Dockerfile so that we can run a
-script:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+</div>
+<p>Usually, you’ll add multiple instructions to the Dockerfile. Let’s add a few more instructions to the Dockerfile so that we can run a script:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a Dockerfile for an R script</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dockerfile.html">dockerfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/dfi_from.html">dfi_from</a></span><span class="op">(</span><span class="st">"rocker/r-ver:4.4.0"</span><span class="op">)</span> <span class="op">|&gt;</span>   <span class="co"># Base image with R 4.4.0</span></span>
@@ -182,30 +164,24 @@ script:</p>
 <span><span class="co">#&gt; WORKDIR /app</span></span>
 <span><span class="co">#&gt; COPY analysis.R /app/</span></span>
 <span><span class="co">#&gt; CMD ["Rscript","/app/analysis.R"]</span></span></code></pre></div>
+</div>
 <p>This example shows the most common Docker instructions:</p>
 <ul>
 <li>
-<strong>FROM</strong>: Specifies the base image (here using the
-Rocker Project’s R image)</li>
+<strong>FROM</strong>: Specifies the base image (here using the Rocker Project’s R image)</li>
 <li>
 <strong>LABEL</strong>: Adds metadata to the image</li>
 <li>
-<strong>WORKDIR</strong>: Sets the working directory inside the
-container</li>
+<strong>WORKDIR</strong>: Sets the working directory inside the container</li>
 <li>
-<strong>COPY</strong>: Copies files from your local system to the
-container</li>
+<strong>COPY</strong>: Copies files from your local system to the container</li>
 <li>
-<strong>CMD</strong>: Defines the default command to run when
-starting the container</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="adding-multiple-commands">Adding Multiple Commands<a class="anchor" aria-label="anchor" href="#adding-multiple-commands"></a>
+<strong>CMD</strong>: Defines the default command to run when starting the container</li>
+</ul></section><section class="level3"><h3 id="adding-multiple-commands">Adding Multiple Commands<a class="anchor" aria-label="anchor" href="#adding-multiple-commands"></a>
 </h3>
-<p>For <code>RUN</code> instructions with multiple commands, you can
-pass a character vector:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p>For <code>RUN</code> instructions with multiple commands, you can pass a character vector:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dockerfile.html">dockerfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/dfi_from.html">dfi_from</a></span><span class="op">(</span><span class="st">"rocker/r-ver:4.4.0"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/dfi_run.html">dfi_run</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -216,45 +192,39 @@ pass a character vector:</p>
 <span><span class="co">#&gt; FROM rocker/r-ver:4.4.0</span></span>
 <span><span class="co">#&gt; RUN apt-get update &amp;&amp; apt-get install -y libcurl4-openssl-dev &amp;&amp; apt-get clean</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="writing-to-a-file">Writing to a File<a class="anchor" aria-label="anchor" href="#writing-to-a-file"></a>
+</section><section class="level3"><h3 id="writing-to-a-file">Writing to a File<a class="anchor" aria-label="anchor" href="#writing-to-a-file"></a>
 </h3>
 <p>To save your Dockerfile:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Write to the default "Dockerfile" file</span></span>
 <span><span class="fu"><a href="../reference/write_dockerfile.html">write_dockerfile</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Or specify a different filename</span></span>
 <span><span class="fu"><a href="../reference/write_dockerfile.html">write_dockerfile</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"path/to/Dockerfile"</span><span class="op">)</span></span></code></pre></div>
-<p>By default, <code><a href="../reference/write_dockerfile.html">write_dockerfile()</a></code> formats multi-line
-instructions for readability.</p>
+</div>
+<p>By default, <code><a href="../reference/write_dockerfile.html">write_dockerfile()</a></code> formats multi-line instructions for readability.</p>
 <blockquote>
-<p>[!IMPORTANT] The multi-line instructions for is still a
-work-in-progress!</p>
+<p>[!IMPORTANT] The multi-line instructions for is still a work-in-progress!</p>
 </blockquote>
-</div>
-</div>
-<div class="section level2">
-<h2 id="using-templates">Using Templates<a class="anchor" aria-label="anchor" href="#using-templates"></a>
+</section></section><section class="level2"><h2 id="using-templates">Using Templates<a class="anchor" aria-label="anchor" href="#using-templates"></a>
 </h2>
-<p>Creating Dockerfiles from scratch can be repetitive.
-<code>dockitect</code> provides templates for common R project types
-that follow best practices.</p>
-<div class="section level3">
-<h3 id="base-r-template">Base R Template<a class="anchor" aria-label="anchor" href="#base-r-template"></a>
+<p>Creating Dockerfiles from scratch can be repetitive. <code>dockitect</code> provides templates for common R project types that follow best practices.</p>
+<section class="level3"><h3 id="base-r-template">Base R Template<a class="anchor" aria-label="anchor" href="#base-r-template"></a>
 </h3>
 <p>This template creates a basic R environment:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a basic R image</span></span>
 <span><span class="va">df_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dk_template_base.html">dk_template_base</a></span><span class="op">(</span></span>
 <span>  r_version <span class="op">=</span> <span class="st">"4.4.0"</span>,                     <span class="co"># Specify R version</span></span>
 <span>  additional_pkgs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span><span class="op">)</span>  <span class="co"># Add R packages</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Updated metadata database: 5.50 MB in 10 files.</span></span>
+<span><span class="co">#&gt; ✔ Updated metadata database: 5.62 MB in 10 files.</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Updating metadata database</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Updating metadata database ... done</span></span>
+<span><span class="co">#&gt; ℹ Updating metadata database</span></span>
+<span><span class="co">#&gt; ✔ Updating metadata database ... done</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df_base</span><span class="op">)</span></span>
 <span><span class="co">#&gt; FROM rocker/r-ver:4.4.0</span></span>
@@ -266,11 +236,11 @@ that follow best practices.</p>
 <span><span class="co">#&gt; VOLUME /app/output</span></span>
 <span><span class="co">#&gt; CMD ["R","--no-save"]</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="shiny-app-template">Shiny App Template<a class="anchor" aria-label="anchor" href="#shiny-app-template"></a>
+</section><section class="level3"><h3 id="shiny-app-template">Shiny App Template<a class="anchor" aria-label="anchor" href="#shiny-app-template"></a>
 </h3>
 <p>For Shiny web applications:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a Shiny app image</span></span>
 <span><span class="va">df_shiny</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dk_template_shiny.html">dk_template_shiny</a></span><span class="op">(</span></span>
 <span>  r_version <span class="op">=</span> <span class="st">"4.4.0"</span>,                     <span class="co"># Specify R version</span></span>
@@ -287,11 +257,11 @@ that follow best practices.</p>
 <span><span class="co">#&gt; EXPOSE 3838</span></span>
 <span><span class="co">#&gt; CMD ["shiny-server"]</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="plumber-api-template">Plumber API Template<a class="anchor" aria-label="anchor" href="#plumber-api-template"></a>
+</section><section class="level3"><h3 id="plumber-api-template">Plumber API Template<a class="anchor" aria-label="anchor" href="#plumber-api-template"></a>
 </h3>
 <p>For RESTful APIs with Plumber:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a Plumber API image</span></span>
 <span><span class="va">df_plumber</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dk_template_plumber.html">dk_template_plumber</a></span><span class="op">(</span></span>
 <span>  r_version <span class="op">=</span> <span class="st">"4.4.0"</span>,  <span class="co"># Specify R version</span></span>
@@ -299,25 +269,19 @@ that follow best practices.</p>
 <span>  additional_pkgs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dplyr"</span>, <span class="st">"jsonlite"</span><span class="op">)</span>  <span class="co"># Add R packages</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df_plumber</span><span class="op">)</span></span></code></pre></div>
+</div>
 <blockquote>
 <p>[!NOTE]</p>
-<p>The <code><a href="../reference/dk_template_plumber.html">dk_template_plumber()</a></code> function template is still a
-work-in-progress!</p>
+<p>The <code><a href="../reference/dk_template_plumber.html">dk_template_plumber()</a></code> function template is still a work-in-progress!</p>
 </blockquote>
-</div>
-</div>
-<div class="section level2">
-<h2 id="managing--dockerignore-files">Managing .dockerignore Files<a class="anchor" aria-label="anchor" href="#managing--dockerignore-files"></a>
+</section></section><section class="level2"><h2 id="managing--dockerignore-files">Managing .dockerignore Files<a class="anchor" aria-label="anchor" href="#managing--dockerignore-files"></a>
 </h2>
-<p>A <code>.dockerignore</code> file tells Docker which files to exclude
-from the build context, improving build performance and reducing image
-size.</p>
-<div class="section level3">
-<h3 id="creating-a--dockerignore-file">Creating a .dockerignore File<a class="anchor" aria-label="anchor" href="#creating-a--dockerignore-file"></a>
+<p>A <code>.dockerignore</code> file tells Docker which files to exclude from the build context, improving build performance and reducing image size.</p>
+<section class="level3"><h3 id="creating-a--dockerignore-file">Creating a .dockerignore File<a class="anchor" aria-label="anchor" href="#creating-a--dockerignore-file"></a>
 </h3>
-<p>In <code>dockitect</code>, you can create a <code>dockerignore</code>
-object and add patterns:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<p>In <code>dockitect</code>, you can create a <code>dockerignore</code> object and add patterns:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a new .dockerignore object</span></span>
 <span><span class="va">di</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dockerignore.html">dockerignore</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -336,12 +300,11 @@ object and add patterns:</p>
 <span><span class="co">#&gt; .github/</span></span>
 <span><span class="co">#&gt; .gitlab-ci.yml</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="using-templates-for-common-patterns">Using Templates for Common Patterns<a class="anchor" aria-label="anchor" href="#using-templates-for-common-patterns"></a>
+</section><section class="level3"><h3 id="using-templates-for-common-patterns">Using Templates for Common Patterns<a class="anchor" aria-label="anchor" href="#using-templates-for-common-patterns"></a>
 </h3>
-<p><code>dockitect</code> includes templates for common ignore
-patterns:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p><code>dockitect</code> includes templates for common ignore patterns:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a template for R projects</span></span>
 <span><span class="va">di_r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dk_template_ignore_r.html">dk_template_ignore_r</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">di_r</span><span class="op">)</span></span>
@@ -371,11 +334,11 @@ patterns:</p>
 <span><span class="co">#&gt; .github/</span></span>
 <span><span class="co">#&gt; .gitlab-ci.yml</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="combining-templates">Combining Templates<a class="anchor" aria-label="anchor" href="#combining-templates"></a>
+</section><section class="level3"><h3 id="combining-templates">Combining Templates<a class="anchor" aria-label="anchor" href="#combining-templates"></a>
 </h3>
 <p>You can combine templates using <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code>:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Combine templates</span></span>
 <span><span class="va">di_combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/dk_template_ignore_git.html">dk_template_ignore_git</a></span><span class="op">(</span><span class="op">)</span>,  <span class="co"># Git files</span></span>
@@ -408,48 +371,117 @@ patterns:</p>
 <span><span class="co">#&gt; packrat/src/</span></span>
 <span><span class="co">#&gt; my-custom-pattern</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="writing-to-a-file-1">Writing to a File<a class="anchor" aria-label="anchor" href="#writing-to-a-file-1"></a>
+</section><section class="level3"><h3 id="writing-to-a-file-1">Writing to a File<a class="anchor" aria-label="anchor" href="#writing-to-a-file-1"></a>
 </h3>
 <p>To save your .dockerignore:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Write to .dockerignore file</span></span>
 <span><span class="fu"><a href="../reference/write_dockerignore.html">write_dockerignore</a></span><span class="op">(</span><span class="va">di_combined</span><span class="op">)</span></span></code></pre></div>
 </div>
-</div>
-<div class="section level2">
-<h2 id="fin">Fin<a class="anchor" aria-label="anchor" href="#fin"></a>
+</section></section><section class="level2"><h2 id="fin">Fin<a class="anchor" aria-label="anchor" href="#fin"></a>
 </h2>
-<p>This vignette introduced the basic functionality of
-<code>dockitect</code> for creating <code>Dockerfile</code> files and
-managing <code>.dockerignore</code> files. These core features will help
-you containerize your R projects more efficiently.</p>
+<p>This vignette introduced the basic functionality of <code>dockitect</code> for creating <code>Dockerfile</code> files and managing <code>.dockerignore</code> files. These core features will help you containerize your R projects more efficiently.</p>
 <p>Future vignettes will cover:</p>
 <ul>
 <li>
-<strong>Advanced Dockerfile Manipulation</strong>: Modifying,
-grouping, and sorting instructions</li>
+<strong>Advanced Dockerfile Manipulation</strong>: Modifying, grouping, and sorting instructions</li>
 <li>
-<strong>Generating Dockerfiles from Projects</strong>: Creating
-Dockerfiles from R sessions, renv.lock files, DESCRIPTION files, and R
-scripts</li>
+<strong>Generating Dockerfiles from Projects</strong>: Creating Dockerfiles from R sessions, renv.lock files, DESCRIPTION files, and R scripts</li>
 <li>
-<strong>Custom Templates</strong>: Creating and using your own
-Dockerfile templates</li>
+<strong>Custom Templates</strong>: Creating and using your own Dockerfile templates</li>
 <li>
-<strong>Multi-stage Builds</strong>: Creating optimized images with
-multi-stage builds</li>
+<strong>Multi-stage Builds</strong>: Creating optimized images with multi-stage builds</li>
 <li>
-<strong>Best Practices</strong>: Guidelines for creating efficient
-and secure Docker images for R</li>
+<strong>Best Practices</strong>: Guidelines for creating efficient and secure Docker images for R</li>
 </ul>
-<p>As this package is in development, please refer back to the function
-documentation and visit the package website.</p>
-</div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+<p>As this package is in development, please refer back to the function documentation and visit the package website.</p>
+</section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
     <footer><div class="pkgdown-footer-left">
@@ -457,7 +489,7 @@ documentation and visit the package website.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
